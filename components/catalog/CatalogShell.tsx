@@ -116,6 +116,10 @@ export function CatalogShell({
 
   return (
     <div className="space-y-6">
+      {!isSearching && (
+        <CommercialHighlights novedades={novedades} nuevos={nuevosIngresos} promos={promociones} onShowAll={setCommercialMode} />
+      )}
+
       <SearchBar value={query} onChange={(value) => { setQuery(value); setCommercialMode(null); }} />
 
       <div className="space-y-3 rounded-xl border border-borde bg-fondo-2/40 p-3">
@@ -156,17 +160,13 @@ export function CatalogShell({
           {results.length > 0 ? <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">{results.map((product) => <ProductCard key={product.sku} product={product} />)}</div> : <EmptyState query={query} />}
         </section>
       ) : (
-        <div className="space-y-8">
-          <CommercialHighlights novedades={novedades} nuevos={nuevosIngresos} promos={promociones} onShowAll={setCommercialMode} />
-          <div className="hairline" />
-          <section id="catalogo-loop" aria-label="Catálogo">
-            <div className="mb-2.5 flex items-center justify-between px-0.5">
-              <h2 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-texto"><span aria-hidden className="h-3 w-0.5 rounded bg-acero" />Catálogo</h2>
-              <span className="text-xs font-medium text-texto-suave">{products.length} productos</span>
-            </div>
-            <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">{products.map((product) => <ProductCard key={product.sku} product={product} />)}</div>
-          </section>
-        </div>
+        <section id="catalogo-loop" aria-label="Catálogo">
+          <div className="mb-2.5 flex items-center justify-between px-0.5">
+            <h2 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-texto"><span aria-hidden className="h-3 w-0.5 rounded bg-acero" />Catálogo</h2>
+            <span className="text-xs font-medium text-texto-suave">{products.length} productos</span>
+          </div>
+          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">{products.map((product) => <ProductCard key={product.sku} product={product} />)}</div>
+        </section>
       )}
     </div>
   );

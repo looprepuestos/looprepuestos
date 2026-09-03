@@ -79,17 +79,21 @@ export function ProductDetailModal({
                   <circle cx="8.5" cy="9" r="1.5" />
                   <path d="M21 15l-5-5L5 20" />
                 </svg>
-                <p className="text-sm font-semibold text-texto-suave">Foto pendiente de cargar</p>
-                <p className="text-xs">Cuando agreguemos la URL de la foto en la planilla, se verá acá automáticamente.</p>
+                <p className="text-sm font-semibold text-texto-suave">Foto pendiente</p>
+                <p className="text-xs">Estamos sumando las fotos de a poco.</p>
               </div>
             )}
           </div>
 
           <h2 className="text-lg font-bold leading-snug text-texto">{product.nombre}</h2>
-          <p className="mt-2 text-sm leading-relaxed text-texto-suave">
-            {[product.modelo, product.calidad, marcoVisible ? product.marco : ""].filter(Boolean).join(" · ")}
-            {product.compatibilidad ? ` · Compatible: ${product.compatibilidad}` : ""}
-          </p>
+          <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-sm">
+            {product.marca && (<><dt className="text-titanio">Marca</dt><dd className="text-texto">{product.marca}</dd></>)}
+            {product.tipo && (<><dt className="text-titanio">Tipo</dt><dd className="text-texto">{product.tipo}</dd></>)}
+            {product.modelo && (<><dt className="text-titanio">Modelo</dt><dd className="text-texto">{product.modelo}</dd></>)}
+            {product.calidad && (<><dt className="text-titanio">Calidad</dt><dd className="text-texto">{product.calidad}</dd></>)}
+            {marcoVisible && (<><dt className="text-titanio">Marco</dt><dd className="text-texto">{product.marco}</dd></>)}
+            {product.compatibilidad && (<><dt className="text-titanio">Compatibilidad</dt><dd className="text-texto">{product.compatibilidad}</dd></>)}
+          </dl>
 
           <div className="mt-5 flex items-end justify-between gap-3 border-t border-borde pt-4">
             <div>
