@@ -30,11 +30,10 @@ export default async function HomePage() {
           {products.length === 0 ? (
             <div className="rounded-[var(--radius-card)] border border-dashed border-borde bg-superficie px-6 py-14 text-center">
               <p className="text-sm font-semibold text-texto">
-                Catálogo no disponible
+                Estamos actualizando el catálogo
               </p>
               <p className="mt-1 text-xs text-texto-suave">
-                Configurá Supabase (o generá el snapshot con el importador) para
-                ver los productos.
+                Volvé a intentar en unos minutos.
               </p>
             </div>
           ) : (
