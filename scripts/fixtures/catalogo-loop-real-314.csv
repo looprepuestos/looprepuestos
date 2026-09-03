@@ -1,0 +1,315 @@
+﻿sku,nombre,marca,modelo,tipo,calidad,marco,compatibilidad,precio_publico,precio_mayorista,precio_promocional,costo,stock,publicado,novedad,nuevo_ingreso,promocion,fecha_ingreso,orden_destacado
+MOD-SAM-A10-SM-OLED,Módulo Samsung A10 · Sin marco · OLED,Samsung,A10,Módulo,OLED,Sin marco,,19400,,,,4,true,false,false,false,,0
+MOD-SAM-A01M-SM-OLED,Módulo Samsung A01M · Sin marco · OLED,Samsung,A01M,Módulo,OLED,Sin marco,,15000,,,,9,true,false,false,false,,0
+MOD-SAM-A225G-SM-OLED-PREMIUM,Módulo Samsung A22 5G · Sin marco · OLED / PREMIUM,Samsung,A22 5G,Módulo,OLED / PREMIUM,Sin marco,,25000,,,,3,true,false,false,false,,0
+MOD-SAM-A04-SM-OLED-KP,Módulo Samsung A04 · Sin marco · OLED / KP,Samsung,A04,Módulo,OLED / KP,Sin marco,,17000,,,,22,true,false,false,false,,0
+MOD-SAM-A04-CM-OLED,Módulo Samsung A04 · Con marco · OLED,Samsung,A04,Módulo,OLED,Con marco,,27000,,,,1,true,false,false,false,,0
+MOD-SAM-A05-SM-PREMIUM,Módulo Samsung A05 · Sin marco · PREMIUM,Samsung,A05,Módulo,PREMIUM,Sin marco,,20000,,,,16,true,false,false,false,,0
+MOD-SAM-A06-SM-OLED,Módulo Samsung A06 · Sin marco · OLED,Samsung,A06,Módulo,OLED,Sin marco,,22000,,,,24,true,false,false,false,,0
+MOD-SAM-A10S-SM-OLED,Módulo Samsung A10S · Sin marco · OLED,Samsung,A10S,Módulo,OLED,Sin marco,,18000,,,,3,true,false,false,false,,0
+MOD-SAM-A10S-SM-OLED-PREMIUM,Módulo Samsung A10S · Sin marco · OLED / PREMIUM,Samsung,A10S,Módulo,OLED / PREMIUM,Sin marco,,18000,,,,4,true,false,false,false,,0
+MOD-SAM-A11-SM-KP,Módulo Samsung A11 · Sin marco · KP,Samsung,A11,Módulo,KP,Sin marco,,21100,,,,11,true,false,false,false,,0
+MOD-SAM-A13UNIVERSAL-SM-KP,Módulo Samsung A13 Universal · Sin marco · KP,Samsung,A13 Universal,Módulo,KP,Sin marco,,19000,,,,11,true,false,false,false,,0
+MOD-SAM-A21S-SM-OLED,Módulo Samsung A21S · Sin marco · OLED,Samsung,A21S,Módulo,OLED,Sin marco,,20800,,,,4,true,false,false,false,,0
+MOD-SAM-A224G-CM-OLED,Módulo Samsung A22 4G · Con marco · OLED,Samsung,A22 4G,Módulo,OLED,Con marco,,65700,,,,2,true,false,false,false,,0
+MOD-MOT-E7PLUS-SM-PREMIUM,Módulo Motorola E7 Plus · Sin marco · PREMIUM,Motorola,E7 Plus,Módulo,PREMIUM,Sin marco,,21000,,,,6,true,false,false,false,,0
+MOD-MOT-E7-SM-PREMIUM,Módulo Motorola E7 · Sin marco · PREMIUM,Motorola,E7,Módulo,PREMIUM,Sin marco,E7i Power,20000,,,,9,true,false,false,false,,0
+MOD-MOT-E13-SM-KP,Módulo Motorola E13 · Sin marco · KP,Motorola,E13,Módulo,KP,Sin marco,,23100,,,,9,true,false,false,false,,0
+MOD-MOT-E20-SM-KP,Módulo Motorola E20 · Sin marco · KP,Motorola,E20,Módulo,KP,Sin marco,,21500,,,,11,true,false,false,false,,0
+MOD-MOT-E22-SM-KP,Módulo Motorola E22 · Sin marco · KP,Motorola,E22,Módulo,KP,Sin marco,,20000,,,,5,true,false,false,false,,0
+MOD-MOT-E32-SM-PREMIUM,Módulo Motorola E32 · Sin marco · PREMIUM,Motorola,E32,Módulo,PREMIUM,Sin marco,,26000,,,,4,true,false,false,false,,0
+MOD-MOT-E40-SM-PREMIUM,Módulo Motorola E40 · Sin marco · PREMIUM,Motorola,E40,Módulo,PREMIUM,Sin marco,,19000,,,,9,true,false,false,false,,0
+MOD-MOT-G13-SM-KP,Módulo Motorola G13 · Sin marco · KP,Motorola,G13,Módulo,KP,Sin marco,G23; G34; G53,24000,,,,11,true,false,false,false,,0
+MOD-MOT-G05-SM-PREMIUM,Módulo Motorola G05 · Sin marco · PREMIUM,Motorola,G05,Módulo,PREMIUM,Sin marco,E15,27000,,,,6,true,false,false,false,,0
+MOD-MOT-G22-CM-KP,Módulo Motorola G22 · Con marco · KP,Motorola,G22,Módulo,KP,Con marco,,25000,,,,9,true,false,false,false,,0
+MOD-MOT-G31-SM-OLED,Módulo Motorola G31 · Sin marco · OLED,Motorola,G31,Módulo,OLED,Sin marco,G41; G71,67500,,,,1,true,false,false,false,,0
+MOD-MOT-E6S-ORIGINAL,Módulo Motorola E6S · ORIGINAL,Motorola,E6S,Módulo,ORIGINAL,,,25500,,,,0,true,false,false,false,,0
+MOD-MOT-E6I-ORIGINAL,Módulo Motorola E6I · ORIGINAL,Motorola,E6I,Módulo,ORIGINAL,,,25500,,,,1,true,false,false,false,,0
+MOD-MOT-E7-ORIGINAL,Módulo Motorola E7 · ORIGINAL,Motorola,E7,Módulo,ORIGINAL,,,29000,,,,1,true,false,false,false,,0
+MOD-MOT-E20-ORIGINAL,Módulo Motorola E20 · ORIGINAL,Motorola,E20,Módulo,ORIGINAL,,,30000,,,,2,true,false,false,false,,0
+MOD-MOT-E22-ORIGINAL,Módulo Motorola E22 · ORIGINAL,Motorola,E22,Módulo,ORIGINAL,,,30000,,,,2,true,false,false,false,,0
+MOD-MOT-E32-ORIGINAL,Módulo Motorola E32 · ORIGINAL,Motorola,E32,Módulo,ORIGINAL,,,30000,,,,1,true,false,false,false,,0
+MOD-MOT-E40-ORIGINAL,Módulo Motorola E40 · ORIGINAL,Motorola,E40,Módulo,ORIGINAL,,,30000,,,,2,true,false,false,false,,0
+MOD-MOT-G13-ORIGINAL,Módulo Motorola G13 · ORIGINAL,Motorola,G13,Módulo,ORIGINAL,,G23,30000,,,,1,true,false,false,false,,0
+MOD-MOT-G22-ORIGINAL,Módulo Motorola G22 · ORIGINAL,Motorola,G22,Módulo,ORIGINAL,,,30000,,,,2,true,false,false,false,,0
+MOD-APP-7PLUS-CM-SUNLONG,Módulo iPhone 7 Plus · Con marco · SUNLONG,iPhone,7 Plus,Módulo,SUNLONG,Con marco,,28100,,,,2,true,false,false,false,,0
+MOD-APP-8PLUS-SUNLONG,Módulo iPhone 8 Plus · SUNLONG,iPhone,8 Plus,Módulo,SUNLONG,,,29000,,,,2,true,false,false,false,,0
+MOD-APP-X-SUNLONG,Módulo iPhone X · SUNLONG,iPhone,X,Módulo,SUNLONG,,,35000,,,,0,true,false,false,false,,0
+MOD-APP-XR-SUNLONG,Módulo iPhone XR · SUNLONG,iPhone,XR,Módulo,SUNLONG,,,46900,,,,0,true,false,false,false,,0
+MOD-APP-XS-SUNLONG,Módulo iPhone XS · SUNLONG,iPhone,XS,Módulo,SUNLONG,,,49100,,,,0,true,false,false,false,,0
+MOD-APP-11PROFHD-SUNLONG,Módulo iPhone 11 Pro FHD · SUNLONG,iPhone,11 Pro FHD,Módulo,SUNLONG,,,64400,,,,0,true,false,false,false,,0
+MOD-APP-XSMAXFHD-SUNLONG,Módulo iPhone XS MAX FHD · SUNLONG,iPhone,XS MAX FHD,Módulo,SUNLONG,,,68200,,,,1,true,false,false,false,,0
+BAT-MOT-E6S-ORIGINAL,Batería Motorola E6S · ORIGINAL,Motorola,E6S,Batería,ORIGINAL,,KS40; E6I,28100,,,,1,true,false,false,false,,0
+BAT-MOT-E22-ORIGINAL,Batería Motorola E22 · ORIGINAL,Motorola,E22,Batería,ORIGINAL,,NH40,32800,,,,0,true,false,false,false,,0
+BAT-MOT-G52-ORIGINAL,Batería Motorola G52 · ORIGINAL,Motorola,G52,Batería,ORIGINAL,,NH50,30700,,,,1,true,false,false,false,,0
+BAT-MOT-G7POWER-ORIGINAL,Batería Motorola G7 Power · ORIGINAL,Motorola,G7 Power,Batería,ORIGINAL,,JK50,32800,,,,3,true,false,false,false,,0
+BAT-SAM-J2PRIME-ORIGINAL,Batería Samsung J2 Prime · ORIGINAL,Samsung,J2 Prime,Batería,ORIGINAL,,,14000,,,,2,true,false,false,false,,0
+BAT-APP-11PRO-FOXCONN,Batería iPhone 11 Pro · FOXCONN,iPhone,11 Pro,Batería,FOXCONN,,,32700,,,,1,true,false,false,false,,0
+MOD-SAM-A145G-SM-PREMIUM,Módulo Samsung A14 5G · Sin marco · PREMIUM,Samsung,A14 5G,Módulo,PREMIUM,Sin marco,,27000,,,,9,true,false,false,false,,0
+MOD-XIA-14C-SM-SERVICEPAC,Módulo Xiaomi 14C · Sin marco · SERVICE PACK,Xiaomi,14C,Módulo,SERVICE PACK,Sin marco,,32800,,,,1,true,false,false,false,,0
+MOD-TCL-408-SM-KP,Módulo TCL 408 · Sin marco · KP,TCL,408,Módulo,KP,Sin marco,405,24500,,,,7,true,false,false,false,,0
+MOD-XIA-POCOC71-SM-SERVICEPAC,Módulo Xiaomi Poco C71 · Sin marco · SERVICE PACK,Xiaomi,Poco C71,Módulo,SERVICE PACK,Sin marco,,32700,,,,3,true,false,false,false,,0
+MOD-XIA-POCOC71-SM-KP,Módulo Xiaomi Poco C71 · Sin marco · KP,Xiaomi,Poco C71,Módulo,KP,Sin marco,,24000,,,,7,true,false,false,false,,0
+MOD-XIA-13C-SM-SERVICEPAC,Módulo Xiaomi 13C · Sin marco · SERVICE PACK,Xiaomi,13C,Módulo,SERVICE PACK,Sin marco,,32000,,,,2,true,false,false,false,,0
+MOD-XIA-15C-SM-SERVICEPAC,Módulo Xiaomi 15C · Sin marco · SERVICE PACK,Xiaomi,15C,Módulo,SERVICE PACK,Sin marco,,37500,,,,2,true,false,false,false,,0
+MOD-APP-12FHD-SUNLONG,Módulo iPhone 12 FHD · SUNLONG,iPhone,12 FHD,Módulo,SUNLONG,,,75000,,,,0,true,false,false,false,,0
+MOD-APP-13FHD-SUNLONG,Módulo iPhone 13 FHD · SUNLONG,iPhone,13 FHD,Módulo,SUNLONG,,,88000,,,,0,true,false,false,false,,0
+BAT-SAM-A21S-ORIGINAL,Batería Samsung A21S · ORIGINAL,Samsung,A21S,Batería,ORIGINAL,,,28000,,,,1,true,false,false,false,,0
+BAT-SAM-A04E-ORIGINAL,Batería Samsung A04E · ORIGINAL,Samsung,A04E,Batería,ORIGINAL,,,28000,,,,1,true,false,false,false,,0
+BAT-APP-12-FOXCONN,Batería iPhone 12 · FOXCONN,iPhone,12,Batería,FOXCONN,,,32000,,,,1,true,false,false,false,,0
+BAT-APP-13-FOXCONN,Batería iPhone 13 · FOXCONN,iPhone,13,Batería,FOXCONN,,,25700,,,,1,true,false,false,false,,0
+MOD-XIA-POCOC61-SM-SERVICEPAC,Módulo Xiaomi Poco C61 · Sin marco · SERVICE PACK,Xiaomi,Poco C61,Módulo,SERVICE PACK,Sin marco,,32800,,,,2,true,false,false,false,,0
+PEG-GEN-B7000TRANSPARENTE,Pegamento B7000 Transparente,General,B7000 Transparente,Pegamento,,,,6000,,,,3,true,false,false,false,,0
+PEG-GEN-T7000NEGRO,Pegamento T7000 Negro,General,T7000 Negro,Pegamento,,,,6000,,,,1,true,false,false,false,,0
+MOD-TCL-403-SM-KP,Módulo TCL 403 · Sin marco · KP,TCL,403,Módulo,KP,Sin marco,,25000,,,,10,true,false,false,false,,0
+MOD-TCL-505-SM-KP,Módulo TCL 505 · Sin marco · KP,TCL,505,Módulo,KP,Sin marco,,28000,,,,7,true,false,false,false,,0
+TAP-APP-11,Tapa iPhone 11,iPhone,11,Tapa,,,,10800,,,,9,true,false,false,false,,0
+TAP-APP-12,Tapa iPhone 12,iPhone,12,Tapa,,,,10800,,,,6,true,false,false,false,,0
+TAP-APP-13,Tapa iPhone 13,iPhone,13,Tapa,,,,10800,,,,8,true,false,false,false,,0
+TAP-APP-14,Tapa iPhone 14,iPhone,14,Tapa,,,,10800,,,,1,true,false,false,false,,0
+TAP-APP-11PRO,Tapa iPhone 11 Pro,iPhone,11 Pro,Tapa,,,,13000,,,,6,true,false,false,false,,0
+TAP-APP-13PRO,Tapa iPhone 13 Pro,iPhone,13 Pro,Tapa,,,,13000,,,,2,true,false,false,false,,0
+TAP-APP-14PRO,Tapa iPhone 14 Pro,iPhone,14 Pro,Tapa,,,,13000,,,,2,true,false,false,false,,0
+TAP-APP-14PLUS,Tapa iPhone 14 Plus,iPhone,14 Plus,Tapa,,,,13000,,,,2,true,false,false,false,,0
+TAP-APP-11PROMAX,Tapa iPhone 11 Pro Max,iPhone,11 Pro Max,Tapa,,,,13000,,,,6,true,false,false,false,,0
+TAP-APP-12PROMAX,Tapa iPhone 12 Pro Max,iPhone,12 Pro Max,Tapa,,,,13000,,,,3,true,false,false,false,,0
+TAP-APP-13PROMAX,Tapa iPhone 13 Pro Max,iPhone,13 Pro Max,Tapa,,,,13000,,,,6,true,false,false,false,,0
+TAP-APP-14COMPLETA,Tapa iPhone 14 completa,iPhone,14 completa,Tapa,,,,18000,,,,7,true,false,false,false,,0
+TAP-APP-15COMPLETA,Tapa iPhone 15 completa,iPhone,15 completa,Tapa,,,,20000,,,,8,true,false,false,false,,0
+TAP-APP-15PROCOMPLETA,Tapa iPhone 15 Pro completa,iPhone,15 Pro completa,Tapa,,,,22000,,,,7,true,false,false,false,,0
+TAP-APP-15PROMAXCOMPLETA,Tapa iPhone 15 Pro Max completa,iPhone,15 Pro Max completa,Tapa,,,,24000,,,,6,true,false,false,false,,0
+TAP-APP-16COMPLETA,Tapa iPhone 16 completa,iPhone,16 completa,Tapa,,,,28000,,,,10,true,false,false,false,,0
+TAP-APP-16PROCOMPLETA,Tapa iPhone 16 Pro completa,iPhone,16 Pro completa,Tapa,,,,30000,,,,8,true,false,false,false,,0
+FLX-APP-11,Flex de carga iPhone 11,iPhone,11,Flex de carga,,,,12000,,,,4,true,false,false,false,,0
+FLX-APP-12MINI,Flex de carga iPhone 12 mini,iPhone,12 mini,Flex de carga,,,,16500,,,,2,true,false,false,false,,0
+FLX-APP-13,Flex de carga iPhone 13,iPhone,13,Flex de carga,,,,16500,,,,2,true,false,false,false,,0
+FLX-APP-15PRO,Flex de carga iPhone 15 Pro,iPhone,15 Pro,Flex de carga,,,,29000,,,,3,true,false,false,false,,0
+FLX-APP-16PRO,Flex de carga iPhone 16 Pro,iPhone,16 Pro,Flex de carga,,,,25000,,,,3,true,false,false,false,,0
+FLX-APP-XR,Flex de carga iPhone XR,iPhone,XR,Flex de carga,,,,10000,,,,1,true,false,false,false,,0
+FLX-APP-XS,Flex de carga iPhone XS,iPhone,XS,Flex de carga,,,,10000,,,,2,true,false,false,false,,0
+FLX-APP-XSMAX,Flex de carga iPhone XS Max,iPhone,XS Max,Flex de carga,,,,10000,,,,4,true,false,false,false,,0
+PCG-MOT-E13,Placa de carga Motorola E13,Motorola,E13,Placa de carga,,,,5000,,,,3,true,false,false,false,,0
+PCG-MOT-E14,Placa de carga Motorola E14,Motorola,E14,Placa de carga,,,,5000,,,,2,true,false,false,false,,0
+PCG-MOT-E15,Placa de carga Motorola E15,Motorola,E15,Placa de carga,,,,5000,,,,3,true,false,false,false,,0
+PCG-MOT-E20,Placa de carga Motorola E20,Motorola,E20,Placa de carga,,,,5000,,,,2,true,false,false,false,,0
+PCG-MOT-E22,Placa de carga Motorola E22,Motorola,E22,Placa de carga,,,,5000,,,,2,true,false,false,false,,0
+PCG-MOT-E32,Placa de carga Motorola E32,Motorola,E32,Placa de carga,,,,5000,,,,3,true,false,false,false,,0
+PCG-MOT-E40,Placa de carga Motorola E40,Motorola,E40,Placa de carga,,,,5000,,,,3,true,false,false,false,,0
+PCG-MOT-E5PLAY,Placa de carga Motorola E5 Play,Motorola,E5 Play,Placa de carga,,,,5000,,,,1,true,false,false,false,,0
+PCG-MOT-E6PLAY,Placa de carga Motorola E6 Play,Motorola,E6 Play,Placa de carga,,,,5000,,,,2,true,false,false,false,,0
+PCG-MOT-E6PLUS,Placa de carga Motorola E6 Plus,Motorola,E6 Plus,Placa de carga,,,,5000,,,,2,true,false,false,false,,0
+PCG-MOT-E6I,Placa de carga Motorola E6I,Motorola,E6I,Placa de carga,,,,5000,,,,4,true,false,false,false,,0
+PCG-MOT-E6S,Placa de carga Motorola E6S,Motorola,E6S,Placa de carga,,,,5000,,,,4,true,false,false,false,,0
+PCG-MOT-E7,Placa de carga Motorola E7,Motorola,E7,Placa de carga,,,,5000,,,,1,true,false,false,false,,0
+PCG-MOT-E7PLUS,Placa de carga Motorola E7 Plus,Motorola,E7 Plus,Placa de carga,,,,5000,,,,6,true,false,false,false,,0
+PCG-MOT-E7POWER,Placa de carga Motorola E7 Power,Motorola,E7 Power,Placa de carga,,,,6000,,,,2,true,false,false,false,,0
+PCG-MOT-EDGE20,Placa de carga Motorola Edge 20,Motorola,Edge 20,Placa de carga,,,,6000,,,,2,true,false,false,false,,0
+PCG-MOT-EDGE20LITE,Placa de carga Motorola Edge 20 Lite,Motorola,Edge 20 Lite,Placa de carga,,,,6000,,,,2,true,false,false,false,,0
+PCG-MOT-EDGE20PRO,Placa de carga Motorola Edge 20 Pro,Motorola,Edge 20 Pro,Placa de carga,,,,12000,,,,2,true,false,false,false,,0
+PCG-MOT-EDGE30,Placa de carga Motorola Edge 30,Motorola,Edge 30,Placa de carga,,,,10000,,,,1,true,false,false,false,,0
+PCG-MOT-EDGE30NEO,Placa de carga Motorola Edge 30 Neo,Motorola,Edge 30 Neo,Placa de carga,,,,10000,,,,1,true,false,false,false,,0
+PCG-MOT-EDGE30ULTRA,Placa de carga Motorola Edge 30 Ultra,Motorola,Edge 30 Ultra,Placa de carga,,,,10000,,,,2,true,false,false,false,,0
+PCG-MOT-EDGE50FUSION,Placa de carga Motorola Edge 50 Fusion,Motorola,Edge 50 Fusion,Placa de carga,,,,12000,,,,2,true,false,false,false,,0
+PCG-MOT-EDGE50,Placa de carga Motorola Edge 50,Motorola,Edge 50,Placa de carga,,,,10000,,,,2,true,false,false,false,,0
+PCG-MOT-EDGE50NEO,Placa de carga Motorola Edge 50 Neo,Motorola,Edge 50 Neo,Placa de carga,,,,10000,,,,2,true,false,false,false,,0
+PCG-MOT-EDGE50PRO,Placa de carga Motorola Edge 50 Pro,Motorola,Edge 50 Pro,Placa de carga,,,,12000,,,,2,true,false,false,false,,0
+PCG-MOT-EDGE50ULTRA,Placa de carga Motorola Edge 50 Ultra,Motorola,Edge 50 Ultra,Placa de carga,,,,12000,,,,2,true,false,false,false,,0
+PCG-MOT-EDGE60FUSION,Placa de carga Motorola Edge 60 Fusion,Motorola,Edge 60 Fusion,Placa de carga,,,,12000,,,,2,true,false,false,false,,0
+PCG-MOT-EDGE60,Placa de carga Motorola Edge 60,Motorola,Edge 60,Placa de carga,,,,12000,,,,1,true,false,false,false,,0
+PCG-MOT-G04,Placa de carga Motorola G04,Motorola,G04,Placa de carga,,,,7000,,,,4,true,false,false,false,,0
+PCG-MOT-G04S,Placa de carga Motorola G04S,Motorola,G04S,Placa de carga,,,,5000,,,,2,true,false,false,false,,0
+PCG-MOT-G05,Placa de carga Motorola G05,Motorola,G05,Placa de carga,,,,7000,,,,2,true,false,false,false,,0
+PCG-MOT-G06,Placa de carga Motorola G06,Motorola,G06,Placa de carga,,,,5000,,,,2,true,false,false,false,,0
+PCG-MOT-G10,Placa de carga Motorola G10,Motorola,G10,Placa de carga,,,,5000,,,,2,true,false,false,false,,0
+PCG-MOT-G13,Placa de carga Motorola G13,Motorola,G13,Placa de carga,,,,5000,,,,4,true,false,false,false,,0
+PCG-MOT-G14,Placa de carga Motorola G14,Motorola,G14,Placa de carga,,,,5000,,,,3,true,false,false,false,,0
+PCG-MOT-G15,Placa de carga Motorola G15,Motorola,G15,Placa de carga,,,,7000,,,,5,true,false,false,false,,0
+PCG-MOT-G20,Placa de carga Motorola G20,Motorola,G20,Placa de carga,,,,5000,,,,7,true,false,false,false,,0
+PCG-MOT-G22,Placa de carga Motorola G22,Motorola,G22,Placa de carga,,,,5000,,,,3,true,false,false,false,,0
+PCG-MOT-G23,Placa de carga Motorola G23,Motorola,G23,Placa de carga,,,,6000,,,,3,true,false,false,false,,0
+PCG-MOT-G24,Placa de carga Motorola G24,Motorola,G24,Placa de carga,,,,5000,,,,3,true,false,false,false,,0
+PCG-MOT-G24POWER,Placa de carga Motorola G24 Power,Motorola,G24 Power,Placa de carga,,,,5000,,,,3,true,false,false,false,,0
+PCG-MOT-G32,Placa de carga Motorola G32,Motorola,G32,Placa de carga,,,,5000,,,,3,true,false,false,false,,0
+PCG-MOT-G41,Placa de carga Motorola G41,Motorola,G41,Placa de carga,,,,5000,,,,3,true,false,false,false,,0
+PCG-MOT-G42,Placa de carga Motorola G42,Motorola,G42,Placa de carga,,,,5000,,,,3,true,false,false,false,,0
+PCG-MOT-G625G,Placa de carga Motorola G62 5G,Motorola,G62 5G,Placa de carga,,,,5000,,,,2,true,false,false,false,,0
+PCG-MOT-G85,Placa de carga Motorola G85,Motorola,G85,Placa de carga,,,,10000,,,,3,true,false,false,false,,0
+PCG-MOT-G9POWER,Placa de carga Motorola G9 Power,Motorola,G9 Power,Placa de carga,,,,5000,,,,1,true,false,false,false,,0
+PCG-SAM-A01CORE,Placa de carga Samsung A01 Core,Samsung,A01 Core,Placa de carga,,,A013,5000,,,,2,true,false,false,false,,0
+PCG-SAM-A01,Placa de carga Samsung A01,Samsung,A01,Placa de carga,,,A015; A01M,5000,,,,2,true,false,false,false,,0
+PCG-SAM-A0202A,Placa de carga Samsung A02 02A,Samsung,A02 02A,Placa de carga,,,,5000,,,,3,true,false,false,false,,0
+PCG-SAM-A02S,Placa de carga Samsung A02S,Samsung,A02S,Placa de carga,,,A025F,6000,,,,1,true,false,false,false,,0
+PCG-SAM-A03,Placa de carga Samsung A03,Samsung,A03,Placa de carga,,,A035F,5000,,,,5,true,false,false,false,,0
+PCG-SAM-A03CORE,Placa de carga Samsung A03 Core,Samsung,A03 Core,Placa de carga,,,,5000,,,,2,true,false,false,false,,0
+PCG-SAM-A03S,Placa de carga Samsung A03S,Samsung,A03S,Placa de carga,,,,5000,,,,2,true,false,false,false,,0
+PCG-SAM-A04E,Placa de carga Samsung A04E,Samsung,A04E,Placa de carga,,,,5000,,,,5,true,false,false,false,,0
+PCG-SAM-A04S,Placa de carga Samsung A04S,Samsung,A04S,Placa de carga,,,,5000,,,,3,true,false,false,false,,0
+PCG-SAM-A05,Placa de carga Samsung A05,Samsung,A05,Placa de carga,,,,8000,,,,3,true,false,false,false,,0
+PCG-SAM-A064G,Placa de carga Samsung A06 4G,Samsung,A06 4G,Placa de carga,,,,8000,,,,2,true,false,false,false,,0
+PCG-SAM-A07,Placa de carga Samsung A07,Samsung,A07,Placa de carga,,,,8000,,,,3,true,false,false,false,,0
+PCG-SAM-A10,Placa de carga Samsung A10,Samsung,A10,Placa de carga,,,A105F,5000,,,,0,true,false,false,false,,0
+PCG-SAM-A10S,Placa de carga Samsung A10S,Samsung,A10S,Placa de carga,,,A107F; M15,5000,,,,2,true,false,false,false,,0
+PCG-SAM-A10S-10SM16,Placa de carga Samsung A10S,Samsung,A10S,Placa de carga,,,M16,6000,,,,1,true,false,false,false,,0
+PCG-SAM-A11,Placa de carga Samsung A11,Samsung,A11,Placa de carga,,,,8000,,,,3,true,false,false,false,,0
+PCG-SAM-A12,Placa de carga Samsung A12,Samsung,A12,Placa de carga,,,A125; A127,5000,,,,2,true,false,false,false,,0
+PCG-SAM-A134G,Placa de carga Samsung A13 4G,Samsung,A13 4G,Placa de carga,,,,5000,,,,1,true,false,false,false,,0
+PCG-SAM-A135G,Placa de carga Samsung A13 5G,Samsung,A13 5G,Placa de carga,,,,5000,,,,5,true,false,false,false,,0
+PCG-SAM-A144G,Placa de carga Samsung A14 4G,Samsung,A14 4G,Placa de carga,,,,8000,,,,1,true,false,false,false,,0
+PCG-SAM-A145G,Placa de carga Samsung A14 5G,Samsung,A14 5G,Placa de carga,,,A146B,8000,,,,5,true,false,false,false,,0
+PCG-SAM-A154G5G,Placa de carga Samsung A15 4G 5G,Samsung,A15 4G 5G,Placa de carga,,,,6000,,,,5,true,false,false,false,,0
+PCG-SAM-A165G,Placa de carga Samsung A16 5G,Samsung,A16 5G,Placa de carga,,,,9000,,,,4,true,false,false,false,,0
+PCG-SAM-A175G,Placa de carga Samsung A17 5G,Samsung,A17 5G,Placa de carga,,,,9000,,,,2,true,false,false,false,,0
+PCG-SAM-A20,Placa de carga Samsung A20,Samsung,A20,Placa de carga,,,A205F,5000,,,,3,true,false,false,false,,0
+PCG-SAM-A20SM12,Placa de carga Samsung A20S M12,Samsung,A20S M12,Placa de carga,,,,5000,,,,2,true,false,false,false,,0
+PCG-SAM-A21S,Placa de carga Samsung A21S,Samsung,A21S,Placa de carga,,,,7000,,,,2,true,false,false,false,,0
+PCG-SAM-A234G,Placa de carga Samsung A23 4G,Samsung,A23 4G,Placa de carga,,,,12000,,,,2,true,false,false,false,,0
+PCG-SAM-A235G,Placa de carga Samsung A23 5G,Samsung,A23 5G,Placa de carga,,,,12000,,,,2,true,false,false,false,,0
+PCG-SAM-A244G,Placa de carga Samsung A24 4G,Samsung,A24 4G,Placa de carga,,,,8000,,,,1,true,false,false,false,,0
+PCG-SAM-A255G,Placa de carga Samsung A25 5G,Samsung,A25 5G,Placa de carga,,,,8000,,,,2,true,false,false,false,,0
+PCG-SAM-A26,Placa de carga Samsung A26,Samsung,A26,Placa de carga,,,,8000,,,,2,true,false,false,false,,0
+PCG-SAM-A30,Placa de carga Samsung A30,Samsung,A30,Placa de carga,,,A305F,6000,,,,2,true,false,false,false,,0
+PCG-SAM-A30S,Placa de carga Samsung A30S,Samsung,A30S,Placa de carga,,,A307,6000,,,,1,true,false,false,false,,0
+PCG-SAM-A31,Placa de carga Samsung A31,Samsung,A31,Placa de carga,,,A315,4000,,,,2,true,false,false,false,,0
+PCG-SAM-A324G,Placa de carga Samsung A32 4G,Samsung,A32 4G,Placa de carga,,,A325F,8000,,,,2,true,false,false,false,,0
+PCG-SAM-A325G,Placa de carga Samsung A32 5G,Samsung,A32 5G,Placa de carga,,,A326F,8000,,,,2,true,false,false,false,,0
+PCG-SAM-A335G,Placa de carga Samsung A33 5G,Samsung,A33 5G,Placa de carga,,,A336,8000,,,,2,true,false,false,false,,0
+PCG-SAM-A34,Placa de carga Samsung A34,Samsung,A34,Placa de carga,,,,8000,,,,2,true,false,false,false,,0
+PCG-SAM-A355G,Placa de carga Samsung A35 5G,Samsung,A35 5G,Placa de carga,,,,8000,,,,1,true,false,false,false,,0
+PCG-SAM-A36,Placa de carga Samsung A36,Samsung,A36,Placa de carga,,,,14000,,,,1,true,false,false,false,,0
+PCG-SAM-A50,Placa de carga Samsung A50,Samsung,A50,Placa de carga,,,A505F,5000,,,,2,true,false,false,false,,0
+PCG-SAM-A70,Placa de carga Samsung A70,Samsung,A70,Placa de carga,,,,12000,,,,1,true,false,false,false,,0
+PCG-TCL-20B,Placa de carga TCL 20B,TCL,20B,Placa de carga,,,,6000,,,,2,true,false,false,false,,0
+PCG-TCL-20E,Placa de carga TCL 20E,TCL,20E,Placa de carga,,,,6000,,,,3,true,false,false,false,,0
+PCG-TCL-20R,Placa de carga TCL 20R,TCL,20R,Placa de carga,,,,7000,,,,3,true,false,false,false,,0
+PCG-TCL-20SE,Placa de carga TCL 20SE,TCL,20SE,Placa de carga,,,,6000,,,,3,true,false,false,false,,0
+PCG-TCL-20XE,Placa de carga TCL 20XE,TCL,20XE,Placa de carga,,,,6000,,,,3,true,false,false,false,,0
+PCG-TCL-20Y,Placa de carga TCL 20Y,TCL,20Y,Placa de carga,,,,7500,,,,3,true,false,false,false,,0
+PCG-TCL-305,Placa de carga TCL 305,TCL,305,Placa de carga,,,,6000,,,,3,true,false,false,false,,0
+PCG-TCL-306,Placa de carga TCL 306,TCL,306,Placa de carga,,,,6000,,,,3,true,false,false,false,,0
+PCG-TCL-30E,Placa de carga TCL 30E,TCL,30E,Placa de carga,,,,6000,,,,3,true,false,false,false,,0
+PCG-TCL-406,Placa de carga TCL 406,TCL,406,Placa de carga,,,,7000,,,,3,true,false,false,false,,0
+PCG-TCL-40SE,Placa de carga TCL 40SE,TCL,40SE,Placa de carga,,,,7000,,,,3,true,false,false,false,,0
+PCG-TCL-505,Placa de carga TCL 505,TCL,505,Placa de carga,,,,7000,,,,3,true,false,false,false,,0
+PCG-XIA-REDMI13C4G5G,Placa de carga Xiaomi Redmi 13C 4G 5G,Xiaomi,Redmi 13C 4G 5G,Placa de carga,,,,5000,,,,2,true,false,false,false,,0
+PCG-XIA-REDMI14C,Placa de carga Xiaomi Redmi 14C,Xiaomi,Redmi 14C,Placa de carga,,,,7000,,,,3,true,false,false,false,,0
+PCG-XIA-REDMI15C,Placa de carga Xiaomi Redmi 15C,Xiaomi,Redmi 15C,Placa de carga,,,,7000,,,,3,true,false,false,false,,0
+PCG-XIA-REDMIA3,Placa de carga Xiaomi Redmi A3,Xiaomi,Redmi A3,Placa de carga,,,,6000,,,,3,true,false,false,false,,0
+PCG-XIA-REDMIA5,Placa de carga Xiaomi Redmi A5,Xiaomi,Redmi A5,Placa de carga,,,,6000,,,,3,true,false,false,false,,0
+PCG-XIA-REDMINOTE135G,Placa de carga Xiaomi Redmi NOTE 13 5G,Xiaomi,Redmi NOTE 13 5G,Placa de carga,,,,6000,,,,2,true,false,false,false,,0
+PCG-XIA-REDMI13PRO4G,Placa de carga Xiaomi Redmi 13 PRO 4G,Xiaomi,Redmi 13 PRO 4G,Placa de carga,,,,7000,,,,2,true,false,false,false,,0
+PCG-XIA-REDMI13PRO5G,Placa de carga Xiaomi Redmi 13 PRO 5G,Xiaomi,Redmi 13 PRO 5G,Placa de carga,,,,10000,,,,2,true,false,false,false,,0
+PCG-XIA-POCOX3,Placa de carga Xiaomi POCO X3,Xiaomi,POCO X3,Placa de carga,,,X3 PRO,6000,,,,2,true,false,false,false,,0
+PCG-ZTE-A34,Placa de carga ZTE A34,ZTE,A34,Placa de carga,,,,10000,,,,2,true,false,false,false,,0
+PCG-ZTE-A53PLUS,Placa de carga ZTE A53 PLUS,ZTE,A53 PLUS,Placa de carga,,,,10000,,,,2,true,false,false,false,,0
+PCG-ZTE-A54,Placa de carga ZTE A54,ZTE,A54,Placa de carga,,,,10000,,,,2,true,false,false,false,,0
+MOD-XIA-POCOC61-SM-KP,Módulo Xiaomi Poco C61 · Sin marco · KP,Xiaomi,Poco C61,Módulo,KP,Sin marco,,21000,,,,6,true,false,false,false,,0
+BAT-APP-12-JCID-AUTOPROGRA,Batería iPhone 12 · JCID / AUTOPROGRAMABLE,iPhone,12,Batería,JCID / AUTOPROGRAMABLE,,12 Pro,48000,,,,2,true,false,false,false,,0
+BAT-APP-13PRO-JCID-AUTOPROGRA,Batería iPhone 13 Pro · JCID / AUTOPROGRAMABLE,iPhone,13 Pro,Batería,JCID / AUTOPROGRAMABLE,,,48000,,,,3,true,false,false,false,,0
+BAT-APP-13-JCID,Batería iPhone 13 · JCID,iPhone,13,Batería,JCID,,,48000,,,,1,true,false,false,false,,0
+BAT-APP-12PROMAX-JCID-AUTOPROGRA,Batería iPhone 12 Pro Max · JCID / AUTOPROGRAMABLE,iPhone,12 Pro Max,Batería,JCID / AUTOPROGRAMABLE,,,48000,,,,3,true,false,false,false,,0
+BAT-APP-13PROMAX-JCID-AUTOPROGRA,Batería iPhone 13 Pro Max · JCID / AUTOPROGRAMABLE,iPhone,13 Pro Max,Batería,JCID / AUTOPROGRAMABLE,,,50000,,,,1,true,false,false,false,,0
+BAT-APP-14-JCID-AUTOPROGRA,Batería iPhone 14 · JCID / AUTOPROGRAMABLE,iPhone,14,Batería,JCID / AUTOPROGRAMABLE,,,48000,,,,2,true,false,false,false,,0
+BAT-APP-14PROMAX-JCID-AUTOPROGRA,Batería iPhone 14 Pro Max · JCID / AUTOPROGRAMABLE,iPhone,14 Pro Max,Batería,JCID / AUTOPROGRAMABLE,,,50000,,,,2,true,false,false,false,,0
+BAT-APP-AMPSENTRIXPLUS15-AMPSENTRIX,Batería iPhone Ampsentrix PLUS 15 · AMPSENTRIX,iPhone,Ampsentrix PLUS 15,Batería,AMPSENTRIX,,,55000,,,,1,true,false,false,false,,0
+BAT-APP-AMPSENTRIXPLUS15PRO-AMPSENTRIX,Batería iPhone Ampsentrix PLUS 15 PRO · AMPSENTRIX,iPhone,Ampsentrix PLUS 15 PRO,Batería,AMPSENTRIX,,,56000,,,,0,true,false,false,false,,0
+BAT-APP-11-ORIGINAL-FOXCONN,Batería iPhone 11 · ORIGINAL / FOXCONN,iPhone,11,Batería,ORIGINAL / FOXCONN,,,15500,,,,21,true,false,false,false,,0
+BAT-APP-11PRO-ORIGINAL-FOXCONN,Batería iPhone 11 Pro · ORIGINAL / FOXCONN,iPhone,11 Pro,Batería,ORIGINAL / FOXCONN,,,25000,,,,5,true,false,false,false,,0
+BAT-APP-11PROMAX-ORIGINAL-FOXCONN,Batería iPhone 11 Pro Max · ORIGINAL / FOXCONN,iPhone,11 Pro Max,Batería,ORIGINAL / FOXCONN,,,23000,,,,4,true,false,false,false,,0
+BAT-APP-12PROMAX-ORIGINAL-FOXCONN,Batería iPhone 12 Pro Max · ORIGINAL / FOXCONN,iPhone,12 Pro Max,Batería,ORIGINAL / FOXCONN,,,26000,,,,5,true,false,false,false,,0
+BAT-APP-12-ORIGINAL-FOXCONN,Batería iPhone 12 · ORIGINAL / FOXCONN,iPhone,12,Batería,ORIGINAL / FOXCONN,,12 Pro,23000,,,,5,true,false,false,false,,0
+BAT-APP-13-ORIGINAL-FOXCONN,Batería iPhone 13 · ORIGINAL / FOXCONN,iPhone,13,Batería,ORIGINAL / FOXCONN,,,18700,,,,6,true,false,false,false,,0
+BAT-APP-13PROMAX-ORIGINAL-FOXCONN,Batería iPhone 13 Pro Max · ORIGINAL / FOXCONN,iPhone,13 Pro Max,Batería,ORIGINAL / FOXCONN,,,30400,,,,3,true,false,false,false,,0
+BAT-APP-X-ORIGINAL-FOXCONN,Batería iPhone X · ORIGINAL / FOXCONN,iPhone,X,Batería,ORIGINAL / FOXCONN,,,17000,,,,2,true,false,false,false,,0
+BAT-APP-XR-ORIGINAL-FOXCONN,Batería iPhone XR · ORIGINAL / FOXCONN,iPhone,XR,Batería,ORIGINAL / FOXCONN,,,17000,,,,3,true,false,false,false,,0
+BAT-APP-XS-ORIGINAL-FOXCONN,Batería iPhone XS · ORIGINAL / FOXCONN,iPhone,XS,Batería,ORIGINAL / FOXCONN,,,22000,,,,2,true,false,false,false,,0
+BAT-APP-XSMAX-ORIGINAL-FOXCONN,Batería iPhone XS Max · ORIGINAL / FOXCONN,iPhone,XS Max,Batería,ORIGINAL / FOXCONN,,,22000,,,,3,true,false,false,false,,0
+BAT-APP-13PROSLIM-ORIGINAL-FOXCONN,Batería iPhone 13 Pro Slim · ORIGINAL / FOXCONN,iPhone,13 Pro Slim,Batería,ORIGINAL / FOXCONN,,,26000,,,,5,true,false,false,false,,0
+BAT-MOT-E15,Batería Motorola E15,Motorola,E15,Batería,,,RL52; G05; G15,13500,,,,5,true,false,false,false,,0
+BAT-MOT-E20,Batería Motorola E20,Motorola,E20,Batería,,,NT40,10000,,,,5,true,false,false,false,,0
+BAT-MOT-E22,Batería Motorola E22,Motorola,E22,Batería,,,NH40,11000,,,,5,true,false,false,false,,0
+BAT-MOT-E6S,Batería Motorola E6S,Motorola,E6S,Batería,,,KS40; E6I; E6 Play,11000,,,,3,true,false,false,false,,0
+BAT-MOT-E7POW,Batería Motorola E7Pow,Motorola,E7Pow,Batería,,,JK50; G20; G30; E40,12000,,,,8,true,false,false,false,,0
+BAT-MOT-G14,Batería Motorola G14,Motorola,G14,Batería,,,PC50; G54,12000,,,,3,true,false,false,false,,0
+BAT-MOT-G22,Batería Motorola G22,Motorola,G22,Batería,,,NH50; E13; E32; G53; G13,12000,,,,1,true,false,false,false,,0
+BAT-MOT-G22-ORIGINAL,Batería Motorola G22 · ORIGINAL,Motorola,G22,Batería,ORIGINAL,,NH50; E13; E32; G53; G13 SVC,19000,,,,7,true,false,false,false,,0
+BAT-MOT-EDGE30,Batería Motorola EDGE 30,Motorola,EDGE 30,Batería,,,ND40,12000,,,,3,true,false,false,false,,0
+BAT-MOT-G52,Batería Motorola G52,Motorola,G52,Batería,,,NE50; G82; G72,12000,,,,3,true,false,false,false,,0
+BAT-MOT-G84,Batería Motorola G84,Motorola,G84,Batería,,,QB50,12000,,,,3,true,false,false,false,,0
+BAT-MOT-G85,Batería Motorola G85,Motorola,G85,Batería,,,QE50,12000,,,,2,true,false,false,false,,0
+BAT-MOT-G23,Batería Motorola G23,Motorola,G23,Batería,,,PH50,10000,,,,3,true,false,false,false,,0
+BAT-MOT-G24,Batería Motorola G24,Motorola,G24,Batería,,,QF50; G34; G04; G04S; E14,12000,,,,4,true,false,false,false,,0
+BAT-MOT-G32,Batería Motorola G32,Motorola,G32,Batería,,,NC50; G41,13000,,,,7,true,false,false,false,,0
+BAT-MOT-G42,Batería Motorola G42,Motorola,G42,Batería,,,ND50; G62,11500,,,,2,true,false,false,false,,0
+BAT-MOT-G8PLAY,Batería Motorola G8Play,Motorola,G8Play,Batería,,,KG40; G8; E7; Macro,11000,,,,3,true,false,false,false,,0
+BAT-MOT-G9POWER,Batería Motorola G9Power,Motorola,G9Power,Batería,,,MC50; G60,12500,,,,3,true,false,false,false,,0
+BAT-SAM-A01,Batería Samsung A01,Samsung,A01,Batería,,,,10000,,,,3,true,false,false,false,,0
+BAT-SAM-A02S,Batería Samsung A02S,Samsung,A02S,Batería,,,A03; A04; A04E,11500,,,,2,true,false,false,false,,0
+BAT-SAM-A03CORE,Batería Samsung A03 Core,Samsung,A03 Core,Batería,,,,10000,,,,3,true,false,false,false,,0
+BAT-SAM-WTSN28A05,Batería Samsung WTS-N28 A05,Samsung,WTS-N28 A05,Batería,,,,10000,,,,4,true,false,false,false,,0
+BAT-SAM-A06,Batería Samsung A06,Samsung,A06,Batería,,,,11000,,,,2,true,false,false,false,,0
+BAT-SAM-A07,Batería Samsung A07,Samsung,A07,Batería,,,,10500,,,,2,true,false,false,false,,0
+BAT-SAM-A10,Batería Samsung A10,Samsung,A10,Batería,,,M10,11000,,,,3,true,false,false,false,,0
+BAT-SAM-WTN6A10S,Batería Samsung WT-N6 A10S,Samsung,WT-N6 A10S,Batería,,,A20S; A11,10500,,,,1,true,false,false,false,,0
+BAT-SAM-A144G5G,Batería Samsung A14 4G 5G,Samsung,A14 4G 5G,Batería,,,,10500,,,,3,true,false,false,false,,0
+BAT-SAM-A15,Batería Samsung A15,Samsung,A15,Batería,,,A15 5G,12500,,,,3,true,false,false,false,,0
+BAT-SAM-A16,Batería Samsung A16,Samsung,A16,Batería,,,A26; A17 5G,11000,,,,2,true,false,false,false,,0
+BAT-SAM-A20,Batería Samsung A20,Samsung,A20,Batería,,,A30; A30S; A50,11000,,,,3,true,false,false,false,,0
+BAT-SAM-A21S,Batería Samsung A21S,Samsung,A21S,Batería,,,A02; A04S; A12; A13 4G,10000,,,,6,true,false,false,false,,0
+BAT-SAM-WTW1A225G,Batería Samsung WT-W1 A22 5G,Samsung,WT-W1 A22 5G,Batería,,,,11000,,,,2,true,false,false,false,,0
+BAT-SAM-A22,Batería Samsung A22,Samsung,A22,Batería,,,A31; A32 4G; M22,11000,,,,2,true,false,false,false,,0
+BAT-SAM-A23,Batería Samsung A23,Samsung,A23,Batería,,,M526; A73; M23; M33; M52; M53,11000,,,,2,true,false,false,false,,0
+BAT-SAM-A24,Batería Samsung A24,Samsung,A24,Batería,,,,12000,,,,3,true,false,false,false,,0
+BAT-SAM-A335G,Batería Samsung A33 5G,Samsung,A33 5G,Batería,,,A53 5G,12000,,,,3,true,false,false,false,,0
+BAT-SAM-A34,Batería Samsung A34,Samsung,A34,Batería,,,A54; A25; A35; A55 5G,12000,,,,3,true,false,false,false,,0
+BAT-SAM-A51,Batería Samsung A51,Samsung,A51,Batería,,,,10500,,,,3,true,false,false,false,,0
+BAT-SAM-A52,Batería Samsung A52,Samsung,A52,Batería,,,A52S; S20FE; A72; A32 5G,13000,,,,2,true,false,false,false,,0
+BAT-SAM-A72,Batería Samsung A72,Samsung,A72,Batería,,,A32 5G,10000,,,,3,true,false,false,false,,0
+BAT-XIA-BN5QREDMI13C,Batería Xiaomi BN5Q Redmi 13C,Xiaomi,BN5Q Redmi 13C,Batería,,,C65; Poco M6 5G,12000,,,,3,true,false,false,false,,0
+BAT-XIA-BN5XREDMI14C,Batería Xiaomi BN5X Redmi 14C,Xiaomi,BN5X Redmi 14C,Batería,,,POCO C75,12000,,,,3,true,false,false,false,,0
+MOD-MOT-G32-SM-KP,Módulo Motorola G32 · Sin marco · KP,Motorola,G32,Módulo,KP,Sin marco,,24000,,,,8,true,false,false,false,,0
+MOD-SAM-A164G-OLED,Módulo Samsung A16 4G · OLED,Samsung,A16 4G,Módulo,OLED,,5G BIG SVC,75000,,,,0,true,false,false,false,,0
+MOD-SAM-A324GSVC-OLED,Módulo Samsung A32 4G SVC · OLED,Samsung,A32 4G SVC,Módulo,OLED,,,59000,,,,2,true,false,false,false,,0
+MOD-SAM-A334G-OLED,Módulo Samsung A33 4G · OLED,Samsung,A33 4G,Módulo,OLED,,5G SVC,69000,,,,2,true,false,false,false,,0
+MOD-SAM-A15-PREMIUM,Módulo Samsung A15 · PREMIUM,Samsung,A15,Módulo,PREMIUM,,A15 5G,30000,,,,10,true,false,false,false,,0
+MOD-SAM-A15-SM-OLED,Módulo Samsung A15 · Sin marco · OLED,Samsung,A15,Módulo,OLED,Sin marco,A15 5G BIG SVC,68000,,,,2,true,false,false,false,,0
+MOD-SAM-A15-CM-OLED,Módulo Samsung A15 · Con marco · OLED,Samsung,A15,Módulo,OLED,Con marco,A15 5G BIG SVC,74000,,,,0,true,false,false,false,,0
+MOD-APP-11-INCELL-PREMIUM,Módulo iPhone 11 · INCELL / PREMIUM,iPhone,11,Módulo,INCELL / PREMIUM,,,32000,,,,11,true,false,false,false,,0
+MOD-APP-11PROMAX-INCELL-PREMIUM,Módulo iPhone 11 Pro Max · INCELL / PREMIUM,iPhone,11 Pro Max,Módulo,INCELL / PREMIUM,,,42000,,,,2,true,false,false,false,,0
+MOD-APP-11PRO-INCELL-PREMIUM,Módulo iPhone 11 Pro · INCELL / PREMIUM,iPhone,11 Pro,Módulo,INCELL / PREMIUM,,,40000,,,,4,true,false,false,false,,0
+MOD-APP-12PROMAX-INCELL-PREMIUM,Módulo iPhone 12 Pro Max · INCELL / PREMIUM,iPhone,12 Pro Max,Módulo,INCELL / PREMIUM,,,50000,,,,3,true,false,false,false,,0
+MOD-APP-12-INCELL-PREMIUM,Módulo iPhone 12 · INCELL / PREMIUM,iPhone,12,Módulo,INCELL / PREMIUM,,12 Pro,42000,,,,5,true,false,false,false,,0
+MOD-APP-13-INCELL-PREMIUM,Módulo iPhone 13 · INCELL / PREMIUM,iPhone,13,Módulo,INCELL / PREMIUM,,,45000,,,,3,true,false,false,false,,0
+MOD-APP-13PROMAX-INCELL-PREMIUM,Módulo iPhone 13 Pro Max · INCELL / PREMIUM,iPhone,13 Pro Max,Módulo,INCELL / PREMIUM,,,54000,,,,4,true,false,false,false,,0
+MOD-APP-14-INCELL-PREMIUM,Módulo iPhone 14 · INCELL / PREMIUM,iPhone,14,Módulo,INCELL / PREMIUM,,,45000,,,,2,true,false,false,false,,0
+MOD-APP-14PROMAX-INCELL-PREMIUM,Módulo iPhone 14 Pro Max · INCELL / PREMIUM,iPhone,14 Pro Max,Módulo,INCELL / PREMIUM,,,58000,,,,3,true,false,false,false,,0
+MOD-APP-14PRO-INCELL-PREMIUM,Módulo iPhone 14 Pro · INCELL / PREMIUM,iPhone,14 Pro,Módulo,INCELL / PREMIUM,,,54000,,,,3,true,false,false,false,,0
+MOD-APP-15-INCELL-PREMIUM,Módulo iPhone 15 · INCELL / PREMIUM,iPhone,15,Módulo,INCELL / PREMIUM,,,50000,,,,3,true,false,false,false,,0
+MOD-APP-XR-INCELL-PREMIUM,Módulo iPhone XR · INCELL / PREMIUM,iPhone,XR,Módulo,INCELL / PREMIUM,,,37000,,,,1,true,false,false,false,,0
+MOD-APP-XSMAX-INCELL-PREMIUM,Módulo iPhone XS Max · INCELL / PREMIUM,iPhone,XS Max,Módulo,INCELL / PREMIUM,,,38000,,,,5,true,false,false,false,,0
+BAT-APP-BAT14PROMAX-FOXCONN,Batería iPhone Bat 14 Pro Max · FOXCONN,iPhone,Bat 14 Pro Max,Batería,FOXCONN,,,27000,,,,1,true,false,false,false,,0
+BAT-APP-BAT15-FOXCONN,Batería iPhone Bat 15 · FOXCONN,iPhone,Bat 15,Batería,FOXCONN,,,26000,,,,2,true,false,false,false,,0
+MOD-APP-11FHD-SUNLONG,Módulo iPhone 11 FHD · SUNLONG,iPhone,11 FHD,Módulo,SUNLONG,,,48000,,,,10,true,false,false,false,,0
+MOD-APP-11PROMAX-OLED-SUNLONG,Módulo iPhone 11 Pro Max · OLED / SUNLONG,iPhone,11 Pro Max,Módulo,OLED / SUNLONG,,,95000,,,,2,true,false,false,false,,0
+MOD-APP-12-OLED-SUNLONG,Módulo iPhone 12 · OLED / SUNLONG,iPhone,12,Módulo,OLED / SUNLONG,,12 Pro,96000,,,,5,true,false,false,false,,0
+MOD-APP-12PROMAX-OLED-SUNLONG,Módulo iPhone 12 Pro Max · OLED / SUNLONG,iPhone,12 Pro Max,Módulo,OLED / SUNLONG,,,129000,,,,2,true,false,false,false,,0
+MOD-APP-13-OLED-SUNLONG,Módulo iPhone 13 · OLED / SUNLONG,iPhone,13,Módulo,OLED / SUNLONG,,,105000,,,,8,true,false,false,false,,0
+MOD-APP-13PROMAX-OLED-SUNLONG,Módulo iPhone 13 Pro Max · OLED / SUNLONG,iPhone,13 Pro Max,Módulo,OLED / SUNLONG,,,155000,,,,3,true,false,false,false,,0
+MOD-APP-14-OLED-SUNLONG,Módulo iPhone 14 · OLED / SUNLONG,iPhone,14,Módulo,OLED / SUNLONG,,,125000,,,,3,true,false,false,false,,0
+MOD-APP-14PRO-OLED-SUNLONG,Módulo iPhone 14 Pro · OLED / SUNLONG,iPhone,14 Pro,Módulo,OLED / SUNLONG,,,170000,,,,2,true,false,false,false,,0
+MOD-APP-14PROMAX-OLED-SUNLONG,Módulo iPhone 14 Pro Max · OLED / SUNLONG,iPhone,14 Pro Max,Módulo,OLED / SUNLONG,,,178300,,,,3,true,false,false,false,,0
+MOD-APP-15PRO-OLED-SUNLONG,Módulo iPhone 15 Pro · OLED / SUNLONG,iPhone,15 Pro,Módulo,OLED / SUNLONG,,,185000,,,,1,true,false,false,false,,0
+MOD-MOT-G52-OLED,Módulo Motorola G52 · OLED,Motorola,G52,Módulo,OLED,,G82; G72; EDGE 30,75000,,,,2,true,false,false,false,,0
+MOD-APP-13PRODIAG-JCID,Módulo iPhone 13 PRO DIAG · JCID,iPhone,13 PRO DIAG,Módulo,JCID,,,178000,,,,1,true,false,false,false,,0
+TAP-APP-16PROMAXCOMPLETA,Tapa iPhone 16 Pro Max completa,iPhone,16 Pro Max completa,Tapa,,,,22000,,,,7,true,false,false,false,,0
+MOD-SAM-A21S-CM-OLED,Módulo Samsung A21S · Con marco · OLED,Samsung,A21S,Módulo,OLED,Con marco,,25000,,,,10,true,false,false,false,,0
+MOD-MOT-G42-INCELL-PREMIUM,Módulo Motorola G42 · INCELL / PREMIUM,Motorola,G42,Módulo,INCELL / PREMIUM,,,26000,,,,2,true,false,false,false,,0
+MOD-MOT-G52-PREMIUM,Módulo Motorola G52 · PREMIUM,Motorola,G52,Módulo,PREMIUM,,G82; G72; G71S,26000,,,,3,true,false,false,false,,0
+MOD-APP-11-AMPSENTRIX-TAGON,Módulo iPhone 11 · AMPSENTRIX / TAG ON,iPhone,11,Módulo,AMPSENTRIX / TAG ON,,,14200,,,,5,true,false,false,false,,0
+MOD-APP-12-AMPSENTRIX-TAGON,Módulo iPhone 12 · AMPSENTRIX / TAG ON,iPhone,12,Módulo,AMPSENTRIX / TAG ON,,12P; 12Mini,14200,,,,2,true,false,false,false,,0
+MOD-APP-12PM-AMPSENTRIX-TAGON,Módulo iPhone 12 PM · AMPSENTRIX / TAG ON,iPhone,12 PM,Módulo,AMPSENTRIX / TAG ON,,,15000,,,,2,true,false,false,false,,0
+MOD-APP-13-AMPSENTRIX-TAGON,Módulo iPhone 13 · AMPSENTRIX / TAG ON,iPhone,13,Módulo,AMPSENTRIX / TAG ON,,,14200,,,,6,true,false,false,false,,0
+MOD-APP-11P-AMPSENTRIX-TAGON,Módulo iPhone 11P · AMPSENTRIX / TAG ON,iPhone,11P,Módulo,AMPSENTRIX / TAG ON,,11PM,14200,,,,2,true,false,false,false,,0
+MOD-APP-13P-AMPSENTRIX-TAGON,Módulo iPhone 13P · AMPSENTRIX / TAG ON,iPhone,13P,Módulo,AMPSENTRIX / TAG ON,,13PM; 14P; 14PM,14200,,,,6,true,false,false,false,,0
+MOD-APP-15-AMPSENTRIX-TAGON,Módulo iPhone 15 · AMPSENTRIX / TAG ON,iPhone,15,Módulo,AMPSENTRIX / TAG ON,,15Plus,15000,,,,2,true,false,false,false,,0
+MOD-APP-15P-AMPSENTRIX-TAGON,Módulo iPhone 15P · AMPSENTRIX / TAG ON,iPhone,15P,Módulo,AMPSENTRIX / TAG ON,,15PM,15000,,,,2,true,false,false,false,,0
+MOD-APP-14-AMPSENTRIX-TAGON,Módulo iPhone 14 · AMPSENTRIX / TAG ON,iPhone,14,Módulo,AMPSENTRIX / TAG ON,,14Plus,14200,,,,2,true,false,false,false,,0

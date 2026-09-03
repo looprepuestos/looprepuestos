@@ -1,0 +1,9 @@
+sku,nombre,marca,modelo,tipo,calidad,marco,compatibilidad,precio_publico,precio_mayorista,precio_promocional,costo,stock,publicado,novedad,nuevo_ingreso,promocion,fecha_ingreso,orden_destacado
+,Producto sin SKU,Samsung,Galaxy A10,Módulo,Incell,Con marco,A10,29900,,,,5,true,false,false,false,,999
+DEMO-DUP,Primero,Samsung,Galaxy A20,Módulo,Incell,Con marco,A20,19900,,,,5,true,false,false,false,,999
+DEMO-DUP,Duplicado del anterior,Samsung,Galaxy A20,Módulo,Incell,Con marco,A20,19900,,,,5,true,false,false,false,,999
+DEMO-BADPRICE,Precio no numérico,Xiaomi,Redmi 9,Módulo,Incell,Sin marco,Redmi 9,abc,,,,4,true,false,false,false,,999
+DEMO-NEGSTOCK,Stock negativo,Motorola,Moto G20,Batería,Original,N/A,G20,11900,,,,-5,true,false,false,false,,999
+DEMO-PROMO-SINPRECIO,Promo sin precio,TCL,TCL 40,Tapa,Original,N/A,TCL 40,6500,,,,3,true,false,false,true,,999
+DEMO-BADBOOL,Booleano inválido,iPhone,iPhone 11,Batería,Original,N/A,iPhone 11,16900,,,,2,quizas,false,false,false,,999
+DEMO-BADDATE,Fecha inválida,Samsung,Galaxy A13,Placa de carga,Original,N/A,A13,9200,,,,6,true,false,false,false,2026-13-40,999

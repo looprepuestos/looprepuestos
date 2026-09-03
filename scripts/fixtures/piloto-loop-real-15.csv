@@ -1,0 +1,16 @@
+﻿sku,nombre,marca,modelo,tipo,calidad,marco,compatibilidad,precio_publico,precio_mayorista,precio_promocional,costo,stock,publicado,novedad,nuevo_ingreso,promocion,fecha_ingreso,orden_destacado
+MOD-SAM-A10-SM-OLED,Módulo Samsung A10 · Sin marco · OLED,Samsung,A10,Módulo,OLED,Sin marco,,19400,,,12200,4,True,False,False,False,,0
+MOD-SAM-A04-SM-OLED-KP,Módulo Samsung A04 · Sin marco · OLED / KP,Samsung,A04,Módulo,OLED / KP,Sin marco,,17000,,,9145,22,True,False,False,False,,0
+MOD-SAM-A04-CM-OLED,Módulo Samsung A04 · Con marco · OLED,Samsung,A04,Módulo,OLED,Con marco,,27000,,,15510,1,True,False,False,False,,0
+MOD-MOT-E7-SM-PREMIUM,Módulo Motorola E7 · Sin marco · PREMIUM,Motorola,E7,Módulo,PREMIUM,Sin marco,E7i Power,20000,,,11850,9,True,False,False,False,,0
+MOD-MOT-G13-SM-KP,Módulo Motorola G13 · Sin marco · KP,Motorola,G13,Módulo,KP,Sin marco,G23; G34; G53,24000,,,12600,11,True,False,False,False,,0
+PCG-SAM-A255G,Placa de carga Samsung A25 5G,Samsung,A25 5G,Placa de carga,,,,8000,,,1475,2,True,False,False,False,,0
+PCG-SAM-A30S,Placa de carga Samsung A30S,Samsung,A30S,Placa de carga,,,A307,6000,,,1475,1,True,False,False,False,,0
+PCG-TCL-20B,Placa de carga TCL 20B,TCL,20B,Placa de carga,,,,6000,,,2210,2,True,False,False,False,,0
+BAT-APP-11-ORIGINAL-FOXCONN,Batería iPhone 11 · ORIGINAL / FOXCONN,iPhone,11,Batería,ORIGINAL / FOXCONN,,,15500,,,9900,21,True,False,False,False,,0
+BAT-MOT-E7POW,Batería Motorola E7Pow,Motorola,E7Pow,Batería,,,JK50; G20; G30; E40,12000,,,5760,8,True,False,False,False,,0
+MOD-MOT-G32-SM-KP,Módulo Motorola G32 · Sin marco · KP,Motorola,G32,Módulo,KP,Sin marco,,24000,,,14400,8,True,False,False,False,,0
+MOD-SAM-A164G-OLED,Módulo Samsung A16 4G · OLED,Samsung,A16 4G,Módulo,OLED,,5G BIG SVC,75000,,,51150,0,True,False,False,False,,0
+MOD-APP-11-INCELL-PREMIUM,Módulo iPhone 11 · INCELL / PREMIUM,iPhone,11,Módulo,INCELL / PREMIUM,,,32000,,,22320,11,True,False,False,False,,0
+MOD-MOT-G52-OLED,Módulo Motorola G52 · OLED,Motorola,G52,Módulo,OLED,,G82; G72; EDGE 30,75000,,,47861,2,True,False,False,False,,0
+TAP-APP-16PROMAXCOMPLETA,Tapa iPhone 16 Pro Max completa,iPhone,16 Pro Max completa,Tapa,,,,22000,,,9120,7,True,False,False,False,,0

@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   LOOP REPUESTOS — Design System (base)
+   Dirección: TECH · ELECTRÓNICA · INDUSTRIAL · PREMIUM
+   Estética oscura tipo grafito/titanio/plata inspirada en el logo.
+   Acento acero frío MUY sutil (no neón, no gamer).
+   Paleta base (ajustable contra el logo oficial):
+     Fondo principal   #12161C
+     Fondo secundario  #1A2027
+     Superficie/cards  #222A32
+     Grafito           #26323B
+     Plata             #BFC3C5
+     Titanio           #8D9499
+     Texto             #F2F4F5
+     Texto secundario  #A9B0B5
+     Bordes            #343D45
+     Acento acero      #6F9EAD
+   ========================================================================== */
+
+@theme {
+  /* --- Superficies --- */
+  --color-fondo: #12161c;
+  --color-fondo-2: #1a2027;
+  --color-superficie: #222a32;
+  --color-superficie-2: #262f38;
+  --color-grafito: #26323b;
+
+  /* --- Metales / texto --- */
+  --color-plata: #bfc3c5;
+  --color-titanio: #8d9499;
+  --color-texto: #f2f4f5;
+  --color-texto-suave: #a9b0b5;
+  --color-borde: #343d45;
+  --color-borde-fuerte: #3f4a53;
+
+  /* --- Acento acero (sutil, sólo estados interactivos) --- */
+  --color-acero: #6f9ead;
+  --color-acero-fuerte: #7fb0bf;
+  --color-acero-tenue: #2a3a41;
+
+  /* --- Estados de stock (calmos, no neón) --- */
+  --color-stock-on: #57b98b;
+  --color-stock-off: #6a7278;
+
+  /* --- Tipografía --- */
+  --font-sans:
+    var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* --- Radios (moderados) --- */
+  --radius-card: 0.625rem;
+  --radius-chip: 999px;
+}
+
+html {
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior-y: none;
+}
+
+/* Foco accesible: acero, sin glow */
+:focus-visible {
+  outline: 2px solid var(--color-acero);
+  outline-offset: 2px;
+}
+
+/* Detalle sutil "pista electrónica": hairline metálica para separadores.
+   Uso decorativo mínimo, nunca sobre texto. */
+.hairline {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-borde-fuerte) 20%,
+    var(--color-borde-fuerte) 80%,
+    transparent
+  );
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Ocultar scrollbar en filas de chips horizontales */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
