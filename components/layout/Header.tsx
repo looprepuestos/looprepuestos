@@ -16,8 +16,8 @@ export function Header() {
             <p className="text-sm font-extrabold tracking-tight text-texto">
               LOOP <span className="text-plata">REPUESTOS</span>
             </p>
-            <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-titanio">
-              Repuestos · Electrónica
+            <p className="text-[10px] font-medium tracking-[0.08em] text-titanio">
+              Repuestos e insumos para celulares
             </p>
           </div>
         </div>

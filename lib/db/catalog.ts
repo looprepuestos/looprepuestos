@@ -15,6 +15,7 @@ function mapRow(r: CatalogoPublicoRow): PublicProduct {
     calidad: r.calidad,
     marco: r.marco,
     compatibilidad: r.compatibilidad,
+    imagenUrl: r.imagen_url ?? null,
     precioPublico: r.precio_publico,
     precioPromocional: r.precio_promocional,
     enStock: r.en_stock,

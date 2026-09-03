@@ -100,3 +100,44 @@ input[type="number"]::-webkit-inner-spin-button {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* Bloque comercial inspirado en el patrón operativo de BH Tech, con identidad LOOP. */
+.commercial-card {
+  min-height: 250px;
+  border: 1px solid var(--color-borde);
+  border-radius: 0.75rem;
+  background: var(--color-superficie);
+  padding: 1rem;
+}
+.commercial-info {
+  background:
+    linear-gradient(135deg, rgba(111, 158, 173, 0.08), transparent 48%),
+    var(--color-superficie);
+}
+.commercial-pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(87, 185, 139, 0.42);
+  border-radius: 999px;
+  background: rgba(87, 185, 139, 0.10);
+  padding: 0.2rem 0.55rem;
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #7bd0a6;
+}
+.commercial-pill-promo {
+  border-color: rgba(111, 158, 173, 0.58);
+  background: var(--color-acero-tenue);
+  color: var(--color-acero-fuerte);
+}
+.commercial-link {
+  border: 1px solid var(--color-borde);
+  border-radius: 999px;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-texto-suave);
+}
+.commercial-link:hover { border-color: var(--color-acero); color: var(--color-texto); }

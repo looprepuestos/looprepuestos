@@ -22,6 +22,8 @@ export interface PublicProduct {
   /** Con o sin marco (o N/A cuando no aplica). */
   marco: string;
   compatibilidad: string;
+  /** URL pública de la foto del producto. Vacío/null hasta que se cargue desde la planilla. */
+  imagenUrl: string | null;
   precioPublico: number;
   /** Precio promocional público (si aplica). `null` cuando no hay promo. */
   precioPromocional: number | null;

@@ -6,7 +6,7 @@ import { SearchBar } from "@/components/search/SearchBar";
 import { FilterChips } from "@/components/search/FilterChips";
 import { ProductCard } from "./ProductCard";
 import { EmptyState } from "./EmptyState";
-import { SectionRow } from "./SectionRow";
+import { CommercialHighlights } from "./CommercialHighlights";
 
 function normalize(input: string) {
   return input.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
@@ -157,11 +157,9 @@ export function CatalogShell({
         </section>
       ) : (
         <div className="space-y-8">
-          <SectionRow title="Novedades" products={novedades} onShowAll={() => setCommercialMode("novedades")} />
-          <SectionRow title="Nuevos ingresos" products={nuevosIngresos} onShowAll={() => setCommercialMode("nuevos")} />
-          <SectionRow title="Promociones" products={promociones} onShowAll={() => setCommercialMode("promos")} />
-          {(novedades.length > 0 || nuevosIngresos.length > 0 || promociones.length > 0) && <div className="hairline" />}
-          <section aria-label="Catálogo">
+          <CommercialHighlights novedades={novedades} nuevos={nuevosIngresos} promos={promociones} onShowAll={setCommercialMode} />
+          <div className="hairline" />
+          <section id="catalogo-loop" aria-label="Catálogo">
             <div className="mb-2.5 flex items-center justify-between px-0.5">
               <h2 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-texto"><span aria-hidden className="h-3 w-0.5 rounded bg-acero" />Catálogo</h2>
               <span className="text-xs font-medium text-texto-suave">{products.length} productos</span>

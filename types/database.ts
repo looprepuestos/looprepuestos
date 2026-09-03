@@ -29,6 +29,7 @@ export interface ProductRow {
   calidad: string;
   marco: string;
   compatibilidad: string;
+  imagen_url: string | null;
   precio_publico: number;
   precio_promocional: number | null;
   precio_mayorista: number | null; // PRIVADO
@@ -58,6 +59,7 @@ export interface CatalogoPublicoRow {
   calidad: string;
   marco: string;
   compatibilidad: string;
+  imagen_url: string | null;
   precio_publico: number;
   precio_promocional: number | null;
   en_stock: boolean;

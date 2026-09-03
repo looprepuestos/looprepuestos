@@ -16,7 +16,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A01M-SM-OLED",
@@ -35,7 +36,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A225G-SM-OLED-PREMIUM",
@@ -54,7 +56,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A04-SM-OLED-KP",
@@ -73,7 +76,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A04-CM-OLED",
@@ -92,7 +96,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A05-SM-PREMIUM",
@@ -111,7 +116,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A06-SM-OLED",
@@ -130,7 +136,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A10S-SM-OLED",
@@ -149,7 +156,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A10S-SM-OLED-PREMIUM",
@@ -168,7 +176,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A11-SM-KP",
@@ -187,7 +196,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A13UNIVERSAL-SM-KP",
@@ -206,7 +216,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A21S-SM-OLED",
@@ -225,7 +236,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A224G-CM-OLED",
@@ -244,7 +256,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-E7PLUS-SM-PREMIUM",
@@ -263,7 +276,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-E7-SM-PREMIUM",
@@ -282,7 +296,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-E13-SM-KP",
@@ -301,7 +316,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-E20-SM-KP",
@@ -320,7 +336,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-E22-SM-KP",
@@ -339,7 +356,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-E32-SM-PREMIUM",
@@ -358,7 +376,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-E40-SM-PREMIUM",
@@ -377,7 +396,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-G13-SM-KP",
@@ -396,7 +416,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-G05-SM-PREMIUM",
@@ -415,7 +436,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-G22-CM-KP",
@@ -434,7 +456,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-G31-SM-OLED",
@@ -453,7 +476,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-E6S-ORIGINAL",
@@ -472,7 +496,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-E6I-ORIGINAL",
@@ -491,7 +516,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-E7-ORIGINAL",
@@ -510,7 +536,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-E20-ORIGINAL",
@@ -529,7 +556,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-E22-ORIGINAL",
@@ -548,7 +576,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-E32-ORIGINAL",
@@ -567,7 +596,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-E40-ORIGINAL",
@@ -586,7 +616,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-G13-ORIGINAL",
@@ -605,7 +636,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-G22-ORIGINAL",
@@ -624,7 +656,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-7PLUS-CM-SUNLONG",
@@ -643,7 +676,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-8PLUS-SUNLONG",
@@ -662,7 +696,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-X-SUNLONG",
@@ -681,7 +716,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-XR-SUNLONG",
@@ -700,7 +736,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-XS-SUNLONG",
@@ -719,7 +756,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-11PROFHD-SUNLONG",
@@ -738,7 +776,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-XSMAXFHD-SUNLONG",
@@ -757,7 +796,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-E6S-ORIGINAL",
@@ -776,7 +816,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-E22-ORIGINAL",
@@ -795,7 +836,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-G52-ORIGINAL",
@@ -814,7 +856,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-G7POWER-ORIGINAL",
@@ -833,7 +876,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-J2PRIME-ORIGINAL",
@@ -852,7 +896,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-11PRO-FOXCONN",
@@ -871,7 +916,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A145G-SM-PREMIUM",
@@ -890,7 +936,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-XIA-14C-SM-SERVICEPAC",
@@ -909,7 +956,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-TCL-408-SM-KP",
@@ -928,7 +976,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-XIA-POCOC71-SM-SERVICEPAC",
@@ -947,7 +996,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-XIA-POCOC71-SM-KP",
@@ -966,7 +1016,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-XIA-13C-SM-SERVICEPAC",
@@ -985,7 +1036,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-XIA-15C-SM-SERVICEPAC",
@@ -1004,7 +1056,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-12FHD-SUNLONG",
@@ -1023,7 +1076,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-13FHD-SUNLONG",
@@ -1042,7 +1096,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A21S-ORIGINAL",
@@ -1061,7 +1116,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A04E-ORIGINAL",
@@ -1080,7 +1136,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-12-FOXCONN",
@@ -1099,7 +1156,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-13-FOXCONN",
@@ -1118,7 +1176,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-XIA-POCOC61-SM-SERVICEPAC",
@@ -1137,7 +1196,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PEG-GEN-B7000TRANSPARENTE",
@@ -1156,7 +1216,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PEG-GEN-T7000NEGRO",
@@ -1175,7 +1236,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-TCL-403-SM-KP",
@@ -1194,7 +1256,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-TCL-505-SM-KP",
@@ -1213,7 +1276,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-11",
@@ -1232,7 +1296,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-12",
@@ -1251,7 +1316,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-13",
@@ -1270,7 +1336,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-14",
@@ -1289,7 +1356,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-11PRO",
@@ -1308,7 +1376,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-13PRO",
@@ -1327,7 +1396,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-14PRO",
@@ -1346,7 +1416,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-14PLUS",
@@ -1365,7 +1436,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-11PROMAX",
@@ -1384,7 +1456,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-12PROMAX",
@@ -1403,7 +1476,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-13PROMAX",
@@ -1422,7 +1496,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-14COMPLETA",
@@ -1441,7 +1516,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-15COMPLETA",
@@ -1460,7 +1536,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-15PROCOMPLETA",
@@ -1479,7 +1556,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-15PROMAXCOMPLETA",
@@ -1498,7 +1576,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-16COMPLETA",
@@ -1517,7 +1596,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-16PROCOMPLETA",
@@ -1536,7 +1616,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "FLX-APP-11",
@@ -1555,7 +1636,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "FLX-APP-12MINI",
@@ -1574,7 +1656,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "FLX-APP-13",
@@ -1593,7 +1676,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "FLX-APP-15PRO",
@@ -1612,7 +1696,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "FLX-APP-16PRO",
@@ -1631,7 +1716,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "FLX-APP-XR",
@@ -1650,7 +1736,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "FLX-APP-XS",
@@ -1669,7 +1756,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "FLX-APP-XSMAX",
@@ -1688,7 +1776,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-E13",
@@ -1707,7 +1796,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-E14",
@@ -1726,7 +1816,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-E15",
@@ -1745,7 +1836,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-E20",
@@ -1764,7 +1856,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-E22",
@@ -1783,7 +1876,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-E32",
@@ -1802,7 +1896,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-E40",
@@ -1821,7 +1916,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-E5PLAY",
@@ -1840,7 +1936,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-E6PLAY",
@@ -1859,7 +1956,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-E6PLUS",
@@ -1878,7 +1976,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-E6I",
@@ -1897,7 +1996,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-E6S",
@@ -1916,7 +2016,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-E7",
@@ -1935,7 +2036,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-E7PLUS",
@@ -1954,7 +2056,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-E7POWER",
@@ -1973,7 +2076,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-EDGE20",
@@ -1992,7 +2096,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-EDGE20LITE",
@@ -2011,7 +2116,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-EDGE20PRO",
@@ -2030,7 +2136,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-EDGE30",
@@ -2049,7 +2156,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-EDGE30NEO",
@@ -2068,7 +2176,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-EDGE30ULTRA",
@@ -2087,7 +2196,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-EDGE50FUSION",
@@ -2106,7 +2216,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-EDGE50",
@@ -2125,7 +2236,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-EDGE50NEO",
@@ -2144,7 +2256,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-EDGE50PRO",
@@ -2163,7 +2276,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-EDGE50ULTRA",
@@ -2182,7 +2296,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-EDGE60FUSION",
@@ -2201,7 +2316,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-EDGE60",
@@ -2220,7 +2336,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G04",
@@ -2239,7 +2356,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G04S",
@@ -2258,7 +2376,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G05",
@@ -2277,7 +2396,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G06",
@@ -2296,7 +2416,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G10",
@@ -2315,7 +2436,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G13",
@@ -2334,7 +2456,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G14",
@@ -2353,7 +2476,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G15",
@@ -2372,7 +2496,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G20",
@@ -2391,7 +2516,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G22",
@@ -2410,7 +2536,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G23",
@@ -2429,7 +2556,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G24",
@@ -2448,7 +2576,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G24POWER",
@@ -2467,7 +2596,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G32",
@@ -2486,7 +2616,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G41",
@@ -2505,7 +2636,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G42",
@@ -2524,7 +2656,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G625G",
@@ -2543,7 +2676,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G85",
@@ -2562,7 +2696,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-MOT-G9POWER",
@@ -2581,7 +2716,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A01CORE",
@@ -2600,7 +2736,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A01",
@@ -2619,7 +2756,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A0202A",
@@ -2638,7 +2776,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A02S",
@@ -2657,7 +2796,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A03",
@@ -2676,7 +2816,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A03CORE",
@@ -2695,7 +2836,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A03S",
@@ -2714,7 +2856,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A04E",
@@ -2733,7 +2876,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A04S",
@@ -2752,7 +2896,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A05",
@@ -2771,7 +2916,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A064G",
@@ -2790,7 +2936,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A07",
@@ -2809,7 +2956,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A10",
@@ -2828,7 +2976,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A10S",
@@ -2847,7 +2996,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A10S-10SM16",
@@ -2866,7 +3016,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A11",
@@ -2885,7 +3036,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A12",
@@ -2904,7 +3056,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A134G",
@@ -2923,7 +3076,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A135G",
@@ -2942,7 +3096,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A144G",
@@ -2961,7 +3116,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A145G",
@@ -2980,7 +3136,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A154G5G",
@@ -2999,7 +3156,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A165G",
@@ -3018,7 +3176,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A175G",
@@ -3037,7 +3196,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A20",
@@ -3056,7 +3216,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A20SM12",
@@ -3075,7 +3236,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A21S",
@@ -3094,7 +3256,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A234G",
@@ -3113,7 +3276,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A235G",
@@ -3132,7 +3296,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A244G",
@@ -3151,7 +3316,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A255G",
@@ -3170,7 +3336,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A26",
@@ -3189,7 +3356,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A30",
@@ -3208,7 +3376,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A30S",
@@ -3227,7 +3396,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A31",
@@ -3246,7 +3416,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A324G",
@@ -3265,7 +3436,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A325G",
@@ -3284,7 +3456,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A335G",
@@ -3303,7 +3476,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A34",
@@ -3322,7 +3496,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A355G",
@@ -3341,7 +3516,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A36",
@@ -3360,7 +3536,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A50",
@@ -3379,7 +3556,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-SAM-A70",
@@ -3398,7 +3576,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-TCL-20B",
@@ -3417,7 +3596,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-TCL-20E",
@@ -3436,7 +3616,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-TCL-20R",
@@ -3455,7 +3636,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-TCL-20SE",
@@ -3474,7 +3656,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-TCL-20XE",
@@ -3493,7 +3676,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-TCL-20Y",
@@ -3512,7 +3696,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-TCL-305",
@@ -3531,7 +3716,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-TCL-306",
@@ -3550,7 +3736,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-TCL-30E",
@@ -3569,7 +3756,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-TCL-406",
@@ -3588,7 +3776,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-TCL-40SE",
@@ -3607,7 +3796,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-TCL-505",
@@ -3626,7 +3816,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-XIA-REDMI13C4G5G",
@@ -3645,7 +3836,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-XIA-REDMI14C",
@@ -3664,7 +3856,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-XIA-REDMI15C",
@@ -3683,7 +3876,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-XIA-REDMIA3",
@@ -3702,7 +3896,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-XIA-REDMIA5",
@@ -3721,7 +3916,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-XIA-REDMINOTE135G",
@@ -3740,7 +3936,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-XIA-REDMI13PRO4G",
@@ -3759,7 +3956,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-XIA-REDMI13PRO5G",
@@ -3778,7 +3976,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-XIA-POCOX3",
@@ -3797,7 +3996,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-ZTE-A34",
@@ -3816,7 +4016,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-ZTE-A53PLUS",
@@ -3835,7 +4036,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "PCG-ZTE-A54",
@@ -3854,7 +4056,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-XIA-POCOC61-SM-KP",
@@ -3873,7 +4076,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-12-JCID-AUTOPROGRA",
@@ -3892,7 +4096,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-13PRO-JCID-AUTOPROGRA",
@@ -3911,7 +4116,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-13-JCID",
@@ -3930,7 +4136,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-12PROMAX-JCID-AUTOPROGRA",
@@ -3949,7 +4156,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-13PROMAX-JCID-AUTOPROGRA",
@@ -3968,7 +4176,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-14-JCID-AUTOPROGRA",
@@ -3987,7 +4196,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-14PROMAX-JCID-AUTOPROGRA",
@@ -4006,7 +4216,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-AMPSENTRIXPLUS15-AMPSENTRIX",
@@ -4025,7 +4236,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-AMPSENTRIXPLUS15PRO-AMPSENTRIX",
@@ -4044,7 +4256,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-11-ORIGINAL-FOXCONN",
@@ -4063,7 +4276,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-11PRO-ORIGINAL-FOXCONN",
@@ -4082,7 +4296,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-11PROMAX-ORIGINAL-FOXCONN",
@@ -4101,7 +4316,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-12PROMAX-ORIGINAL-FOXCONN",
@@ -4120,7 +4336,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-12-ORIGINAL-FOXCONN",
@@ -4139,7 +4356,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-13-ORIGINAL-FOXCONN",
@@ -4158,7 +4376,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-13PROMAX-ORIGINAL-FOXCONN",
@@ -4177,7 +4396,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-X-ORIGINAL-FOXCONN",
@@ -4196,7 +4416,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-XR-ORIGINAL-FOXCONN",
@@ -4215,7 +4436,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-XS-ORIGINAL-FOXCONN",
@@ -4234,7 +4456,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-XSMAX-ORIGINAL-FOXCONN",
@@ -4253,7 +4476,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-13PROSLIM-ORIGINAL-FOXCONN",
@@ -4272,7 +4496,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-E15",
@@ -4291,7 +4516,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-E20",
@@ -4310,7 +4536,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-E22",
@@ -4329,7 +4556,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-E6S",
@@ -4348,7 +4576,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-E7POW",
@@ -4367,7 +4596,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-G14",
@@ -4386,7 +4616,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-G22",
@@ -4405,7 +4636,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-G22-ORIGINAL",
@@ -4424,7 +4656,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-EDGE30",
@@ -4443,7 +4676,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-G52",
@@ -4462,7 +4696,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-G84",
@@ -4481,7 +4716,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-G85",
@@ -4500,7 +4736,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-G23",
@@ -4519,7 +4756,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-G24",
@@ -4538,7 +4776,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-G32",
@@ -4557,7 +4796,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-G42",
@@ -4576,7 +4816,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-G8PLAY",
@@ -4595,7 +4836,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-MOT-G9POWER",
@@ -4614,7 +4856,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A01",
@@ -4633,7 +4876,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A02S",
@@ -4652,7 +4896,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A03CORE",
@@ -4671,7 +4916,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-WTSN28A05",
@@ -4690,7 +4936,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A06",
@@ -4709,7 +4956,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A07",
@@ -4728,7 +4976,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A10",
@@ -4747,7 +4996,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-WTN6A10S",
@@ -4766,7 +5016,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A144G5G",
@@ -4785,7 +5036,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A15",
@@ -4804,7 +5056,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A16",
@@ -4823,7 +5076,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A20",
@@ -4842,7 +5096,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A21S",
@@ -4861,7 +5116,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-WTW1A225G",
@@ -4880,7 +5136,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A22",
@@ -4899,7 +5156,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A23",
@@ -4918,7 +5176,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A24",
@@ -4937,7 +5196,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A335G",
@@ -4956,7 +5216,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A34",
@@ -4975,7 +5236,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A51",
@@ -4994,7 +5256,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A52",
@@ -5013,7 +5276,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-SAM-A72",
@@ -5032,7 +5296,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-XIA-BN5QREDMI13C",
@@ -5051,7 +5316,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-XIA-BN5XREDMI14C",
@@ -5070,7 +5336,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-G32-SM-KP",
@@ -5089,7 +5356,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A164G-OLED",
@@ -5108,7 +5376,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A324GSVC-OLED",
@@ -5127,7 +5396,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A334G-OLED",
@@ -5146,7 +5416,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A15-PREMIUM",
@@ -5165,7 +5436,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A15-SM-OLED",
@@ -5184,7 +5456,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A15-CM-OLED",
@@ -5203,7 +5476,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-11-INCELL-PREMIUM",
@@ -5222,7 +5496,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-11PROMAX-INCELL-PREMIUM",
@@ -5241,7 +5516,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-11PRO-INCELL-PREMIUM",
@@ -5260,7 +5536,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-12PROMAX-INCELL-PREMIUM",
@@ -5279,7 +5556,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-12-INCELL-PREMIUM",
@@ -5298,7 +5576,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-13-INCELL-PREMIUM",
@@ -5317,7 +5596,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-13PROMAX-INCELL-PREMIUM",
@@ -5336,7 +5616,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-14-INCELL-PREMIUM",
@@ -5355,7 +5636,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-14PROMAX-INCELL-PREMIUM",
@@ -5374,7 +5656,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-14PRO-INCELL-PREMIUM",
@@ -5393,7 +5676,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-15-INCELL-PREMIUM",
@@ -5412,7 +5696,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-XR-INCELL-PREMIUM",
@@ -5431,7 +5716,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-XSMAX-INCELL-PREMIUM",
@@ -5450,7 +5736,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-BAT14PROMAX-FOXCONN",
@@ -5469,7 +5756,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "BAT-APP-BAT15-FOXCONN",
@@ -5488,7 +5776,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-11FHD-SUNLONG",
@@ -5507,7 +5796,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-11PROMAX-OLED-SUNLONG",
@@ -5526,7 +5816,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-12-OLED-SUNLONG",
@@ -5545,7 +5836,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-12PROMAX-OLED-SUNLONG",
@@ -5564,7 +5856,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-13-OLED-SUNLONG",
@@ -5583,7 +5876,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-13PROMAX-OLED-SUNLONG",
@@ -5602,7 +5896,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-14-OLED-SUNLONG",
@@ -5621,7 +5916,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-14PRO-OLED-SUNLONG",
@@ -5640,7 +5936,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-14PROMAX-OLED-SUNLONG",
@@ -5659,7 +5956,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-15PRO-OLED-SUNLONG",
@@ -5678,7 +5976,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-G52-OLED",
@@ -5697,7 +5996,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-13PRODIAG-JCID",
@@ -5716,7 +6016,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "TAP-APP-16PROMAXCOMPLETA",
@@ -5735,7 +6036,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-SAM-A21S-CM-OLED",
@@ -5754,7 +6056,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-G42-INCELL-PREMIUM",
@@ -5773,7 +6076,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-MOT-G52-PREMIUM",
@@ -5792,7 +6096,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-11-AMPSENTRIX-TAGON",
@@ -5811,7 +6116,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-12-AMPSENTRIX-TAGON",
@@ -5830,7 +6136,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-12PM-AMPSENTRIX-TAGON",
@@ -5849,7 +6156,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-13-AMPSENTRIX-TAGON",
@@ -5868,7 +6176,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-11P-AMPSENTRIX-TAGON",
@@ -5887,7 +6196,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-13P-AMPSENTRIX-TAGON",
@@ -5906,7 +6216,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-15-AMPSENTRIX-TAGON",
@@ -5925,7 +6236,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-15P-AMPSENTRIX-TAGON",
@@ -5944,7 +6256,8 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   },
   {
     "sku": "MOD-APP-14-AMPSENTRIX-TAGON",
@@ -5963,6 +6276,7 @@
     "es_promocion": false,
     "es_destacado": false,
     "fecha_ingreso": null,
-    "orden_destacado": 0
+    "orden_destacado": 0,
+    "imagen_url": null
   }
 ]
