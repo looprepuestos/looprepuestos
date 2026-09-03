@@ -95,7 +95,7 @@ export function CartBar() {
             <button type="button" onClick={sendWhatsApp} disabled={!number} className="mt-3 w-full rounded-xl border border-acero bg-acero-tenue px-4 py-3 text-sm font-extrabold text-texto transition-colors hover:bg-grafito disabled:cursor-not-allowed disabled:border-borde disabled:bg-superficie disabled:text-titanio">
               Enviar consulta por WhatsApp
             </button>
-            <p className="mt-2 text-center text-[11px] text-titanio">No descuenta stock ni registra una venta automáticamente.</p>
+            <p className="mt-2 text-center text-[11px] text-titanio">Tu pedido se enviará por WhatsApp para confirmar disponibilidad y coordinar entrega.</p>
           </div>
         </div>
       )}
