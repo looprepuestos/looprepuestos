@@ -13,10 +13,12 @@ DIR="$(cd "$(dirname "$0")/.." && pwd)"   # .../supabase
 
 psql -d postgres -qc "drop database if exists ${DB} with (force);" -c "create database ${DB};"
 psql -d "${DB}" -v ON_ERROR_STOP=1 -qf "${DIR}/tests/00_bootstrap.sql"
-for f in 0001_init 0002_functions 0003_views 0004_rls; do
+for f in 0001_init 0002_functions 0003_views 0004_rls 0005_product_images 0006_sync; do
   psql -d "${DB}" -v ON_ERROR_STOP=1 -qf "${DIR}/migrations/${f}.sql"
   echo "migración ${f} OK"
 done
 psql -d "${DB}" -v ON_ERROR_STOP=1 -qf "${DIR}/tests/10_seed.sql"
 echo "seed OK"
 psql -d "${DB}" -v ON_ERROR_STOP=1 -f "${DIR}/tests/20_tests.sql"
+psql -d "${DB}" -v ON_ERROR_STOP=1 -f "${DIR}/tests/40_import_idempotente.sql"
+psql -d "${DB}" -v ON_ERROR_STOP=1 -f "${DIR}/tests/50_sync.sql"
