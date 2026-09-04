@@ -5,7 +5,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { parse } from "csv-parse/sync";
-import { mapCatalog, normalizeText, type CsvRow } from "../lib/catalog-mapper";
+import { mapCatalog, normalizeText, computeRowHash, type CsvRow } from "../lib/catalog-mapper";
 
 function load(path: string): CsvRow[] {
   return parse(readFileSync(path, "utf8"), {
@@ -83,6 +83,60 @@ check("promo sin precio => advertencia + promo desactivada (no rechazo)", () => 
 // --- normalizeText ---
 check("normalizeText quita acentos y colapsa espacios", () => {
   assert.equal(normalizeText("  Módulo   iPhone  "), "modulo iphone");
+});
+
+// --- Foto: vacía / válida / inválida (no se inventan imágenes) ---
+check("foto vacía => imagen_url null (sin advertencia)", () => {
+  const r = valida.records.find((x) => x.sku === "DEMO-MOD-A12"); // foto vacía en fixture
+  assert.equal(r?.imagen_url, null);
+  const w = valida.warnings.find((x) => x.sku === "DEMO-MOD-A12");
+  assert.ok(!w || !w.messages.join(" ").includes("foto"));
+});
+check("foto https válida => se conserva la URL", () => {
+  const r = valida.records.find((x) => x.sku === "DEMO-MOD-A10");
+  assert.equal(r?.imagen_url, "https://cdn.looprepuestos.com/fotos/mod-a10.jpg");
+});
+check("foto inválida (no http) => null + advertencia, producto NO rechazado", () => {
+  const r = valida.records.find((x) => x.sku === "DEMO-BAT-IPH11");
+  assert.ok(r, "el producto con foto inválida debe seguir siendo válido");
+  assert.equal(r?.imagen_url, null);
+  const w = valida.warnings.find((x) => x.sku === "DEMO-BAT-IPH11");
+  assert.ok(w && w.messages.join(" ").toLowerCase().includes("foto"));
+  // No aparece entre los rechazados.
+  assert.ok(!valida.rejected.some((x) => x.sku === "DEMO-BAT-IPH11"));
+});
+
+// --- computeRowHash: estable e indica cambios ---
+function rowsFrom(objs: Record<string, string>[]): CsvRow[] {
+  return objs as CsvRow[];
+}
+check("mismo contenido => mismo hash; cambio de precio => hash distinto", () => {
+  const base = {
+    sku: "H-1", nombre: "Test", marca: "Samsung", modelo: "A10", tipo: "Módulo",
+    calidad: "Incell", marco: "Con marco", compatibilidad: "A10", foto: "",
+    precio_publico: "1000", precio_mayorista: "800", precio_promocional: "",
+    costo: "500", stock: "5", publicado: "true", novedad: "false",
+    nuevo_ingreso: "false", promocion: "false", fecha_ingreso: "", orden_destacado: "999",
+  };
+  const a = mapCatalog(rowsFrom([{ ...base }])).records[0]!;
+  const b = mapCatalog(rowsFrom([{ ...base }])).records[0]!;
+  const c = mapCatalog(rowsFrom([{ ...base, precio_publico: "1200" }])).records[0]!;
+  assert.equal(computeRowHash(a), computeRowHash(b), "misma fila => mismo hash");
+  assert.notEqual(computeRowHash(a), computeRowHash(c), "precio distinto => hash distinto");
+});
+check("hash no depende del orden de propiedades del objeto", () => {
+  const r1 = mapCatalog(rowsFrom([{
+    sku: "H-2", nombre: "X", marca: "A", modelo: "B", tipo: "Tapa", calidad: "",
+    marco: "N/A", compatibilidad: "", foto: "", precio_publico: "10",
+    precio_mayorista: "", precio_promocional: "", costo: "", stock: "1",
+    publicado: "false", novedad: "false", nuevo_ingreso: "false", promocion: "false",
+    fecha_ingreso: "", orden_destacado: "999",
+  }])).records[0]!;
+  // Reconstruir el registro con claves en otro orden.
+  const src = r1 as unknown as Record<string, unknown>;
+  const shuffled: Record<string, unknown> = {};
+  for (const k of Object.keys(src).reverse()) shuffled[k] = src[k];
+  assert.equal(computeRowHash(r1), computeRowHash(shuffled as unknown as typeof r1));
 });
 
 console.log(`\n✓ ${ok} pruebas del mapper pasaron\n`);
