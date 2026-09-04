@@ -1,13 +1,13 @@
-sku,nombre,marca,modelo,tipo,calidad,marco,compatibilidad,precio_publico,precio_mayorista,precio_promocional,costo,stock,publicado,novedad,nuevo_ingreso,promocion,fecha_ingreso,orden_destacado
-DEMO-MOD-A10,Módulo Samsung A10,Samsung,Galaxy A10,Módulo,Incell,Con marco,Galaxy A10 / A10s,29900,24000,,18000,7,true,false,true,false,2026-08-20,10
-DEMO-MOD-A12,Módulo Samsung A12,Samsung,Galaxy A12,Módulo,Incell,Con marco,Galaxy A12 / A125,31900,25500,26900,19000,4,true,false,false,true,2026-07-10,5
-DEMO-MOD-IPH11,Módulo iPhone 11,iPhone,iPhone 11,Módulo,OLED,Sin marco,iPhone 11,52900,45000,,33000,3,true,true,false,false,2026-08-28,2
-DEMO-BAT-IPH11,Batería iPhone 11,iPhone,iPhone 11,Batería,Original,N/A,iPhone 11,16900,13500,,9000,0,true,false,false,false,2026-08-15,999
-DEMO-PIN-A13,Placa de carga Samsung A13,Samsung,Galaxy A13,Placa de carga,Original,N/A,Galaxy A13 4G,9200,7200,,4500,12,true,true,false,false,2026-08-22,999
-DEMO-MOD-G20,Módulo Motorola G20,Motorola,Moto G20,Módulo,Incell,Sin marco,Moto G20 / E20 / E30 / E40,24900,19900,,14000,6,true,false,true,false,2026-08-30,999
-DEMO-TAPA-N12,Tapa Xiaomi Redmi Note 12,Xiaomi,Redmi Note 12,Tapa,Original,N/A,Redmi Note 12 4G,6500,5000,4900,3000,9,true,false,false,true,2026-06-01,999
-DEMO-FLEX-TCL40,Flex de carga TCL 40 SE,TCL,TCL 40 SE,Flex,Original,N/A,TCL 40 SE,5600,4300,,2500,5,true,false,true,false,2026-08-29,999
-DEMO-MOD-TECNO,Módulo Tecno Spark 10,Tecno,Spark 10,Módulo,Incell,Con marco,Spark 10,22900,18500,,13000,2,true,false,false,false,2026-07-25,999
-DEMO-INS-KIT,Kit de desarme 38 piezas,Otras,Universal,Insumo,Estándar,N/A,Universal,12900,9900,9900,6000,15,true,false,false,true,2026-05-12,999
-DEMO-MOD-A20,Módulo Samsung A20,Samsung,Galaxy A20,Módulo,,Con marco,Galaxy A20,27900,,,15000,5,true,false,false,false,2026-07-01,999
-DEMO-BAT-G20,Batería Motorola G20,Motorola,Moto G20,Batería,Original,N/A,Moto G20,11900,9200,,5500,8,true,true,false,false,2026-08-18,999
+sku,nombre,marca,modelo,tipo,calidad,marco,compatibilidad,foto,precio_publico,precio_mayorista,precio_promocional,costo,stock,publicado,novedad,nuevo_ingreso,promocion,fecha_ingreso,orden_destacado
+DEMO-MOD-A10,Módulo Samsung A10,Samsung,Galaxy A10,Módulo,Incell,Con marco,Galaxy A10 / A10s,https://cdn.looprepuestos.com/fotos/mod-a10.jpg,29900,24000,,18000,7,true,false,true,false,2026-08-20,10
+DEMO-MOD-A12,Módulo Samsung A12,Samsung,Galaxy A12,Módulo,Incell,Con marco,Galaxy A12 / A125,,31900,25500,26900,19000,4,true,false,false,true,2026-07-10,5
+DEMO-MOD-IPH11,Módulo iPhone 11,iPhone,iPhone 11,Módulo,OLED,Sin marco,iPhone 11,,52900,45000,,33000,3,true,true,false,false,2026-08-28,2
+DEMO-BAT-IPH11,Batería iPhone 11,iPhone,iPhone 11,Batería,Original,N/A,iPhone 11,javascript:alert(1),16900,13500,,9000,0,true,false,false,false,2026-08-15,999
+DEMO-PIN-A13,Placa de carga Samsung A13,Samsung,Galaxy A13,Placa de carga,Original,N/A,Galaxy A13 4G,,9200,7200,,4500,12,true,true,false,false,2026-08-22,999
+DEMO-MOD-G20,Módulo Motorola G20,Motorola,Moto G20,Módulo,Incell,Sin marco,Moto G20 / E20 / E30 / E40,,24900,19900,,14000,6,true,false,true,false,2026-08-30,999
+DEMO-TAPA-N12,Tapa Xiaomi Redmi Note 12,Xiaomi,Redmi Note 12,Tapa,Original,N/A,Redmi Note 12 4G,,6500,5000,4900,3000,9,true,false,false,true,2026-06-01,999
+DEMO-FLEX-TCL40,Flex de carga TCL 40 SE,TCL,TCL 40 SE,Flex,Original,N/A,TCL 40 SE,,5600,4300,,2500,5,true,false,true,false,2026-08-29,999
+DEMO-MOD-TECNO,Módulo Tecno Spark 10,Tecno,Spark 10,Módulo,Incell,Con marco,Spark 10,,22900,18500,,13000,2,true,false,false,false,2026-07-25,999
+DEMO-INS-KIT,Kit de desarme 38 piezas,Otras,Universal,Insumo,Estándar,N/A,Universal,,12900,9900,9900,6000,15,true,false,false,true,2026-05-12,999
+DEMO-MOD-A20,Módulo Samsung A20,Samsung,Galaxy A20,Módulo,,Con marco,Galaxy A20,,27900,,,15000,5,true,false,false,false,2026-07-01,999
+DEMO-BAT-G20,Batería Motorola G20,Motorola,Moto G20,Batería,Original,N/A,Moto G20,,11900,9200,,5500,8,true,true,false,false,2026-08-18,999
