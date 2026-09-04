@@ -3,7 +3,10 @@
 alter table public.products
   add column if not exists imagen_url text;
 
-create or replace view public.catalogo_publico
+-- `create or replace view` no permite reordenar columnas existentes; como se
+-- inserta imagen_url en el medio de la lista, hay que recrear la vista.
+drop view if exists public.catalogo_publico;
+create view public.catalogo_publico
 with (security_invoker = true)
 as
 select
