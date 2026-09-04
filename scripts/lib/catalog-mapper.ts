@@ -11,6 +11,7 @@
  *    `publicado = false` (nunca se inventan datos faltantes) + advertencia.
  *  - Idempotencia por SKU la garantiza el upsert (ver import-catalog.ts).
  */
+import { createHash } from "node:crypto";
 
 /** Columnas esperadas en el CSV (encabezados exactos). */
 export const CSV_COLUMNS = [
@@ -22,6 +23,7 @@ export const CSV_COLUMNS = [
   "calidad",
   "marco",
   "compatibilidad",
+  "foto",
   "precio_publico",
   "precio_mayorista",
   "precio_promocional",
@@ -47,6 +49,7 @@ export interface ProductUpsert {
   calidad: string;
   marco: string;
   compatibilidad: string;
+  imagen_url: string | null;
   precio_publico: number;
   precio_mayorista: number | null;
   precio_promocional: number | null;
@@ -127,6 +130,29 @@ function parseIntStrict(raw: string): { ok: true; value: number | null } | { ok:
   if (v === "") return { ok: true, value: null };
   if (!/^-?\d+$/.test(v)) return { ok: false };
   return { ok: true, value: Number(v) };
+}
+
+/**
+ * Foto pública opcional. La URL se sincroniza desde el Sheet; NO se inventan
+ * imágenes. Reglas:
+ *   - vacío            -> null (producto sin foto: la UI muestra placeholder).
+ *   - http(s) válida   -> se conserva la URL.
+ *   - cualquier otra   -> null + advertencia (nunca se rechaza el producto ni
+ *                         se muestra una imagen rota).
+ */
+function parseFoto(raw: string): { url: string | null; warn?: string } {
+  const v = raw.trim();
+  if (v === "") return { url: null };
+  let parsed: URL;
+  try {
+    parsed = new URL(v);
+  } catch {
+    return { url: null, warn: "foto con URL inválida -> se importa sin imagen" };
+  }
+  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+    return { url: null, warn: "foto con protocolo no http(s) -> se importa sin imagen" };
+  }
+  return { url: v };
 }
 
 function isIsoDate(raw: string): boolean {
@@ -218,6 +244,8 @@ export function mapCatalog(rows: CsvRow[], startLine = 2): MapResult {
     const calidad = (row.calidad ?? "").trim();
     const marco = (row.marco ?? "").trim();
     const compatibilidad = (row.compatibilidad ?? "").trim();
+    const foto = parseFoto(row.foto ?? "");
+    if (foto.warn) warns.push(foto.warn);
 
     let publicado = bPub as boolean;
     let esPromo = bPromo as boolean;
@@ -262,6 +290,7 @@ export function mapCatalog(rows: CsvRow[], startLine = 2): MapResult {
       calidad,
       marco,
       compatibilidad,
+      imagen_url: foto.url,
       precio_publico: precioPublicoVal,
       precio_mayorista: precioMay.ok ? precioMay.value : null,
       precio_promocional: precioPromocionalFinal,
@@ -281,4 +310,20 @@ export function mapCatalog(rows: CsvRow[], startLine = 2): MapResult {
   });
 
   return { records, rejected, warnings };
+}
+
+/**
+ * Hash estable del contenido de una fila ya mapeada. Se guarda en
+ * `products.source_row_hash` y permite detección de cambios idempotente:
+ * misma fila -> mismo hash -> "sin cambios"; cualquier cambio de contenido
+ * -> hash distinto -> "actualizado". Se serializa con las claves ORDENADAS
+ * para que el hash no dependa del orden de propiedades.
+ */
+export function computeRowHash(record: ProductUpsert): string {
+  const source = record as unknown as Record<string, unknown>;
+  const ordered: Record<string, unknown> = {};
+  for (const key of Object.keys(source).sort()) {
+    ordered[key] = source[key];
+  }
+  return createHash("sha256").update(JSON.stringify(ordered)).digest("hex");
 }
