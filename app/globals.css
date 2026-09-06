@@ -60,7 +60,9 @@ html {
 }
 
 body {
-  background-color: var(--color-fondo);
+  background:
+    radial-gradient(circle at 50% -20%, rgba(111, 158, 173, 0.10), transparent 36rem),
+    var(--color-fondo);
   color: var(--color-texto);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -103,10 +105,10 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* Bloque comercial inspirado en el patrón operativo de BH Tech, con identidad LOOP. */
 .commercial-card {
-  min-height: 250px;
+  min-height: 230px;
   border: 1px solid var(--color-borde);
-  border-radius: 0.75rem;
-  background: var(--color-superficie);
+  border-radius: 0.875rem;
+  background: linear-gradient(160deg, var(--color-superficie-2), var(--color-superficie));
   padding: 1rem;
 }
 .commercial-info {

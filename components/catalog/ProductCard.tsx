@@ -19,41 +19,45 @@ export function ProductCard({ product }: { product: PublicProduct }) {
 
   return (
     <>
-      <article className="rounded-[var(--radius-card)] border border-borde bg-superficie p-3 transition-colors hover:border-borde-fuerte">
+      <article className="group rounded-xl border border-borde bg-superficie p-3.5 shadow-sm shadow-black/10 transition-all hover:-translate-y-0.5 hover:border-acero/50 hover:shadow-lg hover:shadow-black/20">
         <button
           type="button"
           onClick={() => setDetailOpen(true)}
           className="block w-full text-left"
           aria-label={`Ver detalle y foto de ${product.nombre}`}
         >
-          <div className="mb-1.5 flex items-center gap-2">
+          <div className="mb-2.5 flex items-center gap-2">
             <StockBadge enStock={product.enStock} />
             {product.esPromocion && (
               <span className="rounded bg-acero-tenue px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-acero-fuerte">Promo</span>
             )}
-            {product.imagenUrl && (
-              <span className="rounded border border-borde px-1.5 py-0.5 text-[10px] font-medium text-texto-suave">Foto</span>
-            )}
             <span className="ml-auto truncate font-mono text-[11px] text-titanio">{product.sku}</span>
           </div>
 
-          <div className="flex items-start gap-3">
+          <div className="flex min-h-[74px] items-start gap-3">
+            {product.imagenUrl && (
+              <div className="flex h-[74px] w-[74px] shrink-0 items-center justify-center overflow-hidden rounded-lg border border-borde bg-white/[0.96] p-1.5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={product.imagenUrl} alt="" className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105" />
+              </div>
+            )}
             <div className="min-w-0 flex-1">
-              <h3 className="truncate text-sm font-semibold text-texto">{product.nombre}</h3>
-              <p className="mt-0.5 line-clamp-2 text-xs text-texto-suave">
+              <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.12em] text-acero-fuerte">{product.marca} · {product.tipo}</p>
+              <h3 className="line-clamp-2 text-sm font-bold leading-snug text-texto">{product.nombre}</h3>
+              <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-texto-suave">
                 {[product.modelo, product.calidad, marcoVisible ? product.marco : ""].filter(Boolean).join(" · ")}
                 {product.compatibilidad ? ` · Compatible: ${product.compatibilidad}` : ""}
               </p>
             </div>
             <div className="mt-0.5 shrink-0 text-titanio" aria-hidden>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M9 18l6-6-6-6" />
               </svg>
             </div>
           </div>
         </button>
 
-        <div className="mt-2.5 flex items-end justify-between gap-3">
+        <div className="mt-3 flex items-end justify-between gap-3 border-t border-borde/70 pt-3">
           <button type="button" onClick={() => setDetailOpen(true)} className="text-left leading-tight" aria-label={`Ver foto y precio de ${product.nombre}`}>
             {hasPromo ? (
               <>

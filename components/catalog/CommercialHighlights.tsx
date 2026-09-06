@@ -21,7 +21,7 @@ function FeaturedCard({ product, kind }: { product: PublicProduct; kind: Kind })
     product.precioPromocional !== null &&
     product.precioPromocional < product.precioPublico;
   return (
-    <article className="commercial-card min-w-[280px] snap-start sm:min-w-[300px]">
+    <article className="commercial-card min-w-[270px] snap-start sm:min-w-[290px]">
       <div className="flex h-full flex-col">
         <div className="mb-3 flex items-center justify-between gap-2">
           <span className={`commercial-pill ${kind === "promo" ? "commercial-pill-promo" : ""}`}>
@@ -29,11 +29,17 @@ function FeaturedCard({ product, kind }: { product: PublicProduct; kind: Kind })
           </span>
           <span className="font-mono text-[10px] text-titanio">{product.sku}</span>
         </div>
-        <h3 className="text-base font-extrabold leading-tight text-texto">{product.nombre}</h3>
+        {product.imagenUrl && (
+          <div className="mb-3 flex h-28 items-center justify-center overflow-hidden rounded-lg border border-borde bg-white/[0.96] p-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={product.imagenUrl} alt="" className="h-full w-full object-contain" />
+          </div>
+        )}
+        <h3 className="line-clamp-2 text-base font-extrabold leading-tight text-texto">{product.nombre}</h3>
         <p className="mt-2 line-clamp-3 text-xs leading-relaxed text-texto-suave">
           {[product.modelo, product.calidad, product.marco !== "N/A" ? product.marco : "", product.compatibilidad ? `Compatible: ${product.compatibilidad}` : ""].filter(Boolean).join(" · ")}
         </p>
-        <div className="mt-auto pt-5">
+        <div className="mt-auto pt-4">
           <div className="mb-3 flex items-end gap-2">
             {promo && <span className="text-xs text-titanio line-through">{formatARS(product.precioPublico)}</span>}
             <span className="text-xl font-black text-texto">{formatARS(promo ? product.precioPromocional! : product.precioPublico)}</span>
@@ -111,27 +117,27 @@ export function CommercialHighlights({
   return (
     <div className="space-y-7">
       {/* NOVEDADES: card de comunicación + productos marcados como novedad */}
-      <Seccion titulo="Novedades" subtitulo="Ingresos y avisos de LOOP REPUESTOS." count={novedades.length} mode="novedades" onShowAll={onShowAll}>
-        <article className="commercial-card commercial-info min-w-[280px] snap-start sm:min-w-[300px]">
-          <div className="flex h-full flex-col">
-            <span className="commercial-pill w-fit">LOOP REPUESTOS</span>
-            <h3 className="mt-3 text-lg font-black leading-tight text-texto">Repuestos e insumos, al toque</h3>
-            <p className="mt-2 text-xs leading-relaxed text-texto-suave">
-              Buscá por modelo, tipo o SKU y armá tu pedido sin salir del catálogo. Acá vas a ver ingresos y promos cuando estén disponibles.
-            </p>
-            <button
-              type="button"
-              onClick={() => document.getElementById("catalogo-loop")?.scrollIntoView({ behavior: "smooth" })}
-              className="mt-auto rounded-md border border-borde-fuerte px-3 py-2.5 text-xs font-bold text-texto hover:border-acero"
-            >
-              Ver catálogo →
-            </button>
+      {novedades.length > 0 ? (
+        <Seccion titulo="Novedades" subtitulo="Ingresos y avisos de LOOP REPUESTOS." count={novedades.length} mode="novedades" onShowAll={onShowAll}>
+          {novedades.slice(0, 10).map((p) => (
+            <FeaturedCard key={`nov-${p.sku}`} product={p} kind="novedad" />
+          ))}
+        </Seccion>
+      ) : (
+        <section aria-label="Novedades" className="commercial-info flex flex-col gap-4 rounded-xl border border-borde px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+          <div className="flex items-start gap-3">
+            <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-acero/30 bg-acero-tenue text-acero-fuerte" aria-hidden>↗</span>
+            <div>
+              <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-acero-fuerte">Novedades LOOP</p>
+              <h2 className="mt-0.5 text-base font-extrabold text-texto">Repuestos e insumos, al toque</h2>
+              <p className="mt-1 text-xs leading-relaxed text-texto-suave">Los nuevos ingresos y precios especiales van a aparecer acá.</p>
+            </div>
           </div>
-        </article>
-        {novedades.slice(0, 10).map((p) => (
-          <FeaturedCard key={`nov-${p.sku}`} product={p} kind="novedad" />
-        ))}
-      </Seccion>
+          <button type="button" onClick={() => document.getElementById("catalogo-loop")?.scrollIntoView({ behavior: "smooth" })} className="shrink-0 rounded-lg border border-borde-fuerte px-3 py-2 text-xs font-bold text-texto hover:border-acero">
+            Explorar catálogo
+          </button>
+        </section>
+      )}
 
       {/* NUEVOS INGRESOS */}
       {nuevos.length > 0 && (

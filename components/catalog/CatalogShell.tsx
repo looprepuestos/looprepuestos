@@ -60,6 +60,15 @@ export function CatalogShell({
     if (next.has(id)) next.delete(id); else next.add(id);
     return next;
   });
+  const toggleMarca = (id: string) => {
+    toggle(setMarcas)(id);
+    setTipos(new Set());
+    setModelos(new Set());
+  };
+  const toggleTipo = (id: string) => {
+    toggle(setTipos)(id);
+    setModelos(new Set());
+  };
 
   const activeFilters = marcas.size + tipos.size + modelos.size + calidades.size + marcos.size;
   const isSearching = query.trim().length > 0 || activeFilters > 0 || commercialMode !== null;
@@ -111,20 +120,31 @@ export function CatalogShell({
   const novedades = products.filter((p) => p.esNovedad);
   const nuevosIngresos = products.filter((p) => p.esNuevoIngreso);
   const promociones = products.filter((p) => p.esPromocion);
+  const visibleTipos = useMemo(() => {
+    if (marcas.size === 0) return tipoOpts;
+    const allowed = new Set(products.filter((p) => marcas.has(p.marca)).map((p) => p.tipo));
+    return tipoOpts.filter((option) => allowed.has(option.id));
+  }, [products, marcas, tipoOpts]);
+  const visibleModelos = useMemo(() => {
+    const allowed = new Set(products.filter((p) =>
+      (marcas.size === 0 || marcas.has(p.marca)) &&
+      (tipos.size === 0 || tipos.has(p.tipo))
+    ).map((p) => p.modelo));
+    return modeloOpts.filter((option) => allowed.has(option.id));
+  }, [products, marcas, tipos, modeloOpts]);
   const advancedCount = modelos.size + calidades.size + marcos.size;
   const commercialLabel = commercialMode === "novedades" ? "Novedades" : commercialMode === "nuevos" ? "Nuevos ingresos" : commercialMode === "promos" ? "Promociones" : "";
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       {!isSearching && (
         <CommercialHighlights novedades={novedades} nuevos={nuevosIngresos} promos={promociones} onShowAll={setCommercialMode} />
       )}
 
-      <SearchBar value={query} onChange={(value) => { setQuery(value); setCommercialMode(null); }} />
-
-      <div className="space-y-3 rounded-xl border border-borde bg-fondo-2/40 p-3">
-        <FilterChips label="Marcas" options={marcaOpts} active={marcas} onToggle={toggle(setMarcas)} />
-        <FilterChips label="Tipos" options={tipoOpts} active={tipos} onToggle={toggle(setTipos)} />
+      <div className="sticky top-[4.5rem] z-20 -mx-2 space-y-3 rounded-2xl border border-borde bg-fondo/90 p-3 shadow-xl shadow-black/15 backdrop-blur-xl sm:mx-0 sm:p-4">
+        <SearchBar value={query} onChange={(value) => { setQuery(value); setCommercialMode(null); }} />
+        <FilterChips label="Marcas" options={marcaOpts} active={marcas} onToggle={toggleMarca} />
+        <FilterChips label={marcas.size > 0 ? "Categorías para esta marca" : "Categorías"} options={visibleTipos} active={tipos} onToggle={toggleTipo} />
 
         {(modeloOpts.length > 1 || calidadOpts.length > 1 || marcoOpts.length > 1) && (
           <div className="border-t border-borde/70 pt-2">
@@ -139,7 +159,7 @@ export function CatalogShell({
             </button>
             {advancedOpen && (
               <div className="mt-3 space-y-3">
-                {modeloOpts.length > 1 && <FilterChips label="Modelos" options={modeloOpts} active={modelos} onToggle={toggle(setModelos)} />}
+                {visibleModelos.length > 1 && <FilterChips label="Modelos" options={visibleModelos} active={modelos} onToggle={toggle(setModelos)} />}
                 {calidadOpts.length > 1 && <FilterChips label="Calidad" options={calidadOpts} active={calidades} onToggle={toggle(setCalidades)} />}
                 {marcoOpts.length > 1 && <FilterChips label="Marco" options={marcoOpts} active={marcos} onToggle={toggle(setMarcos)} />}
               </div>
@@ -157,7 +177,7 @@ export function CatalogShell({
             </div>
             <button type="button" onClick={clearAll} className="text-xs font-semibold text-acero-fuerte">Limpiar</button>
           </div>
-          {results.length > 0 ? <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">{results.map((product) => <ProductCard key={product.sku} product={product} />)}</div> : <EmptyState query={query} />}
+          {results.length > 0 ? <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">{results.map((product) => <ProductCard key={product.sku} product={product} />)}</div> : <EmptyState query={query} />}
         </section>
       ) : (
         <section id="catalogo-loop" aria-label="Catálogo">
@@ -165,7 +185,7 @@ export function CatalogShell({
             <h2 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-texto"><span aria-hidden className="h-3 w-0.5 rounded bg-acero" />Catálogo</h2>
             <span className="text-xs font-medium text-texto-suave">{products.length} productos</span>
           </div>
-          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">{products.map((product) => <ProductCard key={product.sku} product={product} />)}</div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">{products.map((product) => <ProductCard key={product.sku} product={product} />)}</div>
         </section>
       )}
     </div>
