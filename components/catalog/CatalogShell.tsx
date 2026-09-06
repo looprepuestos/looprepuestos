@@ -31,6 +31,46 @@ function normalizedQuery(query: string) {
 
 type CommercialMode = "destacados" | "novedades" | "nuevos" | "promos" | null;
 
+const CATALOG_CATEGORIES = [
+  { id: "samsung", label: "SAMSUNG" },
+  { id: "motorola", label: "MOTOROLA" },
+  { id: "iphone", label: "IPHONE" },
+  { id: "tcl", label: "TCL" },
+  { id: "tecno", label: "TECNO" },
+  { id: "zte", label: "ZTE" },
+  { id: "xiaomi", label: "XIAOMI" },
+  { id: "tapa-trasera", label: "TAPA TRASERA" },
+  { id: "flex-de-carga", label: "FLEX DE CARGA" },
+  { id: "placas-de-carga", label: "PLACAS DE CARGA" },
+  { id: "tag-on-baterias", label: "TAG ON BATERÍAS" },
+  { id: "baterias", label: "BATERÍAS" },
+  { id: "herramienta-insumos", label: "HERRAMIENTA / INSUMOS" },
+] as const;
+
+function catalogCategory(product: PublicProduct) {
+  const type = normalize(product.tipo);
+  const brand = normalize(product.marca);
+  const quality = normalize(product.calidad);
+
+  if (quality.includes("tag on")) return "tag-on-baterias";
+  if (type === "modulo" && ["samsung", "motorola", "iphone", "tcl", "tecno", "zte", "xiaomi"].includes(brand)) return brand;
+  if (type === "tapa") return "tapa-trasera";
+  if (type === "flex de carga") return "flex-de-carga";
+  if (type === "placa de carga") return "placas-de-carga";
+  if (type === "bateria") return "baterias";
+  return "herramienta-insumos";
+}
+
+function catalogSubcategory(product: PublicProduct, categoryId: string) {
+  if (["tapa-trasera", "flex-de-carga", "placas-de-carga", "tag-on-baterias", "baterias"].includes(categoryId)) {
+    return product.marca || "General";
+  }
+  if (categoryId === "herramienta-insumos") return product.tipo || "Otros";
+
+  const details = [product.calidad, product.marco !== "N/A" ? product.marco : ""].filter(Boolean);
+  return details.length > 0 ? details.join(" · ") : "Otros";
+}
+
 export function CatalogShell({
   products,
   marcas: marcaOpts,
@@ -55,6 +95,7 @@ export function CatalogShell({
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const [commercialMode, setCommercialMode] = useState<CommercialMode>(null);
   const [expandedCategories, setExpandedCategories] = useState<ReadonlySet<string>>(new Set());
+  const [expandedSubcategories, setExpandedSubcategories] = useState<ReadonlySet<string>>(new Set());
 
   const toggle = (setter: React.Dispatch<React.SetStateAction<ReadonlySet<string>>>) => (id: string) => setter((prev) => {
     const next = new Set(prev);
@@ -131,31 +172,27 @@ export function CatalogShell({
   const novedades = products.filter((p) => p.esNovedad);
   const nuevosIngresos = products.filter((p) => p.esNuevoIngreso);
   const promociones = products.filter((p) => p.esPromocion);
-  const categoryGroups = useMemo(() => {
-    const typeLabels = new Map(tipoOpts.map((option) => [option.id, option.label]));
-    const typeOrder = new Map(tipoOpts.map((option, index) => [option.id, index]));
-    const groups = new Map<string, { id: string; label: string; products: PublicProduct[]; typeIndex: number }>();
-
-    for (const product of products) {
-      const baseLabel = product.marca.toLowerCase() === "general"
-        ? (typeLabels.get(product.tipo) ?? product.tipo)
-        : `${typeLabels.get(product.tipo) ?? product.tipo} ${product.marca}`;
-      const details: string[] = [];
-      if ((product.tipo === "Módulo" || product.tipo === "Batería") && product.calidad) details.push(product.calidad);
-      if (product.tipo === "Módulo" && product.marco && product.marco !== "N/A") details.push(product.marco);
-      const label = product.calidad.toUpperCase().includes("TAG ON")
-        ? "TAG ON - BATERÍAS"
-        : [baseLabel, ...details].join(" · ");
-      const id = [product.tipo, product.marca, ...details].join("::");
-      const group = groups.get(id) ?? { id, label, products: [], typeIndex: typeOrder.get(product.tipo) ?? 99 };
-      group.products.push(product);
-      groups.set(id, group);
+  const categoryGroups = useMemo(() => CATALOG_CATEGORIES.map((category) => {
+    const categoryProducts = products.filter((product) => catalogCategory(product) === category.id);
+    const subcategoryMap = new Map<string, PublicProduct[]>();
+    for (const product of categoryProducts) {
+      const label = catalogSubcategory(product, category.id);
+      const current = subcategoryMap.get(label) ?? [];
+      current.push(product);
+      subcategoryMap.set(label, current);
     }
-
-    return [...groups.values()].sort((a, b) => a.typeIndex - b.typeIndex || a.label.localeCompare(b.label, "es"));
-  }, [products, tipoOpts]);
+    const subcategories = [...subcategoryMap.entries()]
+      .map(([label, subProducts]) => ({ id: `${category.id}::${normalize(label)}`, label, products: subProducts }))
+      .sort((a, b) => a.label.localeCompare(b.label, "es"));
+    return { ...category, products: categoryProducts, subcategories };
+  }), [products]);
 
   const toggleCategory = (id: string) => setExpandedCategories((current) => {
+    const next = new Set(current);
+    if (next.has(id)) next.delete(id); else next.add(id);
+    return next;
+  });
+  const toggleSubcategory = (id: string) => setExpandedSubcategories((current) => {
     const next = new Set(current);
     if (next.has(id)) next.delete(id); else next.add(id);
     return next;
@@ -213,9 +250,12 @@ export function CatalogShell({
           <div className="mb-3 flex flex-wrap items-center justify-between gap-3 px-0.5">
             <span className="text-sm font-bold text-texto-suave">{products.length} productos</span>
             <div className="flex items-center gap-2 text-xs font-bold">
-              <button type="button" onClick={() => setExpandedCategories(new Set(categoryGroups.map((group) => group.id)))} className="text-texto-suave hover:text-acero-fuerte">Expandir todo</button>
+              <button type="button" onClick={() => {
+                setExpandedCategories(new Set(categoryGroups.map((group) => group.id)));
+                setExpandedSubcategories(new Set(categoryGroups.flatMap((group) => group.subcategories.map((subcategory) => subcategory.id))));
+              }} className="text-texto-suave hover:text-acero-fuerte">Expandir todo</button>
               <span className="text-borde-fuerte">·</span>
-              <button type="button" onClick={() => setExpandedCategories(new Set())} className="text-texto-suave hover:text-acero-fuerte">Colapsar todo</button>
+              <button type="button" onClick={() => { setExpandedCategories(new Set()); setExpandedSubcategories(new Set()); }} className="text-texto-suave hover:text-acero-fuerte">Colapsar todo</button>
             </div>
           </div>
           <div className="space-y-2.5">
@@ -230,8 +270,26 @@ export function CatalogShell({
                     <svg aria-hidden className={`h-4 w-4 shrink-0 text-titanio transition-transform ${expanded ? "rotate-90" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
                   </button>
                   {expanded && (
-                    <div className="grid grid-cols-1 gap-3 border-t border-borde bg-fondo-2/60 p-3 sm:grid-cols-2 xl:grid-cols-3">
-                      {group.products.map((product) => <ProductCard key={product.sku} product={product} />)}
+                    <div className="space-y-2 border-t border-borde bg-fondo-2/60 p-3">
+                      {group.subcategories.length === 0 ? (
+                        <p className="px-3 py-5 text-center text-sm font-medium text-texto-suave">Próximamente</p>
+                      ) : group.subcategories.map((subcategory) => {
+                        const subcategoryExpanded = expandedSubcategories.has(subcategory.id);
+                        return (
+                          <section key={subcategory.id} className="overflow-hidden rounded-lg border border-borde bg-white">
+                            <button type="button" onClick={() => toggleSubcategory(subcategory.id)} aria-expanded={subcategoryExpanded} className="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-fondo-2">
+                              <span className="min-w-0 flex-1 text-sm font-bold text-texto">{subcategory.label}</span>
+                              <span className="rounded-full bg-fondo-2 px-2.5 py-1 text-xs font-bold tabular-nums text-texto-suave">{subcategory.products.length}</span>
+                              <svg aria-hidden className={`h-4 w-4 shrink-0 text-titanio transition-transform ${subcategoryExpanded ? "rotate-90" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+                            </button>
+                            {subcategoryExpanded && (
+                              <div className="grid grid-cols-1 gap-3 border-t border-borde bg-fondo-2/60 p-3 sm:grid-cols-2 xl:grid-cols-3">
+                                {subcategory.products.map((product) => <ProductCard key={product.sku} product={product} />)}
+                              </div>
+                            )}
+                          </section>
+                        );
+                      })}
                     </div>
                   )}
                 </section>
