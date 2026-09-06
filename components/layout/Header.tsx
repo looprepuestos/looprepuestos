@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCart } from "@/lib/cart/CartContext";
 import { Logo } from "./Logo";
 
@@ -10,7 +11,17 @@ export function Header() {
   return (
     <header className="sticky top-0 z-30 border-b border-borde bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
-        <div className="flex min-w-0 items-center gap-3">
+        <Link
+          href="/"
+          aria-label="Volver al inicio de LOOP Repuestos"
+          onClick={(event) => {
+            if (window.location.pathname === "/") {
+              event.preventDefault();
+              window.location.reload();
+            }
+          }}
+          className="flex min-w-0 items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acero focus-visible:ring-offset-2"
+        >
           <Logo size={38} />
           <div className="min-w-0 leading-tight">
             <p className="text-sm font-black tracking-[-0.02em] text-texto sm:text-base">
@@ -20,7 +31,7 @@ export function Header() {
               Repuestos e insumos para celulares
             </p>
           </div>
-        </div>
+        </Link>
 
         <button
           type="button"
