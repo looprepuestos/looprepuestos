@@ -143,7 +143,9 @@ export function CatalogShell({
       const details: string[] = [];
       if ((product.tipo === "Módulo" || product.tipo === "Batería") && product.calidad) details.push(product.calidad);
       if (product.tipo === "Módulo" && product.marco && product.marco !== "N/A") details.push(product.marco);
-      const label = [baseLabel, ...details].join(" · ");
+      const label = product.calidad.toUpperCase().includes("TAG ON")
+        ? "TAG ON - BATERÍAS"
+        : [baseLabel, ...details].join(" · ");
       const id = [product.tipo, product.marca, ...details].join("::");
       const group = groups.get(id) ?? { id, label, products: [], typeIndex: typeOrder.get(product.tipo) ?? 99 };
       group.products.push(product);
