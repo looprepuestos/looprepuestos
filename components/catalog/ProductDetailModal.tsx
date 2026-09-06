@@ -47,10 +47,7 @@ export function ProductDetailModal({
         onMouseDown={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-borde bg-fondo-2/95 px-4 py-3 backdrop-blur">
-          <div className="flex items-center gap-2">
-            <StockBadge enStock={product.enStock} />
-            <span className="font-mono text-[11px] text-titanio">{product.sku}</span>
-          </div>
+          <StockBadge enStock={product.enStock} />
           <button
             type="button"
             onClick={onClose}

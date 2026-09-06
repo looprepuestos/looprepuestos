@@ -31,7 +31,6 @@ export function ProductCard({ product }: { product: PublicProduct }) {
             {product.esPromocion && (
               <span className="rounded bg-acero-tenue px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-acero-fuerte">Promo</span>
             )}
-            <span className="ml-auto truncate font-mono text-[11px] text-titanio">{product.sku}</span>
           </div>
 
           <div className="flex min-h-[74px] items-start gap-3">

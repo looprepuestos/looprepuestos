@@ -25,7 +25,7 @@ export function EmptyState({ query }: { query: string }) {
       <p className="text-sm font-semibold text-texto">Sin resultados</p>
       <p className="mt-1 max-w-xs text-xs text-texto-suave">
         {query.trim().length > 0
-          ? `No encontramos repuestos para “${query}”. Probá con otro modelo o SKU.`
+          ? `No encontramos repuestos para “${query}”. Probá con otro modelo o tipo.`
           : "Ajustá los filtros para ver repuestos."}
       </p>
     </div>

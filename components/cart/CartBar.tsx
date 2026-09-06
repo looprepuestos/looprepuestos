@@ -6,7 +6,7 @@ import { formatARS } from "@/lib/format";
 
 function whatsappMessage(lines: ReturnType<typeof useCart>["detailedLines"], total: number) {
   const detail = lines
-    .map((line) => `• ${line.qty}x ${line.product.nombre}\n  SKU: ${line.product.sku}\n  ${formatARS(line.unitPrice)} c/u · ${formatARS(line.lineTotal)}`)
+    .map((line) => `• ${line.qty}x ${line.product.nombre}\n  ${formatARS(line.unitPrice)} c/u · ${formatARS(line.lineTotal)}`)
     .join("\n\n");
   return [
     "Hola LOOP REPUESTOS 👋",
@@ -63,7 +63,6 @@ export function CartBar() {
                   <div className="flex gap-3">
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-semibold text-texto">{line.product.nombre}</p>
-                      <p className="mt-0.5 font-mono text-[10px] text-titanio">{line.sku}</p>
                       <p className="mt-1 text-xs text-texto-suave">{formatARS(line.unitPrice)} c/u</p>
                     </div>
                     <div className="text-right">

@@ -23,11 +23,10 @@ function FeaturedCard({ product, kind }: { product: PublicProduct; kind: Kind })
   return (
     <article className="commercial-card min-w-[270px] snap-start sm:min-w-[290px]">
       <div className="flex h-full flex-col">
-        <div className="mb-3 flex items-center justify-between gap-2">
+        <div className="mb-3 flex items-center gap-2">
           <span className={`commercial-pill ${kind === "promo" ? "commercial-pill-promo" : ""}`}>
             {KIND_LABEL[kind]}
           </span>
-          <span className="font-mono text-[10px] text-titanio">{product.sku}</span>
         </div>
         {product.imagenUrl && (
           <div className="mb-3 flex h-28 items-center justify-center overflow-hidden rounded-lg border border-borde bg-white/[0.96] p-2">

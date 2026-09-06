@@ -16,7 +16,7 @@ export default async function HomePage() {
       <div className="min-h-dvh">
         <Header />
 
-        <main className="mx-auto max-w-7xl px-4 pb-28 pt-5 sm:px-6 lg:px-8">
+        <main className="mx-auto max-w-7xl px-4 pb-28 pt-4 sm:px-6 lg:px-8">
           {products.length === 0 ? (
             <div className="rounded-[var(--radius-card)] border border-dashed border-borde bg-superficie px-6 py-14 text-center">
               <p className="text-sm font-semibold text-texto">

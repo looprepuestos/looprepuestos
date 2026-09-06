@@ -12,7 +12,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "LOOP REPUESTOS — Repuestos para celulares",
   description:
-    "Catálogo y lista de precios de repuestos para celulares. Buscá por modelo, tipo o SKU.",
+    "Catálogo y lista de precios de repuestos para celulares. Buscá por modelo o tipo.",
   applicationName: "LOOP REPUESTOS",
   robots: {
     index: false,

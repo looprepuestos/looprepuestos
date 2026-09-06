@@ -6,7 +6,6 @@ import { SearchBar } from "@/components/search/SearchBar";
 import { FilterChips } from "@/components/search/FilterChips";
 import { ProductCard } from "./ProductCard";
 import { EmptyState } from "./EmptyState";
-import { CommercialHighlights } from "./CommercialHighlights";
 
 function normalize(input: string) {
   return input.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
@@ -90,7 +89,7 @@ export function CatalogShell({
 
     return products
       .filter((product) => {
-        const haystack = normalize([product.sku, product.nombre, product.marca, product.modelo, product.tipo, product.calidad, product.marco, product.compatibilidad].join(" "));
+        const haystack = normalize([product.nombre, product.marca, product.modelo, product.tipo, product.calidad, product.marco, product.compatibilidad].join(" "));
         const matchQuery = tokens.length === 0 || tokens.every((token) => haystack.includes(token));
         const matchCommercial = commercialMode === null ||
           (commercialMode === "novedades" && product.esNovedad) ||
@@ -105,9 +104,6 @@ export function CatalogShell({
       })
       .sort((a, b) => {
         if (exact) {
-          const aSku = normalize(a.sku) === exact ? 1 : 0;
-          const bSku = normalize(b.sku) === exact ? 1 : 0;
-          if (aSku !== bSku) return bSku - aSku;
           const aModel = normalize(a.modelo) === exact ? 1 : 0;
           const bModel = normalize(b.modelo) === exact ? 1 : 0;
           if (aModel !== bModel) return bModel - aModel;
@@ -117,9 +113,6 @@ export function CatalogShell({
       });
   }, [products, query, marcas, tipos, modelos, calidades, marcos, commercialMode]);
 
-  const novedades = products.filter((p) => p.esNovedad);
-  const nuevosIngresos = products.filter((p) => p.esNuevoIngreso);
-  const promociones = products.filter((p) => p.esPromocion);
   const visibleTipos = useMemo(() => {
     if (marcas.size === 0) return tipoOpts;
     const allowed = new Set(products.filter((p) => marcas.has(p.marca)).map((p) => p.tipo));
@@ -137,11 +130,7 @@ export function CatalogShell({
 
   return (
     <div className="space-y-7">
-      {!isSearching && (
-        <CommercialHighlights novedades={novedades} nuevos={nuevosIngresos} promos={promociones} onShowAll={setCommercialMode} />
-      )}
-
-      <div className="sticky top-[4.5rem] z-20 -mx-2 space-y-3 rounded-2xl border border-borde bg-fondo/90 p-3 shadow-xl shadow-black/15 backdrop-blur-xl sm:mx-0 sm:p-4">
+      <div className="space-y-3 rounded-xl border border-borde bg-white p-3 shadow-sm sm:p-4">
         <SearchBar value={query} onChange={(value) => { setQuery(value); setCommercialMode(null); }} />
         <FilterChips label="Marcas" options={marcaOpts} active={marcas} onToggle={toggleMarca} />
         <FilterChips label={marcas.size > 0 ? "Categorías para esta marca" : "Categorías"} options={visibleTipos} active={tipos} onToggle={toggleTipo} />
