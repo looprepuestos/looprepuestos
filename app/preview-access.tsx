@@ -93,7 +93,7 @@ export function PreviewAccessGate({ incorrect = false }: { incorrect?: boolean }
               placeholder="Ingresá la clave"
             />
             {incorrect ? (
-              <p className="mt-2 text-sm text-red-300">La clave no es correcta. Probá nuevamente.</p>
+              <p className="mt-2 text-sm text-red-600">La clave no es correcta. Probá nuevamente.</p>
             ) : null}
           </div>
 

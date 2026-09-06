@@ -2,46 +2,44 @@
 
 /* ==========================================================================
    LOOP REPUESTOS — Design System (base)
-   Dirección: TECH · ELECTRÓNICA · INDUSTRIAL · PREMIUM
-   Estética oscura tipo grafito/titanio/plata inspirada en el logo.
+   Dirección: TECH · ELECTRÓNICA · INDUSTRIAL · CLARA
+   Base blanca con grafito/titanio inspirada en el logo.
    Acento acero frío MUY sutil (no neón, no gamer).
    Paleta base (ajustable contra el logo oficial):
-     Fondo principal   #12161C
-     Fondo secundario  #1A2027
-     Superficie/cards  #222A32
-     Grafito           #26323B
-     Plata             #BFC3C5
-     Titanio           #8D9499
-     Texto             #F2F4F5
-     Texto secundario  #A9B0B5
-     Bordes            #343D45
-     Acento acero      #6F9EAD
+     Fondo principal   #FFFFFF
+     Fondo secundario  #F5F7F8
+     Superficie/cards  #FFFFFF
+     Grafito           #E9EEF0
+     Texto             #151B20
+     Texto secundario  #5D6972
+     Bordes            #DFE4E7
+     Acento acero      #376B7B
    ========================================================================== */
 
 @theme {
   /* --- Superficies --- */
-  --color-fondo: #12161c;
-  --color-fondo-2: #1a2027;
-  --color-superficie: #222a32;
-  --color-superficie-2: #262f38;
-  --color-grafito: #26323b;
+  --color-fondo: #ffffff;
+  --color-fondo-2: #f5f7f8;
+  --color-superficie: #ffffff;
+  --color-superficie-2: #f0f3f5;
+  --color-grafito: #e9eef0;
 
   /* --- Metales / texto --- */
-  --color-plata: #bfc3c5;
-  --color-titanio: #8d9499;
-  --color-texto: #f2f4f5;
-  --color-texto-suave: #a9b0b5;
-  --color-borde: #343d45;
-  --color-borde-fuerte: #3f4a53;
+  --color-plata: #35434c;
+  --color-titanio: #6f7c84;
+  --color-texto: #151b20;
+  --color-texto-suave: #5d6972;
+  --color-borde: #dfe4e7;
+  --color-borde-fuerte: #c8d0d5;
 
   /* --- Acento acero (sutil, sólo estados interactivos) --- */
-  --color-acero: #6f9ead;
-  --color-acero-fuerte: #7fb0bf;
-  --color-acero-tenue: #2a3a41;
+  --color-acero: #376b7b;
+  --color-acero-fuerte: #285b6c;
+  --color-acero-tenue: #e8f0f2;
 
   /* --- Estados de stock (calmos, no neón) --- */
-  --color-stock-on: #57b98b;
-  --color-stock-off: #6a7278;
+  --color-stock-on: #23815a;
+  --color-stock-off: #7c858b;
 
   /* --- Tipografía --- */
   --font-sans:
@@ -54,15 +52,13 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
 
 body {
-  background:
-    radial-gradient(circle at 50% -20%, rgba(111, 158, 173, 0.10), transparent 36rem),
-    var(--color-fondo);
+  background: var(--color-fondo);
   color: var(--color-texto);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -108,12 +104,12 @@ input[type="number"]::-webkit-inner-spin-button {
   min-height: 230px;
   border: 1px solid var(--color-borde);
   border-radius: 0.875rem;
-  background: linear-gradient(160deg, var(--color-superficie-2), var(--color-superficie));
+  background: var(--color-superficie);
   padding: 1rem;
 }
 .commercial-info {
   background:
-    linear-gradient(135deg, rgba(111, 158, 173, 0.08), transparent 48%),
+    linear-gradient(135deg, rgba(55, 107, 123, 0.08), transparent 48%),
     var(--color-superficie);
 }
 .commercial-pill {
@@ -127,7 +123,7 @@ input[type="number"]::-webkit-inner-spin-button {
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #7bd0a6;
+  color: #176b49;
 }
 .commercial-pill-promo {
   border-color: rgba(111, 158, 173, 0.58);

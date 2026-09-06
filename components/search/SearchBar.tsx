@@ -13,11 +13,12 @@ interface SearchBarProps {
 
 export function SearchBar({ value, onChange }: SearchBarProps) {
   return (
-    <div className="relative">
-      <span
-        aria-hidden
-        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-titanio"
-      >
+    <div>
+      <label htmlFor="catalog-search" className="mb-2 block text-sm font-extrabold text-texto">
+        ¿Qué repuesto necesitás?
+      </label>
+      <div className="relative">
+        <span aria-hidden className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-acero-fuerte">
         <svg
           width="20"
           height="20"
@@ -31,18 +32,19 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
           <circle cx="11" cy="11" r="8" />
           <path d="m21 21-4.3-4.3" />
         </svg>
-      </span>
+        </span>
 
-      <input
-        type="search"
-        inputMode="search"
-        autoComplete="off"
-        aria-label="Buscar repuestos"
-        placeholder="Buscar A12, G20, batería iPhone 11, placa A13..."
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className="h-13 w-full rounded-xl border border-borde-fuerte bg-superficie pl-11 pr-4 text-base font-medium text-texto shadow-inner shadow-black/10 placeholder:font-normal placeholder:text-titanio focus:border-acero focus:outline-none focus:ring-2 focus:ring-acero/20"
-      />
+        <input
+          id="catalog-search"
+          type="search"
+          inputMode="search"
+          autoComplete="off"
+          placeholder="Modelo, producto o código"
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+          className="h-13 w-full rounded-xl border border-borde-fuerte bg-superficie pl-11 pr-4 text-base font-medium text-texto shadow-sm placeholder:font-normal placeholder:text-titanio focus:border-acero focus:outline-none focus:ring-3 focus:ring-acero/15"
+        />
+      </div>
     </div>
   );
 }
