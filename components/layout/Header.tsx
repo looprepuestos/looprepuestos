@@ -10,7 +10,15 @@ export function Header() {
   return (
     <header className="border-b border-borde bg-white">
       <div className="relative mx-auto flex max-w-7xl items-center justify-center px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
-        <Logo size={112} />
+        <div className="flex flex-col items-center">
+          <Logo size={112} />
+          <p className="mt-2 text-base font-black tracking-[-0.02em] text-texto">
+            LOOP <span className="text-plata">REPUESTOS</span>
+          </p>
+          <p className="mt-1 text-xs font-semibold tracking-[0.06em] text-titanio">
+            Repuestos e insumos para celulares
+          </p>
+        </div>
 
         <button
           type="button"

@@ -6,6 +6,7 @@ import { SearchBar } from "@/components/search/SearchBar";
 import { FilterChips } from "@/components/search/FilterChips";
 import { ProductCard } from "./ProductCard";
 import { EmptyState } from "./EmptyState";
+import { CommercialHighlights } from "./CommercialHighlights";
 
 function normalize(input: string) {
   return input.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
@@ -28,7 +29,7 @@ function normalizedQuery(query: string) {
   return q.replace(/\s+/g, " ").trim();
 }
 
-type CommercialMode = "novedades" | "nuevos" | "promos" | null;
+type CommercialMode = "destacados" | "novedades" | "nuevos" | "promos" | null;
 
 export function CatalogShell({
   products,
@@ -92,6 +93,7 @@ export function CatalogShell({
         const haystack = normalize([product.nombre, product.marca, product.modelo, product.tipo, product.calidad, product.marco, product.compatibilidad].join(" "));
         const matchQuery = tokens.length === 0 || tokens.every((token) => haystack.includes(token));
         const matchCommercial = commercialMode === null ||
+          (commercialMode === "destacados" && (product.esNovedad || product.esNuevoIngreso || product.esPromocion)) ||
           (commercialMode === "novedades" && product.esNovedad) ||
           (commercialMode === "nuevos" && product.esNuevoIngreso) ||
           (commercialMode === "promos" && product.esPromocion);
@@ -125,13 +127,21 @@ export function CatalogShell({
     ).map((p) => p.modelo));
     return modeloOpts.filter((option) => allowed.has(option.id));
   }, [products, marcas, tipos, modeloOpts]);
+  const novedades = products.filter((p) => p.esNovedad);
+  const nuevosIngresos = products.filter((p) => p.esNuevoIngreso);
+  const promociones = products.filter((p) => p.esPromocion);
   const advancedCount = modelos.size + calidades.size + marcos.size;
-  const commercialLabel = commercialMode === "novedades" ? "Novedades" : commercialMode === "nuevos" ? "Nuevos ingresos" : commercialMode === "promos" ? "Promociones" : "";
+  const commercialLabel = commercialMode === "destacados" || commercialMode === "novedades" ? "Novedades" : commercialMode === "nuevos" ? "Nuevos ingresos" : commercialMode === "promos" ? "Ofertas" : "";
 
   return (
     <div className="space-y-7">
+      <SearchBar value={query} onChange={(value) => { setQuery(value); setCommercialMode(null); }} />
+
+      {!isSearching && (
+        <CommercialHighlights novedades={novedades} nuevos={nuevosIngresos} promos={promociones} onShowAll={setCommercialMode} />
+      )}
+
       <div className="space-y-3 rounded-xl border border-borde bg-white p-3 shadow-sm sm:p-4">
-        <SearchBar value={query} onChange={(value) => { setQuery(value); setCommercialMode(null); }} />
         <FilterChips label="Marcas" options={marcaOpts} active={marcas} onToggle={toggleMarca} />
         <FilterChips label={marcas.size > 0 ? "Categorías para esta marca" : "Categorías"} options={visibleTipos} active={tipos} onToggle={toggleTipo} />
 
