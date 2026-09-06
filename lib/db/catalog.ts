@@ -4,17 +4,28 @@ import type { FacetOption, PublicProduct } from "@/types/product";
 import type { CatalogoPublicoRow } from "@/types/database";
 import { createPublicClient } from "./supabase";
 
+/** Oculta marcas internas de proveedor sin modificar la fuente operativa. */
+function publicText(value: string): string {
+  return value
+    .replace(/\s*\/\s*KP\b/gi, "")
+    .replace(/\bKP\b/gi, "")
+    .replace(/\s+/g, " ")
+    .replace(/\s*·\s*·\s*/g, " · ")
+    .replace(/\s*·\s*$/, "")
+    .trim();
+}
+
 /** Mapea una fila pública (snake_case) al modelo de UI (camelCase). */
 function mapRow(r: CatalogoPublicoRow): PublicProduct {
   return {
     sku: r.sku,
-    nombre: r.nombre,
-    marca: r.marca,
-    modelo: r.modelo,
-    tipo: r.tipo,
-    calidad: r.calidad,
-    marco: r.marco,
-    compatibilidad: r.compatibilidad,
+    nombre: publicText(r.nombre),
+    marca: publicText(r.marca),
+    modelo: publicText(r.modelo),
+    tipo: publicText(r.tipo),
+    calidad: publicText(r.calidad),
+    marco: publicText(r.marco),
+    compatibilidad: publicText(r.compatibilidad),
     imagenUrl: r.imagen_url ?? null,
     precioPublico: r.precio_publico,
     precioPromocional: r.precio_promocional,
