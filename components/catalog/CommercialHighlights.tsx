@@ -56,14 +56,19 @@ function FeaturedCard({ product, kind }: { product: PublicProduct; kind: Kind })
   );
 }
 
-function CustomHighlightCard({ highlight }: { highlight: PublicHighlight }) {
-  const scrollToCatalog = () => document.getElementById("catalogo-loop")?.scrollIntoView({ behavior: "smooth" });
+function CustomHighlightCard({
+  highlight,
+  onOpenProduct,
+}: {
+  highlight: PublicHighlight;
+  onOpenProduct: (sku: string | null) => void;
+}) {
   return (
     <article className="commercial-card commercial-info min-w-[270px] flex-col snap-start sm:min-w-[300px]">
       <span className={`commercial-pill ${highlight.tipo === "Oferta" ? "commercial-pill-promo" : ""}`}>{highlight.tipo}</span>
       <h3 className="mt-4 text-lg font-black leading-tight text-texto">{highlight.titulo}</h3>
       {highlight.texto && <p className="mt-2 text-sm leading-relaxed text-texto-suave">{highlight.texto}</p>}
-      <button type="button" onClick={scrollToCatalog} className="mt-auto w-full rounded-lg border border-acero px-3 py-2.5 text-sm font-extrabold text-acero-fuerte hover:bg-acero-tenue">
+      <button type="button" onClick={() => onOpenProduct(highlight.sku_producto)} className="mt-auto w-full rounded-lg border border-acero px-3 py-2.5 text-sm font-extrabold text-acero-fuerte hover:bg-acero-tenue">
         {highlight.texto_boton || "Ver productos"} →
       </button>
     </article>
@@ -83,12 +88,14 @@ export function CommercialHighlights({
   nuevos,
   promos,
   onShowAll,
+  onOpenProduct,
 }: {
   highlights: ReadonlyArray<PublicHighlight>;
   novedades: ReadonlyArray<PublicProduct>;
   nuevos: ReadonlyArray<PublicProduct>;
   promos: ReadonlyArray<PublicProduct>;
   onShowAll: (mode: Mode) => void;
+  onOpenProduct: (sku: string | null) => void;
 }) {
   const destacados = [
     ...promos.map((product) => ({ product, kind: "promo" as const })),
@@ -111,7 +118,7 @@ export function CommercialHighlights({
       </div>
       <div className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1">
         {highlights.length > 0 ? highlights.map((highlight) => (
-          <CustomHighlightCard key={highlight.sheet_row} highlight={highlight} />
+          <CustomHighlightCard key={highlight.sheet_row} highlight={highlight} onOpenProduct={onOpenProduct} />
         )) : (
           <article className="commercial-card commercial-info min-w-[270px] flex-col snap-start sm:min-w-[300px]">
             <span className="commercial-pill">Nuevo ingreso</span>

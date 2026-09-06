@@ -131,6 +131,21 @@ export function CatalogShell({
     setCommercialMode(null);
   };
 
+  const openHighlightProduct = (sku: string | null) => {
+    const product = sku ? products.find((item) => item.sku === sku) : null;
+    if (!product) {
+      document.getElementById("catalogo-loop")?.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+    setQuery(product.nombre);
+    setMarcas(new Set());
+    setTipos(new Set());
+    setModelos(new Set());
+    setCalidades(new Set());
+    setMarcos(new Set());
+    setCommercialMode(null);
+  };
+
   const results = useMemo(() => {
     const q = normalizedQuery(query);
     const tokens = q.split(" ").filter(Boolean);
@@ -211,7 +226,7 @@ export function CatalogShell({
       <SearchBar value={query} onChange={(value) => { setQuery(value); setCommercialMode(null); }} />
 
       {!isSearching && (
-        <CommercialHighlights highlights={highlights} novedades={novedades} nuevos={nuevosIngresos} promos={promociones} onShowAll={setCommercialMode} />
+        <CommercialHighlights highlights={highlights} novedades={novedades} nuevos={nuevosIngresos} promos={promociones} onShowAll={setCommercialMode} onOpenProduct={openHighlightProduct} />
       )}
 
       <div className="space-y-3 rounded-xl border border-borde bg-white p-3 shadow-sm sm:p-4">
