@@ -62,7 +62,10 @@ function catalogCategory(product: PublicProduct) {
 }
 
 function catalogSubcategory(product: PublicProduct, categoryId: string) {
-  if (["tapa-trasera", "flex-de-carga", "placas-de-carga", "tag-on-baterias", "baterias"].includes(categoryId)) {
+  if (categoryId === "tapa-trasera") {
+    return product.modelo.replace(/\s+completa$/i, "").trim() || "Otros modelos";
+  }
+  if (["flex-de-carga", "placas-de-carga", "tag-on-baterias", "baterias"].includes(categoryId)) {
     return product.marca || "General";
   }
   if (categoryId === "herramienta-insumos") return product.tipo || "Otros";
@@ -278,7 +281,9 @@ export function CatalogShell({
                         return (
                           <section key={subcategory.id} className="overflow-hidden rounded-lg border border-borde bg-white">
                             <button type="button" onClick={() => toggleSubcategory(subcategory.id)} aria-expanded={subcategoryExpanded} className="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-fondo-2">
-                              <span className="min-w-0 flex-1 text-sm font-bold text-texto">{subcategory.label}</span>
+                              <span className="min-w-0 flex-1 text-sm font-bold text-texto">
+                                {group.id === "tapa-trasera" ? `iPhone ${subcategory.label}` : subcategory.label}
+                              </span>
                               <span className="rounded-full bg-fondo-2 px-2.5 py-1 text-xs font-bold tabular-nums text-texto-suave">{subcategory.products.length}</span>
                               <svg aria-hidden className={`h-4 w-4 shrink-0 text-titanio transition-transform ${subcategoryExpanded ? "rotate-90" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
                             </button>
