@@ -71,6 +71,18 @@ export interface CatalogoPublicoRow {
   orden_destacado: number;
 }
 
+export interface PublicHighlight {
+  sheet_row: number;
+  tipo: "Novedad" | "Nuevo ingreso" | "Oferta";
+  titulo: string;
+  texto: string;
+  sku_producto: string | null;
+  texto_boton: string;
+  fecha_desde: string | null;
+  fecha_hasta: string | null;
+  orden: number;
+}
+
 export interface ProfileRow {
   id: string;
   email: string;

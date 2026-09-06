@@ -1,6 +1,7 @@
 "use client";
 
 import type { PublicProduct } from "@/types/product";
+import type { PublicHighlight } from "@/types/database";
 import { formatARS } from "@/lib/format";
 import { useCart } from "@/lib/cart/CartContext";
 
@@ -55,6 +56,20 @@ function FeaturedCard({ product, kind }: { product: PublicProduct; kind: Kind })
   );
 }
 
+function CustomHighlightCard({ highlight }: { highlight: PublicHighlight }) {
+  const scrollToCatalog = () => document.getElementById("catalogo-loop")?.scrollIntoView({ behavior: "smooth" });
+  return (
+    <article className="commercial-card commercial-info min-w-[270px] flex-col snap-start sm:min-w-[300px]">
+      <span className={`commercial-pill ${highlight.tipo === "Oferta" ? "commercial-pill-promo" : ""}`}>{highlight.tipo}</span>
+      <h3 className="mt-4 text-lg font-black leading-tight text-texto">{highlight.titulo}</h3>
+      {highlight.texto && <p className="mt-2 text-sm leading-relaxed text-texto-suave">{highlight.texto}</p>}
+      <button type="button" onClick={scrollToCatalog} className="mt-auto w-full rounded-lg border border-acero px-3 py-2.5 text-sm font-extrabold text-acero-fuerte hover:bg-acero-tenue">
+        {highlight.texto_boton || "Ver productos"} →
+      </button>
+    </article>
+  );
+}
+
 /**
  * Secciones comerciales de la Home (estilo BH-Tech, estética LOOP), en el orden:
  * Novedades → Nuevos ingresos → Promociones. Ubicar ARRIBA del buscador/filtros.
@@ -63,11 +78,13 @@ function FeaturedCard({ product, kind }: { product: PublicProduct; kind: Kind })
  * nunca queda vacío mientras todavía no haya productos marcados.
  */
 export function CommercialHighlights({
+  highlights,
   novedades,
   nuevos,
   promos,
   onShowAll,
 }: {
+  highlights: ReadonlyArray<PublicHighlight>;
   novedades: ReadonlyArray<PublicProduct>;
   nuevos: ReadonlyArray<PublicProduct>;
   promos: ReadonlyArray<PublicProduct>;
@@ -93,14 +110,18 @@ export function CommercialHighlights({
         )}
       </div>
       <div className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1">
-        <article className="commercial-card commercial-info min-w-[270px] flex-col snap-start sm:min-w-[300px]">
-          <span className="commercial-pill">Nuevo ingreso</span>
-          <h3 className="mt-4 text-lg font-black text-texto">LOOP REPUESTOS</h3>
-          <p className="mt-2 text-sm leading-relaxed text-texto-suave">Acá vas a encontrar los últimos ingresos y ofertas disponibles.</p>
-          <button type="button" onClick={() => document.getElementById("catalogo-loop")?.scrollIntoView({ behavior: "smooth" })} className="mt-auto w-full rounded-lg border border-acero px-3 py-2.5 text-sm font-extrabold text-acero-fuerte hover:bg-acero-tenue">
-            Ver catálogo →
-          </button>
-        </article>
+        {highlights.length > 0 ? highlights.map((highlight) => (
+          <CustomHighlightCard key={highlight.sheet_row} highlight={highlight} />
+        )) : (
+          <article className="commercial-card commercial-info min-w-[270px] flex-col snap-start sm:min-w-[300px]">
+            <span className="commercial-pill">Nuevo ingreso</span>
+            <h3 className="mt-4 text-lg font-black text-texto">LOOP REPUESTOS</h3>
+            <p className="mt-2 text-sm leading-relaxed text-texto-suave">Acá vas a encontrar los últimos ingresos y ofertas disponibles.</p>
+            <button type="button" onClick={() => document.getElementById("catalogo-loop")?.scrollIntoView({ behavior: "smooth" })} className="mt-auto w-full rounded-lg border border-acero px-3 py-2.5 text-sm font-extrabold text-acero-fuerte hover:bg-acero-tenue">
+              Ver catálogo →
+            </button>
+          </article>
+        )}
         {destacados.map(({ product, kind }) => (
           <FeaturedCard key={`${kind}-${product.sku}`} product={product} kind={kind} />
         ))}

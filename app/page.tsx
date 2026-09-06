@@ -2,13 +2,13 @@ import { Header } from "@/components/layout/Header";
 import { CatalogShell } from "@/components/catalog/CatalogShell";
 import { CartBar } from "@/components/cart/CartBar";
 import { CartProvider } from "@/lib/cart/CartContext";
-import { getPublicCatalog, deriveFacets } from "@/lib/db/catalog";
+import { getPublicCatalog, getPublicHighlights, deriveFacets } from "@/lib/db/catalog";
 
 // Catálogo cacheado (ISR): se regenera periódicamente, no en cada request.
 export const revalidate = 300;
 
 export default async function HomePage() {
-  const products = await getPublicCatalog();
+  const [products, highlights] = await Promise.all([getPublicCatalog(), getPublicHighlights()]);
   const { marcas, tipos, modelos, calidades, marcos } = deriveFacets(products);
 
   return (
@@ -27,7 +27,7 @@ export default async function HomePage() {
               </p>
             </div>
           ) : (
-            <CatalogShell products={products} marcas={marcas} tipos={tipos} modelos={modelos} calidades={calidades} marcos={marcos} />
+            <CatalogShell products={products} highlights={highlights} marcas={marcas} tipos={tipos} modelos={modelos} calidades={calidades} marcos={marcos} />
           )}
         </main>
 

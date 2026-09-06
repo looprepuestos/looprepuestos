@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import type { FacetOption, PublicProduct } from "@/types/product";
-import type { CatalogoPublicoRow } from "@/types/database";
+import type { CatalogoPublicoRow, PublicHighlight } from "@/types/database";
 import { createPublicClient } from "./supabase";
 
 /** Oculta marcas internas de proveedor sin modificar la fuente operativa. */
@@ -64,6 +64,18 @@ export async function getPublicCatalog(): Promise<PublicProduct[]> {
   } catch {
     return [];
   }
+}
+
+export async function getPublicHighlights(): Promise<PublicHighlight[]> {
+  const client = createPublicClient();
+  if (!client) return [];
+  const { data, error } = await client
+    .from("web_highlights")
+    .select("sheet_row,tipo,titulo,texto,sku_producto,texto_boton,fecha_desde,fecha_hasta,orden")
+    .order("orden", { ascending: true })
+    .order("sheet_row", { ascending: true });
+  if (error || !data) return [];
+  return data as PublicHighlight[];
 }
 
 const TIPO_ORDER = ["Módulo", "Batería", "Placa de carga", "Tapa", "Flex de carga", "Pegamento", "Insumo"];

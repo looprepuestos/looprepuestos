@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { FacetOption, PublicProduct } from "@/types/product";
+import type { PublicHighlight } from "@/types/database";
 import { SearchBar } from "@/components/search/SearchBar";
 import { FilterChips } from "@/components/search/FilterChips";
 import { ProductCard } from "./ProductCard";
@@ -76,6 +77,7 @@ function catalogSubcategory(product: PublicProduct, categoryId: string) {
 
 export function CatalogShell({
   products,
+  highlights,
   marcas: marcaOpts,
   tipos: tipoOpts,
   modelos: modeloOpts,
@@ -83,6 +85,7 @@ export function CatalogShell({
   marcos: marcoOpts,
 }: {
   products: ReadonlyArray<PublicProduct>;
+  highlights: ReadonlyArray<PublicHighlight>;
   marcas: FacetOption[];
   tipos: FacetOption[];
   modelos: FacetOption[];
@@ -208,7 +211,7 @@ export function CatalogShell({
       <SearchBar value={query} onChange={(value) => { setQuery(value); setCommercialMode(null); }} />
 
       {!isSearching && (
-        <CommercialHighlights novedades={novedades} nuevos={nuevosIngresos} promos={promociones} onShowAll={setCommercialMode} />
+        <CommercialHighlights highlights={highlights} novedades={novedades} nuevos={nuevosIngresos} promos={promociones} onShowAll={setCommercialMode} />
       )}
 
       <div className="space-y-3 rounded-xl border border-borde bg-white p-3 shadow-sm sm:p-4">
