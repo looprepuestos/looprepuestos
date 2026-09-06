@@ -54,6 +54,7 @@ export function CatalogShell({
   const [marcos, setMarcos] = useState<ReadonlySet<string>>(new Set());
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const [commercialMode, setCommercialMode] = useState<CommercialMode>(null);
+  const [expandedCategories, setExpandedCategories] = useState<ReadonlySet<string>>(new Set());
 
   const toggle = (setter: React.Dispatch<React.SetStateAction<ReadonlySet<string>>>) => (id: string) => setter((prev) => {
     const next = new Set(prev);
@@ -130,6 +131,33 @@ export function CatalogShell({
   const novedades = products.filter((p) => p.esNovedad);
   const nuevosIngresos = products.filter((p) => p.esNuevoIngreso);
   const promociones = products.filter((p) => p.esPromocion);
+  const categoryGroups = useMemo(() => {
+    const typeLabels = new Map(tipoOpts.map((option) => [option.id, option.label]));
+    const typeOrder = new Map(tipoOpts.map((option, index) => [option.id, index]));
+    const groups = new Map<string, { id: string; label: string; products: PublicProduct[]; typeIndex: number }>();
+
+    for (const product of products) {
+      const baseLabel = product.marca.toLowerCase() === "general"
+        ? (typeLabels.get(product.tipo) ?? product.tipo)
+        : `${typeLabels.get(product.tipo) ?? product.tipo} ${product.marca}`;
+      const details: string[] = [];
+      if ((product.tipo === "Módulo" || product.tipo === "Batería") && product.calidad) details.push(product.calidad);
+      if (product.tipo === "Módulo" && product.marco && product.marco !== "N/A") details.push(product.marco);
+      const label = [baseLabel, ...details].join(" · ");
+      const id = [product.tipo, product.marca, ...details].join("::");
+      const group = groups.get(id) ?? { id, label, products: [], typeIndex: typeOrder.get(product.tipo) ?? 99 };
+      group.products.push(product);
+      groups.set(id, group);
+    }
+
+    return [...groups.values()].sort((a, b) => a.typeIndex - b.typeIndex || a.label.localeCompare(b.label, "es"));
+  }, [products, tipoOpts]);
+
+  const toggleCategory = (id: string) => setExpandedCategories((current) => {
+    const next = new Set(current);
+    if (next.has(id)) next.delete(id); else next.add(id);
+    return next;
+  });
   const advancedCount = modelos.size + calidades.size + marcos.size;
   const commercialLabel = commercialMode === "destacados" || commercialMode === "novedades" ? "Novedades" : commercialMode === "nuevos" ? "Nuevos ingresos" : commercialMode === "promos" ? "Ofertas" : "";
 
@@ -180,11 +208,34 @@ export function CatalogShell({
         </section>
       ) : (
         <section id="catalogo-loop" aria-label="Catálogo">
-          <div className="mb-2.5 flex items-center justify-between px-0.5">
-            <h2 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-texto"><span aria-hidden className="h-3 w-0.5 rounded bg-acero" />Catálogo</h2>
-            <span className="text-xs font-medium text-texto-suave">{products.length} productos</span>
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-3 px-0.5">
+            <span className="text-sm font-bold text-texto-suave">{products.length} productos</span>
+            <div className="flex items-center gap-2 text-xs font-bold">
+              <button type="button" onClick={() => setExpandedCategories(new Set(categoryGroups.map((group) => group.id)))} className="text-texto-suave hover:text-acero-fuerte">Expandir todo</button>
+              <span className="text-borde-fuerte">·</span>
+              <button type="button" onClick={() => setExpandedCategories(new Set())} className="text-texto-suave hover:text-acero-fuerte">Colapsar todo</button>
+            </div>
           </div>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">{products.map((product) => <ProductCard key={product.sku} product={product} />)}</div>
+          <div className="space-y-2.5">
+            {categoryGroups.map((group) => {
+              const expanded = expandedCategories.has(group.id);
+              return (
+                <section key={group.id} className="overflow-hidden rounded-xl border border-borde bg-white shadow-sm">
+                  <button type="button" onClick={() => toggleCategory(group.id)} aria-expanded={expanded} className="flex w-full items-center gap-3 px-4 py-4 text-left transition-colors hover:bg-fondo-2">
+                    <span aria-hidden className="h-6 w-1 shrink-0 rounded-full bg-acero" />
+                    <span className="min-w-0 flex-1 text-sm font-black uppercase tracking-[0.025em] text-texto">{group.label}</span>
+                    <span className="rounded-full bg-fondo-2 px-2.5 py-1 text-xs font-bold tabular-nums text-texto-suave">{group.products.length}</span>
+                    <svg aria-hidden className={`h-4 w-4 shrink-0 text-titanio transition-transform ${expanded ? "rotate-90" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+                  </button>
+                  {expanded && (
+                    <div className="grid grid-cols-1 gap-3 border-t border-borde bg-fondo-2/60 p-3 sm:grid-cols-2 xl:grid-cols-3">
+                      {group.products.map((product) => <ProductCard key={product.sku} product={product} />)}
+                    </div>
+                  )}
+                </section>
+              );
+            })}
+          </div>
         </section>
       )}
     </div>
