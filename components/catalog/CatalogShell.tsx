@@ -53,13 +53,20 @@ function catalogCategory(product: PublicProduct) {
   const brand = normalize(product.marca);
   const quality = normalize(product.calidad);
 
-  if (quality.includes("tag on")) return "tag-on-baterias";
+  if (quality.includes("tag on") || quality.includes("ampsentrix")) return "tag-on-baterias";
   if (type === "modulo" && ["samsung", "motorola", "iphone", "tcl", "tecno", "zte", "xiaomi"].includes(brand)) return brand;
   if (type === "tapa") return "tapa-trasera";
   if (type === "flex de carga") return "flex-de-carga";
   if (type === "placa de carga") return "placas-de-carga";
   if (type === "bateria") return "baterias";
   return "herramienta-insumos";
+}
+
+function iphoneBatteryBrand(product: PublicProduct) {
+  const quality = normalize(product.calidad);
+  if (quality.includes("foxconn")) return "FOXCONN";
+  if (quality.includes("jcid")) return "JCID DIAGNÓSTICO";
+  return "OTRAS CALIDADES";
 }
 
 function catalogSubcategory(product: PublicProduct, categoryId: string) {
@@ -102,6 +109,7 @@ export function CatalogShell({
   const [commercialMode, setCommercialMode] = useState<CommercialMode>(null);
   const [expandedCategories, setExpandedCategories] = useState<ReadonlySet<string>>(new Set());
   const [expandedSubcategories, setExpandedSubcategories] = useState<ReadonlySet<string>>(new Set());
+  const [expandedVariants, setExpandedVariants] = useState<ReadonlySet<string>>(new Set());
 
   const toggle = (setter: React.Dispatch<React.SetStateAction<ReadonlySet<string>>>) => (id: string) => setter((prev) => {
     const next = new Set(prev);
@@ -203,7 +211,25 @@ export function CatalogShell({
       subcategoryMap.set(label, current);
     }
     const subcategories = [...subcategoryMap.entries()]
-      .map(([label, subProducts]) => ({ id: `${category.id}::${normalize(label)}`, label, products: subProducts }))
+      .map(([label, subProducts]) => {
+        const variantMap = new Map<string, PublicProduct[]>();
+        if (category.id === "baterias" && normalize(label) === "iphone") {
+          for (const product of subProducts) {
+            const variantLabel = iphoneBatteryBrand(product);
+            const current = variantMap.get(variantLabel) ?? [];
+            current.push(product);
+            variantMap.set(variantLabel, current);
+          }
+        }
+        const variants = [...variantMap.entries()]
+          .map(([variantLabel, variantProducts]) => ({
+            id: `${category.id}::${normalize(label)}::${normalize(variantLabel)}`,
+            label: variantLabel,
+            products: variantProducts,
+          }))
+          .sort((a, b) => a.label.localeCompare(b.label, "es"));
+        return { id: `${category.id}::${normalize(label)}`, label, products: subProducts, variants };
+      })
       .sort((a, b) => a.label.localeCompare(b.label, "es"));
     return { ...category, products: categoryProducts, subcategories };
   }), [products]);
@@ -214,6 +240,11 @@ export function CatalogShell({
     return next;
   });
   const toggleSubcategory = (id: string) => setExpandedSubcategories((current) => {
+    const next = new Set(current);
+    if (next.has(id)) next.delete(id); else next.add(id);
+    return next;
+  });
+  const toggleVariant = (id: string) => setExpandedVariants((current) => {
     const next = new Set(current);
     if (next.has(id)) next.delete(id); else next.add(id);
     return next;
@@ -274,9 +305,10 @@ export function CatalogShell({
               <button type="button" onClick={() => {
                 setExpandedCategories(new Set(categoryGroups.map((group) => group.id)));
                 setExpandedSubcategories(new Set(categoryGroups.flatMap((group) => group.subcategories.map((subcategory) => subcategory.id))));
+                setExpandedVariants(new Set(categoryGroups.flatMap((group) => group.subcategories.flatMap((subcategory) => subcategory.variants.map((variant) => variant.id)))));
               }} className="text-texto-suave hover:text-acero-fuerte">Expandir todo</button>
               <span className="text-borde-fuerte">·</span>
-              <button type="button" onClick={() => { setExpandedCategories(new Set()); setExpandedSubcategories(new Set()); }} className="text-texto-suave hover:text-acero-fuerte">Colapsar todo</button>
+              <button type="button" onClick={() => { setExpandedCategories(new Set()); setExpandedSubcategories(new Set()); setExpandedVariants(new Set()); }} className="text-texto-suave hover:text-acero-fuerte">Colapsar todo</button>
             </div>
           </div>
           <div className="space-y-2.5">
@@ -306,9 +338,31 @@ export function CatalogShell({
                               <svg aria-hidden className={`h-4 w-4 shrink-0 text-titanio transition-transform ${subcategoryExpanded ? "rotate-90" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
                             </button>
                             {subcategoryExpanded && (
-                              <div className="grid grid-cols-1 gap-3 border-t border-borde bg-fondo-2/60 p-3 sm:grid-cols-2 xl:grid-cols-3">
-                                {subcategory.products.map((product) => <ProductCard key={product.sku} product={product} />)}
-                              </div>
+                              subcategory.variants.length > 0 ? (
+                                <div className="space-y-2 border-t border-borde bg-fondo-2/60 p-3">
+                                  {subcategory.variants.map((variant) => {
+                                    const variantExpanded = expandedVariants.has(variant.id);
+                                    return (
+                                      <section key={variant.id} className="overflow-hidden rounded-lg border border-borde bg-white">
+                                        <button type="button" onClick={() => toggleVariant(variant.id)} aria-expanded={variantExpanded} className="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-fondo-2">
+                                          <span className="min-w-0 flex-1 text-xs font-black uppercase tracking-wide text-texto">{variant.label}</span>
+                                          <span className="rounded-full bg-fondo-2 px-2.5 py-1 text-xs font-bold tabular-nums text-texto-suave">{variant.products.length}</span>
+                                          <svg aria-hidden className={`h-4 w-4 shrink-0 text-titanio transition-transform ${variantExpanded ? "rotate-90" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+                                        </button>
+                                        {variantExpanded && (
+                                          <div className="grid grid-cols-1 gap-3 border-t border-borde bg-fondo-2/60 p-3 sm:grid-cols-2 xl:grid-cols-3">
+                                            {variant.products.map((product) => <ProductCard key={product.sku} product={product} />)}
+                                          </div>
+                                        )}
+                                      </section>
+                                    );
+                                  })}
+                                </div>
+                              ) : (
+                                <div className="grid grid-cols-1 gap-3 border-t border-borde bg-fondo-2/60 p-3 sm:grid-cols-2 xl:grid-cols-3">
+                                  {subcategory.products.map((product) => <ProductCard key={product.sku} product={product} />)}
+                                </div>
+                              )
                             )}
                           </section>
                         );
