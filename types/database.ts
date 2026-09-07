@@ -111,6 +111,27 @@ export interface FavoriteRow {
   created_at: string;
 }
 
+export interface WhatsAppOrderItem {
+  sku: string;
+  nombre: string;
+  cantidad: number;
+  precio_unitario: number;
+  subtotal: number;
+}
+
+export interface WhatsAppOrderRow {
+  id: string;
+  user_id: string;
+  customer_name: string;
+  locality: string;
+  delivery: "Envío" | "Retiro";
+  notes: string | null;
+  items: WhatsAppOrderItem[];
+  total_estimated: number;
+  estado: "ENVIADO" | "CONFIRMADO" | "CANCELADO";
+  created_at: string;
+}
+
 export interface OrderRow {
   id: string;
   user_id: string;
