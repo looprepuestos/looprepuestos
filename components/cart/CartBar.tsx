@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useCart } from "@/lib/cart/CartContext";
 import { formatARS } from "@/lib/format";
+import { useAuth } from "@/lib/auth/AuthContext";
 
 function whatsappMessage(
   lines: ReturnType<typeof useCart>["detailedLines"],
@@ -33,6 +34,7 @@ function whatsappMessage(
 export function CartBar() {
   const { detailedLines, totalItems, totalPrice, setQty, clear, cartOpen, openCart, closeCart } = useCart();
   const number = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "").replace(/\D/g, "");
+  const { session, recordWhatsAppOrder } = useAuth();
   const [customerName, setCustomerName] = useState("");
   const [locality, setLocality] = useState("");
   const [delivery, setDelivery] = useState("");
@@ -45,8 +47,24 @@ export function CartBar() {
 
   if (totalItems === 0) return null;
 
-  const sendWhatsApp = () => {
+  const sendWhatsApp = async () => {
     if (!number) return;
+    if (session) {
+      await recordWhatsAppOrder({
+        customerName,
+        locality,
+        delivery: delivery as "Envío" | "Retiro",
+        notes,
+        total: totalPrice,
+        items: detailedLines.map((line) => ({
+          sku: line.sku,
+          nombre: line.product.nombre,
+          cantidad: line.qty,
+          precio_unitario: line.unitPrice,
+          subtotal: line.lineTotal,
+        })),
+      });
+    }
     window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
@@ -136,7 +154,7 @@ export function CartBar() {
                 Falta configurar el número de WhatsApp de LOOP para habilitar el envío.
               </p>
             )}
-            <button type="button" onClick={sendWhatsApp} disabled={!number || !customerComplete} className="mt-3 w-full rounded-xl border border-acero bg-acero-tenue px-4 py-3 text-sm font-extrabold text-texto transition-colors hover:bg-grafito disabled:cursor-not-allowed disabled:border-borde disabled:bg-superficie disabled:text-titanio">
+            <button type="button" onClick={() => void sendWhatsApp()} disabled={!number || !customerComplete} className="mt-3 w-full rounded-xl border border-acero bg-acero-tenue px-4 py-3 text-sm font-extrabold text-texto transition-colors hover:bg-grafito disabled:cursor-not-allowed disabled:border-borde disabled:bg-superficie disabled:text-titanio">
               Enviar consulta por WhatsApp
             </button>
             <p className="mt-2 text-center text-[11px] text-titanio">{customerComplete ? "Tu pedido se enviará por WhatsApp para confirmar disponibilidad y coordinar entrega." : "Completá nombre o local, localidad y forma de entrega para continuar."}</p>
