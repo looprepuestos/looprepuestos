@@ -9,7 +9,7 @@ import { ProductDetailModal } from "./ProductDetailModal";
 import { useAuth } from "@/lib/auth/AuthContext";
 
 /** Card compacta: tocar el repuesto abre detalle/foto; agregar sigue siendo directo. */
-export function ProductCard({ product }: { product: PublicProduct }) {
+export function ProductCard({ product, display = "tiles" }: { product: PublicProduct; display?: "list" | "tiles" }) {
   const { qtyOf, add, setQty } = useCart();
   const [detailOpen, setDetailOpen] = useState(false);
   const { session, favorites, toggleFavorite } = useAuth();
@@ -18,11 +18,12 @@ export function ProductCard({ product }: { product: PublicProduct }) {
     product.precioPromocional !== null &&
     product.precioPromocional < product.precioPublico;
   const marcoVisible = product.marco !== "N/A" && product.marco.trim() !== "";
+  const isList = display === "list";
 
   return (
     <>
-      <article className="group rounded-xl border border-borde bg-superficie p-3.5 shadow-sm shadow-black/10 transition-all hover:-translate-y-0.5 hover:border-acero/50 hover:shadow-lg hover:shadow-black/20">
-        <div className="mb-2.5 flex items-center justify-between gap-2">
+      <article className={`group border border-borde bg-superficie shadow-sm shadow-black/10 transition-all hover:border-acero/50 hover:shadow-lg hover:shadow-black/20 ${isList ? "rounded-lg p-2.5" : "rounded-xl p-3.5 hover:-translate-y-0.5"}`}>
+        <div className={`${isList ? "mb-1.5" : "mb-2.5"} flex items-center justify-between gap-2`}>
           <div className="flex items-center gap-2">
             <StockBadge enStock={product.enStock} />
             {product.esPromocion && (
@@ -39,9 +40,9 @@ export function ProductCard({ product }: { product: PublicProduct }) {
           className="block w-full text-left"
           aria-label={`Ver detalle y foto de ${product.nombre}`}
         >
-          <div className="flex min-h-[74px] items-start gap-3">
+          <div className={`flex items-start gap-3 ${isList ? "min-h-[56px]" : "min-h-[74px]"}`}>
             {product.imagenUrl && (
-              <div className="flex h-[74px] w-[74px] shrink-0 items-center justify-center overflow-hidden rounded-lg border border-borde bg-white/[0.96] p-1.5">
+              <div className={`flex shrink-0 items-center justify-center overflow-hidden rounded-lg border border-borde bg-white/[0.96] p-1.5 ${isList ? "h-14 w-14" : "h-[74px] w-[74px]"}`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={product.imagenUrl} alt="" className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105" />
               </div>
@@ -62,7 +63,7 @@ export function ProductCard({ product }: { product: PublicProduct }) {
           </div>
         </button>
 
-        <div className="mt-3 flex items-end justify-between gap-3 border-t border-borde/70 pt-3">
+        <div className={`flex items-end justify-between gap-3 border-t border-borde/70 ${isList ? "mt-2 pt-2" : "mt-3 pt-3"}`}>
           <button type="button" onClick={() => setDetailOpen(true)} className="text-left leading-tight" aria-label={`Ver foto y precio de ${product.nombre}`}>
             {hasPromo ? (
               <>
