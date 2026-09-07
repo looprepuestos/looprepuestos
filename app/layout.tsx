@@ -14,6 +14,12 @@ export const metadata: Metadata = {
   description:
     "Catálogo y lista de precios de repuestos para celulares. Buscá por modelo o tipo.",
   applicationName: "LOOP REPUESTOS",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "LOOP REPUESTOS",
+    statusBarStyle: "default",
+  },
   robots: {
     index: false,
     follow: false,
