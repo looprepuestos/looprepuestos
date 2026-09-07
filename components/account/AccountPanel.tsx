@@ -12,7 +12,7 @@ interface InstallPromptEvent extends Event {
 }
 
 export function AccountPanel({ products }: { products: ReadonlyArray<PublicProduct> }) {
-  const { accountOpen, closeAccount, session, profile, request, pendingRequests, favorites, loading, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite } = useAuth();
+  const { accountOpen, closeAccount, session, profile, request, pendingRequests, favorites, orderHistory, loading, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite } = useAuth();
   const [nombre, setNombre] = useState("");
   const [local, setLocal] = useState("");
   const [localidad, setLocalidad] = useState("");
@@ -132,6 +132,32 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
                       </article>
                     );
                   })}
+                </div>
+              )}
+            </div>
+            <div className="mb-5">
+              <div className="mb-2 flex items-center justify-between gap-3">
+                <h3 className="text-sm font-black text-texto">Historial de pedidos</h3>
+                <span className="rounded-full bg-fondo-2 px-2.5 py-1 text-xs font-bold text-texto-suave">{orderHistory.length}</span>
+              </div>
+              {orderHistory.length === 0 ? (
+                <p className="rounded-xl border border-borde bg-fondo-2 p-4 text-center text-sm text-texto-suave">Tus próximas consultas por WhatsApp aparecerán acá.</p>
+              ) : (
+                <div className="max-h-80 space-y-2 overflow-y-auto pr-1">
+                  {orderHistory.map((order) => (
+                    <details key={order.id} className="rounded-xl border border-borde bg-white p-3">
+                      <summary className="cursor-pointer list-none">
+                        <div className="flex items-center justify-between gap-3">
+                          <div><p className="text-xs font-black text-texto">{new Date(order.created_at).toLocaleDateString("es-AR")}</p><p className="mt-0.5 text-[11px] text-texto-suave">{order.items.length} {order.items.length === 1 ? "producto" : "productos"} · {order.delivery}</p></div>
+                          <div className="text-right"><p className="text-sm font-black text-texto">{formatARS(order.total_estimated)}</p><span className="text-[10px] font-bold uppercase text-acero-fuerte">{order.estado}</span></div>
+                        </div>
+                      </summary>
+                      <div className="mt-3 space-y-2 border-t border-borde pt-3">
+                        {order.items.map((item) => <div key={item.sku} className="flex justify-between gap-3 text-xs"><span className="text-texto-suave">{item.cantidad}× {item.nombre}</span><span className="shrink-0 font-bold text-texto">{formatARS(item.subtotal)}</span></div>)}
+                        <p className="pt-1 text-[11px] leading-4 text-titanio">Consulta enviada por WhatsApp. Disponibilidad y total final sujetos a confirmación.</p>
+                      </div>
+                    </details>
+                  ))}
                 </div>
               )}
             </div>
