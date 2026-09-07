@@ -35,7 +35,7 @@ export default async function HomePage() {
         </main>
 
           <CartBar />
-          <AccountPanel />
+          <AccountPanel products={products} />
         </div>
       </CartProvider>
     </AuthProvider>
