@@ -105,6 +105,12 @@ export interface AccountRequestRow {
   decided_at: string | null;
 }
 
+export interface FavoriteRow {
+  user_id: string;
+  sku: string;
+  created_at: string;
+}
+
 export interface OrderRow {
   id: string;
   user_id: string;
