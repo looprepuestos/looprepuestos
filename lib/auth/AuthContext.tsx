@@ -2,7 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { createClient, type Session, type SupabaseClient } from "@supabase/supabase-js";
-import type { AccountRequestRow, ProfileRow } from "@/types/database";
+import type { AccountRequestRow, ProfileRow, WhatsAppOrderItem, WhatsAppOrderRow } from "@/types/database";
 
 interface AuthContextValue {
   session: Session | null;
@@ -10,6 +10,7 @@ interface AuthContextValue {
   request: AccountRequestRow | null;
   pendingRequests: AccountRequestRow[];
   favorites: ReadonlySet<string>;
+  orderHistory: WhatsAppOrderRow[];
   loading: boolean;
   accountOpen: boolean;
   openAccount: () => void;
@@ -19,6 +20,7 @@ interface AuthContextValue {
   submitWholesaleRequest: (input: { nombre: string; local: string; localidad: string; whatsapp: string }) => Promise<string | null>;
   resolveWholesaleRequest: (requestId: string, approve: boolean) => Promise<string | null>;
   toggleFavorite: (sku: string) => Promise<void>;
+  recordWhatsAppOrder: (input: { customerName: string; locality: string; delivery: "Envío" | "Retiro"; notes: string; items: WhatsAppOrderItem[]; total: number }) => Promise<string | null>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -37,6 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [request, setRequest] = useState<AccountRequestRow | null>(null);
   const [pendingRequests, setPendingRequests] = useState<AccountRequestRow[]>([]);
   const [favorites, setFavorites] = useState<ReadonlySet<string>>(new Set());
+  const [orderHistory, setOrderHistory] = useState<WhatsAppOrderRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [accountOpen, setAccountOpen] = useState(false);
 
@@ -46,18 +49,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setRequest(null);
       setPendingRequests([]);
       setFavorites(new Set());
+      setOrderHistory([]);
       return;
     }
     const userId = activeSession.user.id;
-    const [profileResult, requestResult, favoritesResult] = await Promise.all([
+    const [profileResult, requestResult, favoritesResult, historyResult] = await Promise.all([
       client.from("profiles").select("id,email,nombre,role,created_at,updated_at").eq("id", userId).maybeSingle(),
       client.from("account_requests").select("*").eq("user_id", userId).order("created_at", { ascending: false }).limit(1).maybeSingle(),
       client.from("favorites").select("sku").eq("user_id", userId),
+      client.from("whatsapp_orders").select("*").eq("user_id", userId).order("created_at", { ascending: false }).limit(30),
     ]);
     const nextProfile = (profileResult.data as ProfileRow | null) ?? null;
     setProfile(nextProfile);
     setRequest((requestResult.data as AccountRequestRow | null) ?? null);
     setFavorites(new Set((favoritesResult.data ?? []).map((row) => String(row.sku))));
+    setOrderHistory((historyResult.data as WhatsAppOrderRow[] | null) ?? []);
     if (nextProfile?.role === "ADMIN") {
       const { data } = await client
         .from("account_requests")
@@ -144,12 +150,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return null;
   }, [client, session, profile?.role, loadPrivateData]);
 
+  const recordWhatsAppOrder = useCallback(async (input: { customerName: string; locality: string; delivery: "Envío" | "Retiro"; notes: string; items: WhatsAppOrderItem[]; total: number }) => {
+    if (!client || !session) return null;
+    const { data, error } = await client.from("whatsapp_orders").insert({
+      user_id: session.user.id,
+      customer_name: input.customerName.trim(),
+      locality: input.locality.trim(),
+      delivery: input.delivery,
+      notes: input.notes.trim() || null,
+      items: input.items,
+      total_estimated: input.total,
+    }).select("*").single();
+    if (error) return error.message;
+    setOrderHistory((current) => [data as WhatsAppOrderRow, ...current].slice(0, 30));
+    return null;
+  }, [client, session]);
+
   const value = useMemo<AuthContextValue>(() => ({
-    session, profile, request, pendingRequests, favorites, loading, accountOpen,
+    session, profile, request, pendingRequests, favorites, orderHistory, loading, accountOpen,
     openAccount: () => setAccountOpen(true),
     closeAccount: () => setAccountOpen(false),
-    signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite,
-  }), [session, profile, request, pendingRequests, favorites, loading, accountOpen, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite]);
+    signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite, recordWhatsAppOrder,
+  }), [session, profile, request, pendingRequests, favorites, orderHistory, loading, accountOpen, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite, recordWhatsAppOrder]);
 
   return <AuthContext value={value}>{children}</AuthContext>;
 }
