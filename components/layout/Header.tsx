@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { useCart } from "@/lib/cart/CartContext";
 import { Logo } from "./Logo";
+import { useAuth } from "@/lib/auth/AuthContext";
 
 /** Header funcional del MVP: identidad LOOP + acceso directo al pedido. */
 export function Header() {
   const { totalItems, openCart } = useCart();
+  const { session, profile, openAccount } = useAuth();
 
   return (
     <header className="sticky top-0 z-30 border-b border-borde bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
@@ -33,6 +35,11 @@ export function Header() {
           </div>
         </Link>
 
+        <div className="flex items-center gap-2">
+        <button type="button" onClick={openAccount} className="flex h-10 shrink-0 items-center gap-2 rounded-lg border border-borde bg-fondo-2 px-3 text-xs font-bold text-texto-suave transition-colors hover:border-borde-fuerte hover:text-texto" aria-label="Abrir mi cuenta">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+          <span className="hidden sm:inline">{session ? (profile?.role === "MAYORISTA" || profile?.role === "ADMIN" ? "Mayorista" : "Mi cuenta") : "Ingresar"}</span>
+        </button>
         <button
           type="button"
           aria-label={totalItems > 0 ? `Ver pedido, ${totalItems} productos` : "Carrito vacío"}
@@ -62,6 +69,7 @@ export function Header() {
             </span>
           )}
         </button>
+        </div>
       </div>
     </header>
   );
