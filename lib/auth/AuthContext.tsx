@@ -8,6 +8,7 @@ interface AuthContextValue {
   session: Session | null;
   profile: ProfileRow | null;
   request: AccountRequestRow | null;
+  pendingRequests: AccountRequestRow[];
   favorites: ReadonlySet<string>;
   loading: boolean;
   accountOpen: boolean;
@@ -16,6 +17,7 @@ interface AuthContextValue {
   signInWithGoogle: () => Promise<string | null>;
   signOut: () => Promise<void>;
   submitWholesaleRequest: (input: { nombre: string; local: string; localidad: string; whatsapp: string }) => Promise<string | null>;
+  resolveWholesaleRequest: (requestId: string, approve: boolean) => Promise<string | null>;
   toggleFavorite: (sku: string) => Promise<void>;
 }
 
@@ -33,6 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<ProfileRow | null>(null);
   const [request, setRequest] = useState<AccountRequestRow | null>(null);
+  const [pendingRequests, setPendingRequests] = useState<AccountRequestRow[]>([]);
   const [favorites, setFavorites] = useState<ReadonlySet<string>>(new Set());
   const [loading, setLoading] = useState(true);
   const [accountOpen, setAccountOpen] = useState(false);
@@ -41,6 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (!client || !activeSession) {
       setProfile(null);
       setRequest(null);
+      setPendingRequests([]);
       setFavorites(new Set());
       return;
     }
@@ -50,9 +54,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       client.from("account_requests").select("*").eq("user_id", userId).order("created_at", { ascending: false }).limit(1).maybeSingle(),
       client.from("favorites").select("sku").eq("user_id", userId),
     ]);
-    setProfile((profileResult.data as ProfileRow | null) ?? null);
+    const nextProfile = (profileResult.data as ProfileRow | null) ?? null;
+    setProfile(nextProfile);
     setRequest((requestResult.data as AccountRequestRow | null) ?? null);
     setFavorites(new Set((favoritesResult.data ?? []).map((row) => String(row.sku))));
+    if (nextProfile?.role === "ADMIN") {
+      const { data } = await client
+        .from("account_requests")
+        .select("*")
+        .eq("estado", "PENDIENTE")
+        .order("created_at", { ascending: true });
+      setPendingRequests((data as AccountRequestRow[] | null) ?? []);
+    } else {
+      setPendingRequests([]);
+    }
   }, [client]);
 
   useEffect(() => {
@@ -118,12 +133,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (error) void loadPrivateData(session);
   }, [client, session, favorites, loadPrivateData]);
 
+  const resolveWholesaleRequest = useCallback(async (requestId: string, approve: boolean) => {
+    if (!client || !session || profile?.role !== "ADMIN") return "No tenés permisos para realizar esta acción.";
+    const { error } = await client.rpc("resolver_solicitud_mayorista", {
+      p_request_id: requestId,
+      p_aprobar: approve,
+    });
+    if (error) return error.message;
+    await loadPrivateData(session);
+    return null;
+  }, [client, session, profile?.role, loadPrivateData]);
+
   const value = useMemo<AuthContextValue>(() => ({
-    session, profile, request, favorites, loading, accountOpen,
+    session, profile, request, pendingRequests, favorites, loading, accountOpen,
     openAccount: () => setAccountOpen(true),
     closeAccount: () => setAccountOpen(false),
-    signInWithGoogle, signOut, submitWholesaleRequest, toggleFavorite,
-  }), [session, profile, request, favorites, loading, accountOpen, signInWithGoogle, signOut, submitWholesaleRequest, toggleFavorite]);
+    signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite,
+  }), [session, profile, request, pendingRequests, favorites, loading, accountOpen, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite]);
 
   return <AuthContext value={value}>{children}</AuthContext>;
 }
