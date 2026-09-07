@@ -4,13 +4,14 @@ import { useState } from "react";
 import { useAuth } from "@/lib/auth/AuthContext";
 
 export function AccountPanel() {
-  const { accountOpen, closeAccount, session, profile, request, loading, signInWithGoogle, signOut, submitWholesaleRequest } = useAuth();
+  const { accountOpen, closeAccount, session, profile, request, pendingRequests, loading, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest } = useAuth();
   const [nombre, setNombre] = useState("");
   const [local, setLocal] = useState("");
   const [localidad, setLocalidad] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [working, setWorking] = useState(false);
   const [error, setError] = useState("");
+  const [resolvingId, setResolvingId] = useState("");
 
   if (!accountOpen) return null;
   const isApproved = profile?.role === "MAYORISTA" || profile?.role === "ADMIN";
@@ -26,6 +27,13 @@ export function AccountPanel() {
     const message = await submitWholesaleRequest({ nombre, local, localidad, whatsapp });
     if (message) setError(message);
     setWorking(false);
+  }
+
+  async function resolveRequest(requestId: string, approve: boolean) {
+    setResolvingId(requestId); setError("");
+    const message = await resolveWholesaleRequest(requestId, approve);
+    if (message) setError(message);
+    setResolvingId("");
   }
 
   return (
@@ -49,7 +57,38 @@ export function AccountPanel() {
               <p className="text-sm font-bold text-texto">{profile?.nombre || session.user.user_metadata.full_name || "Cliente LOOP"}</p>
               <p className="mt-0.5 text-xs text-texto-suave">{session.user.email}</p>
             </div>
-            {isApproved ? (
+            {profile?.role === "ADMIN" ? (
+              <div>
+                <div className="mb-3 rounded-xl border border-acero bg-acero-tenue p-4">
+                  <p className="font-bold text-texto">Panel administrador</p>
+                  <p className="mt-1 text-xs leading-5 text-texto-suave">Las nuevas solicitudes mayoristas aparecen acá.</p>
+                </div>
+                <div className="mb-2 flex items-center justify-between gap-3">
+                  <h3 className="text-sm font-black text-texto">Solicitudes pendientes</h3>
+                  <span className="rounded-full bg-fondo-2 px-2.5 py-1 text-xs font-bold text-texto-suave">{pendingRequests.length}</span>
+                </div>
+                {pendingRequests.length === 0 ? (
+                  <p className="rounded-xl border border-borde bg-fondo-2 p-4 text-center text-sm text-texto-suave">No hay solicitudes pendientes.</p>
+                ) : (
+                  <div className="space-y-3">
+                    {pendingRequests.map((item) => (
+                      <article key={item.id} className="rounded-xl border border-borde p-4">
+                        <p className="font-black text-texto">{item.nombre}</p>
+                        <p className="mt-1 text-sm font-semibold text-texto-suave">{item.service_local}</p>
+                        <div className="mt-3 space-y-1 text-xs text-texto-suave">
+                          <p>Localidad: <span className="font-bold text-texto">{item.localidad}</span></p>
+                          <p>WhatsApp: <a className="font-bold text-texto underline" href={`https://wa.me/54${item.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noreferrer">{item.whatsapp}</a></p>
+                        </div>
+                        <div className="mt-4 grid grid-cols-2 gap-2">
+                          <button type="button" disabled={Boolean(resolvingId)} onClick={() => void resolveRequest(item.id, false)} className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-extrabold text-red-700 disabled:opacity-50">Rechazar</button>
+                          <button type="button" disabled={Boolean(resolvingId)} onClick={() => void resolveRequest(item.id, true)} className="rounded-lg border border-green-200 bg-green-600 px-3 py-2 text-xs font-extrabold text-white disabled:opacity-50">{resolvingId === item.id ? "Procesando…" : "Aprobar"}</button>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : isApproved ? (
               <div className="rounded-xl border border-green-200 bg-green-50 p-4">
                 <p className="font-bold text-green-800">Cuenta mayorista aprobada</p>
                 <p className="mt-1 text-xs leading-5 text-green-700">Los precios especiales se habilitarán cuando terminemos de definir los márgenes.</p>
