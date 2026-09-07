@@ -3,6 +3,8 @@ import { CatalogShell } from "@/components/catalog/CatalogShell";
 import { CartBar } from "@/components/cart/CartBar";
 import { CartProvider } from "@/lib/cart/CartContext";
 import { getPublicCatalog, getPublicHighlights, deriveFacets } from "@/lib/db/catalog";
+import { AuthProvider } from "@/lib/auth/AuthContext";
+import { AccountPanel } from "@/components/account/AccountPanel";
 
 // Catálogo cacheado (ISR): se regenera periódicamente, no en cada request.
 export const revalidate = 300;
@@ -12,8 +14,9 @@ export default async function HomePage() {
   const { marcas, tipos, modelos, calidades, marcos } = deriveFacets(products);
 
   return (
-    <CartProvider products={products}>
-      <div className="min-h-dvh">
+    <AuthProvider>
+      <CartProvider products={products}>
+        <div className="min-h-dvh">
         <Header />
 
         <main className="mx-auto max-w-7xl px-4 pb-28 pt-4 sm:px-6 lg:px-8">
@@ -31,8 +34,10 @@ export default async function HomePage() {
           )}
         </main>
 
-        <CartBar />
-      </div>
-    </CartProvider>
+          <CartBar />
+          <AccountPanel />
+        </div>
+      </CartProvider>
+    </AuthProvider>
   );
 }
