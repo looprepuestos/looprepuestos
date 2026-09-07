@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { FacetOption, PublicProduct } from "@/types/product";
 import type { PublicHighlight } from "@/types/database";
 import { SearchBar } from "@/components/search/SearchBar";
@@ -31,6 +31,22 @@ function normalizedQuery(query: string) {
 }
 
 type CommercialMode = "destacados" | "novedades" | "nuevos" | "promos" | null;
+type ViewMode = "list" | "tiles";
+
+function ViewToggle({ mode, onChange }: { mode: ViewMode; onChange: (mode: ViewMode) => void }) {
+  return (
+    <div className="inline-flex rounded-lg border border-borde-fuerte bg-white p-0.5" aria-label="Forma de mostrar los productos">
+      <button type="button" onClick={() => onChange("list")} aria-pressed={mode === "list"} className={`inline-flex h-8 items-center gap-1.5 rounded-md px-2.5 text-xs font-bold transition ${mode === "list" ? "bg-acero-tenue text-acero-fuerte" : "text-titanio hover:text-texto"}`}>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg>
+        Lista
+      </button>
+      <button type="button" onClick={() => onChange("tiles")} aria-pressed={mode === "tiles"} className={`inline-flex h-8 items-center gap-1.5 rounded-md px-2.5 text-xs font-bold transition ${mode === "tiles" ? "bg-acero-tenue text-acero-fuerte" : "text-titanio hover:text-texto"}`}>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Miniaturas
+      </button>
+    </div>
+  );
+}
 
 const CATALOG_CATEGORIES = [
   { id: "samsung", label: "SAMSUNG" },
@@ -110,6 +126,18 @@ export function CatalogShell({
   const [expandedCategories, setExpandedCategories] = useState<ReadonlySet<string>>(new Set());
   const [expandedSubcategories, setExpandedSubcategories] = useState<ReadonlySet<string>>(new Set());
   const [expandedVariants, setExpandedVariants] = useState<ReadonlySet<string>>(new Set());
+  const [viewMode, setViewMode] = useState<ViewMode>("tiles");
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem("loop-catalog-view");
+    if (saved === "list" || saved === "tiles") setViewMode(saved);
+  }, []);
+
+  const changeViewMode = (mode: ViewMode) => {
+    setViewMode(mode);
+    window.localStorage.setItem("loop-catalog-view", mode);
+  };
+  const productGridClass = viewMode === "list" ? "grid grid-cols-1 gap-2" : "grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3";
 
   const toggle = (setter: React.Dispatch<React.SetStateAction<ReadonlySet<string>>>) => (id: string) => setter((prev) => {
     const next = new Set(prev);
@@ -293,15 +321,16 @@ export function CatalogShell({
               {commercialLabel && <p className="mb-0.5 text-[11px] font-bold uppercase tracking-wide text-acero-fuerte">{commercialLabel}</p>}
               <p className="text-xs font-medium text-texto-suave">{results.length} {results.length === 1 ? "resultado" : "resultados"}{activeFilters > 0 ? ` · ${activeFilters} filtros` : ""}</p>
             </div>
-            <button type="button" onClick={clearAll} className="text-xs font-semibold text-acero-fuerte">Limpiar</button>
+            <div className="flex items-center gap-2"><ViewToggle mode={viewMode} onChange={changeViewMode} /><button type="button" onClick={clearAll} className="text-xs font-semibold text-acero-fuerte">Limpiar</button></div>
           </div>
-          {results.length > 0 ? <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">{results.map((product) => <ProductCard key={product.sku} product={product} />)}</div> : <EmptyState query={query} />}
+          {results.length > 0 ? <div className={productGridClass}>{results.map((product) => <ProductCard key={product.sku} product={product} display={viewMode} />)}</div> : <EmptyState query={query} />}
         </section>
       ) : (
         <section id="catalogo-loop" aria-label="Catálogo">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-3 px-0.5">
             <span className="text-sm font-bold text-texto-suave">{products.length} productos</span>
-            <div className="flex items-center gap-2 text-xs font-bold">
+            <div className="flex flex-wrap items-center justify-end gap-2 text-xs font-bold">
+              <ViewToggle mode={viewMode} onChange={changeViewMode} />
               <button type="button" onClick={() => {
                 setExpandedCategories(new Set(categoryGroups.map((group) => group.id)));
                 setExpandedSubcategories(new Set(categoryGroups.flatMap((group) => group.subcategories.map((subcategory) => subcategory.id))));
@@ -350,8 +379,8 @@ export function CatalogShell({
                                           <svg aria-hidden className={`h-4 w-4 shrink-0 text-titanio transition-transform ${variantExpanded ? "rotate-90" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
                                         </button>
                                         {variantExpanded && (
-                                          <div className="grid grid-cols-1 gap-3 border-t border-borde bg-fondo-2/60 p-3 sm:grid-cols-2 xl:grid-cols-3">
-                                            {variant.products.map((product) => <ProductCard key={product.sku} product={product} />)}
+                                          <div className={`${productGridClass} border-t border-borde bg-fondo-2/60 p-3`}>
+                                            {variant.products.map((product) => <ProductCard key={product.sku} product={product} display={viewMode} />)}
                                           </div>
                                         )}
                                       </section>
@@ -359,8 +388,8 @@ export function CatalogShell({
                                   })}
                                 </div>
                               ) : (
-                                <div className="grid grid-cols-1 gap-3 border-t border-borde bg-fondo-2/60 p-3 sm:grid-cols-2 xl:grid-cols-3">
-                                  {subcategory.products.map((product) => <ProductCard key={product.sku} product={product} />)}
+                                <div className={`${productGridClass} border-t border-borde bg-fondo-2/60 p-3`}>
+                                  {subcategory.products.map((product) => <ProductCard key={product.sku} product={product} display={viewMode} />)}
                                 </div>
                               )
                             )}
