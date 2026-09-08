@@ -85,6 +85,13 @@ function iphoneBatteryBrand(product: PublicProduct) {
   return "OTRAS CALIDADES";
 }
 
+function samsungMotorolaBatteryTier(product: PublicProduct) {
+  const quality = normalize(product.calidad);
+  return quality.includes("original") || quality.includes("service pack")
+    ? "ORIGINALES"
+    : "ALTERNATIVAS";
+}
+
 function catalogSubcategory(product: PublicProduct, categoryId: string) {
   if (categoryId === "tapa-trasera") {
     return product.modelo.replace(/\s+completa$/i, "").trim() || "Otros modelos";
@@ -244,6 +251,13 @@ export function CatalogShell({
         if (category.id === "baterias" && normalize(label) === "iphone") {
           for (const product of subProducts) {
             const variantLabel = iphoneBatteryBrand(product);
+            const current = variantMap.get(variantLabel) ?? [];
+            current.push(product);
+            variantMap.set(variantLabel, current);
+          }
+        } else if (category.id === "baterias" && ["samsung", "motorola"].includes(normalize(label))) {
+          for (const product of subProducts) {
+            const variantLabel = samsungMotorolaBatteryTier(product);
             const current = variantMap.get(variantLabel) ?? [];
             current.push(product);
             variantMap.set(variantLabel, current);
