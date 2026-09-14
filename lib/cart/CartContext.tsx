@@ -9,6 +9,7 @@ import {
   useState,
 } from "react";
 import type { PublicProduct } from "@/types/product";
+import { useAuth } from "@/lib/auth/AuthContext";
 
 interface CartLine {
   sku: string;
@@ -38,10 +39,6 @@ interface CartContextValue {
 const CartContext = createContext<CartContextValue | null>(null);
 const STORAGE_KEY = "loop-cart-v1";
 
-function unitPrice(product: PublicProduct): number {
-  return product.precioPromocional ?? product.precioPublico;
-}
-
 export function CartProvider({
   products,
   children,
@@ -52,6 +49,7 @@ export function CartProvider({
   const [linesBySku, setLinesBySku] = useState<Record<string, number>>({});
   const [hydrated, setHydrated] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const { priceFor } = useAuth();
 
   const productIndex = useMemo(() => {
     const map = new Map<string, PublicProduct>();
@@ -114,7 +112,7 @@ export function CartProvider({
     const detailedLines: CartDetailLine[] = lines.flatMap((line) => {
       const product = productIndex.get(line.sku);
       if (!product) return [];
-      const price = unitPrice(product);
+      const price = priceFor(product);
       return [{ ...line, product, unitPrice: price, lineTotal: price * line.qty }];
     });
     return {
@@ -130,7 +128,7 @@ export function CartProvider({
       openCart,
       closeCart,
     };
-  }, [linesBySku, productIndex, add, setQty, clear, cartOpen, openCart, closeCart]);
+  }, [linesBySku, productIndex, add, setQty, clear, cartOpen, openCart, closeCart, priceFor]);
 
   return <CartContext value={value}>{children}</CartContext>;
 }
