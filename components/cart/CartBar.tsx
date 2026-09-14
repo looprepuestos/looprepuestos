@@ -34,11 +34,12 @@ function whatsappMessage(
 export function CartBar() {
   const { detailedLines, totalItems, totalPrice, setQty, clear, cartOpen, openCart, closeCart } = useCart();
   const number = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "").replace(/\D/g, "");
-  const { session, recordWhatsAppOrder } = useAuth();
+  const { session, isWholesale, recordWhatsAppOrder } = useAuth();
   const [customerName, setCustomerName] = useState("");
   const [locality, setLocality] = useState("");
   const [delivery, setDelivery] = useState("");
   const [notes, setNotes] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const customerComplete = customerName.trim().length > 0 && locality.trim().length > 0 && delivery.length > 0;
   const message = useMemo(
     () => whatsappMessage(detailedLines, totalPrice, { name: customerName, locality, delivery, notes }),
@@ -74,7 +75,7 @@ export function CartBar() {
         <div className="mx-auto flex max-w-md items-center justify-between gap-3 rounded-xl border border-borde-fuerte bg-superficie-2/95 px-3 py-2.5 shadow-lg shadow-black/30 backdrop-blur">
           <div className="min-w-0 leading-tight">
             <p className="text-sm font-bold text-texto">{totalItems} {totalItems === 1 ? "producto" : "productos"}</p>
-            <p className="truncate text-xs text-texto-suave">{formatARS(totalPrice)}</p>
+            <p className="truncate text-xs text-texto-suave">{formatARS(totalPrice)}{isWholesale ? " · Mayorista" : ""}</p>
           </div>
           <button type="button" onClick={openCart} className="inline-flex items-center gap-1.5 rounded-lg border border-acero/60 bg-acero-tenue px-4 py-2 text-sm font-bold text-texto transition-colors hover:border-acero hover:bg-grafito">
             Ver pedido <span aria-hidden>→</span>
@@ -116,7 +117,7 @@ export function CartBar() {
 
             <div className="mt-4 flex items-center justify-between border-t border-borde pt-4">
               <div>
-                <p className="text-xs text-texto-suave">Total estimado</p>
+                <p className="text-xs text-texto-suave">Total estimado{isWholesale ? " mayorista" : ""}</p>
                 <p className="text-xl font-extrabold text-texto">{formatARS(totalPrice)}</p>
               </div>
               <button type="button" onClick={clear} className="text-xs font-semibold text-titanio hover:text-texto">Vaciar</button>
@@ -147,6 +148,20 @@ export function CartBar() {
                 <textarea id="customer-notes" value={notes} onChange={(event) => setNotes(event.target.value)} rows={2} className="w-full resize-none rounded-lg border border-borde-fuerte bg-white px-3 py-2 text-sm text-texto outline-none transition focus:border-acero" placeholder="Color, variante u otra aclaración" />
               </div>
               <p className="text-xs leading-relaxed text-texto-suave">Consultar formas de pago y envío. Las cantidades disponibles se confirman por WhatsApp según stock.</p>
+              <label className="flex cursor-pointer items-start gap-2 rounded-lg border border-borde-fuerte bg-white p-3 text-xs leading-relaxed text-texto-suave">
+                <input
+                  type="checkbox"
+                  checked={termsAccepted}
+                  onChange={(event) => setTermsAccepted(event.target.checked)}
+                  className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-acero)]"
+                />
+                <span>
+                  Leí y acepto los{" "}
+                  <a href="/terminos" target="_blank" rel="noreferrer" className="font-bold text-texto underline underline-offset-2">
+                    Términos y condiciones y las Condiciones de garantía
+                  </a>.
+                </span>
+              </label>
             </div>
 
             {!number && (
@@ -154,10 +169,10 @@ export function CartBar() {
                 Falta configurar el número de WhatsApp de LOOP para habilitar el envío.
               </p>
             )}
-            <button type="button" onClick={() => void sendWhatsApp()} disabled={!number || !customerComplete} className="mt-3 w-full rounded-xl border border-acero bg-acero-tenue px-4 py-3 text-sm font-extrabold text-texto transition-colors hover:bg-grafito disabled:cursor-not-allowed disabled:border-borde disabled:bg-superficie disabled:text-titanio">
+            <button type="button" onClick={() => void sendWhatsApp()} disabled={!number || !customerComplete || !termsAccepted} className="mt-3 w-full rounded-xl border border-acero bg-acero-tenue px-4 py-3 text-sm font-extrabold text-texto transition-colors hover:bg-grafito disabled:cursor-not-allowed disabled:border-borde disabled:bg-superficie disabled:text-titanio">
               Enviar consulta por WhatsApp
             </button>
-            <p className="mt-2 text-center text-[11px] text-titanio">{customerComplete ? "Tu pedido se enviará por WhatsApp para confirmar disponibilidad y coordinar entrega." : "Completá nombre o local, localidad y forma de entrega para continuar."}</p>
+            <p className="mt-2 text-center text-[11px] text-titanio">{!customerComplete ? "Completá nombre o local, localidad y forma de entrega para continuar." : !termsAccepted ? "Aceptá los términos y las condiciones de garantía para continuar." : "Tu pedido se enviará por WhatsApp para confirmar disponibilidad y coordinar entrega."}</p>
           </div>
         </div>
       )}
