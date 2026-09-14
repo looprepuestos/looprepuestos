@@ -12,11 +12,14 @@ import { useAuth } from "@/lib/auth/AuthContext";
 export function ProductCard({ product, display = "tiles" }: { product: PublicProduct; display?: "list" | "tiles" }) {
   const { qtyOf, add, setQty } = useCart();
   const [detailOpen, setDetailOpen] = useState(false);
-  const { session, favorites, toggleFavorite } = useAuth();
+  const { session, favorites, toggleFavorite, wholesalePrices, isWholesale, priceFor } = useAuth();
   const qty = qtyOf(product.sku);
   const hasPromo =
     product.precioPromocional !== null &&
     product.precioPromocional < product.precioPublico;
+  const publicPrice = hasPromo ? (product.precioPromocional as number) : product.precioPublico;
+  const displayedPrice = priceFor(product);
+  const hasWholesalePrice = isWholesale && wholesalePrices.has(product.sku);
   const marcoVisible = product.marco !== "N/A" && product.marco.trim() !== "";
   const isList = display === "list";
 
@@ -65,7 +68,13 @@ export function ProductCard({ product, display = "tiles" }: { product: PublicPro
 
         <div className={`flex items-end justify-between gap-3 border-t border-borde/70 ${isList ? "mt-2 pt-2" : "mt-3 pt-3"}`}>
           <button type="button" onClick={() => setDetailOpen(true)} className="text-left leading-tight" aria-label={`Ver foto y precio de ${product.nombre}`}>
-            {hasPromo ? (
+            {hasWholesalePrice ? (
+              <>
+                <span className="block text-[10px] font-bold uppercase tracking-wide text-green-700">Precio mayorista</span>
+                {displayedPrice < publicPrice && <span className="mr-1.5 text-xs text-titanio line-through">{formatARS(publicPrice)}</span>}
+                <span className="text-base font-bold text-green-700">{formatARS(displayedPrice)}</span>
+              </>
+            ) : hasPromo ? (
               <>
                 <span className="mr-1.5 text-xs text-titanio line-through">{formatARS(product.precioPublico)}</span>
                 <span className="text-base font-bold text-texto">{formatARS(product.precioPromocional as number)}</span>
