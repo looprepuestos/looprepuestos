@@ -2,7 +2,8 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { createClient, type Session, type SupabaseClient } from "@supabase/supabase-js";
-import type { AccountRequestRow, ProfileRow, WhatsAppOrderItem, WhatsAppOrderRow } from "@/types/database";
+import type { AccountRequestRow, ProfileRow, WhatsAppOrderItem, WhatsAppOrderRow, WholesalePriceRow } from "@/types/database";
+import type { PublicProduct } from "@/types/product";
 
 interface AuthContextValue {
   session: Session | null;
@@ -11,6 +12,9 @@ interface AuthContextValue {
   pendingRequests: AccountRequestRow[];
   favorites: ReadonlySet<string>;
   orderHistory: WhatsAppOrderRow[];
+  wholesalePrices: ReadonlyMap<string, number>;
+  isWholesale: boolean;
+  priceFor: (product: PublicProduct) => number;
   loading: boolean;
   accountOpen: boolean;
   openAccount: () => void;
@@ -40,6 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [pendingRequests, setPendingRequests] = useState<AccountRequestRow[]>([]);
   const [favorites, setFavorites] = useState<ReadonlySet<string>>(new Set());
   const [orderHistory, setOrderHistory] = useState<WhatsAppOrderRow[]>([]);
+  const [wholesalePrices, setWholesalePrices] = useState<ReadonlyMap<string, number>>(new Map());
   const [loading, setLoading] = useState(true);
   const [accountOpen, setAccountOpen] = useState(false);
 
@@ -50,6 +55,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setPendingRequests([]);
       setFavorites(new Set());
       setOrderHistory([]);
+      setWholesalePrices(new Map());
       return;
     }
     const userId = activeSession.user.id;
@@ -64,6 +70,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setRequest((requestResult.data as AccountRequestRow | null) ?? null);
     setFavorites(new Set((favoritesResult.data ?? []).map((row) => String(row.sku))));
     setOrderHistory((historyResult.data as WhatsAppOrderRow[] | null) ?? []);
+    if (nextProfile?.role === "MAYORISTA" || nextProfile?.role === "ADMIN") {
+      const { data, error } = await client.rpc("get_wholesale_prices");
+      if (error) {
+        console.error("No se pudieron cargar los precios mayoristas:", error.message);
+        setWholesalePrices(new Map());
+      } else {
+        const rows = (data as WholesalePriceRow[] | null) ?? [];
+        setWholesalePrices(new Map(rows.map((row) => [row.sku, Number(row.precio_mayorista)])));
+      }
+    } else {
+      setWholesalePrices(new Map());
+    }
     if (nextProfile?.role === "ADMIN") {
       const { data } = await client
         .from("account_requests")
@@ -166,12 +184,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return null;
   }, [client, session]);
 
+  const isWholesale = profile?.role === "MAYORISTA" || profile?.role === "ADMIN";
+  const priceFor = useCallback((product: PublicProduct) => {
+    const publicPrice = product.precioPromocional !== null && product.precioPromocional < product.precioPublico
+      ? product.precioPromocional
+      : product.precioPublico;
+    return wholesalePrices.get(product.sku) ?? publicPrice;
+  }, [wholesalePrices]);
+
   const value = useMemo<AuthContextValue>(() => ({
-    session, profile, request, pendingRequests, favorites, orderHistory, loading, accountOpen,
+    session, profile, request, pendingRequests, favorites, orderHistory, wholesalePrices, isWholesale, priceFor, loading, accountOpen,
     openAccount: () => setAccountOpen(true),
     closeAccount: () => setAccountOpen(false),
     signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite, recordWhatsAppOrder,
-  }), [session, profile, request, pendingRequests, favorites, orderHistory, loading, accountOpen, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite, recordWhatsAppOrder]);
+  }), [session, profile, request, pendingRequests, favorites, orderHistory, wholesalePrices, isWholesale, priceFor, loading, accountOpen, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite, recordWhatsAppOrder]);
 
   return <AuthContext value={value}>{children}</AuthContext>;
 }
