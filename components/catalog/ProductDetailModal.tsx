@@ -5,6 +5,7 @@ import type { PublicProduct } from "@/types/product";
 import { formatARS } from "@/lib/format";
 import { useCart } from "@/lib/cart/CartContext";
 import { StockBadge } from "./StockBadge";
+import { useAuth } from "@/lib/auth/AuthContext";
 
 export function ProductDetailModal({
   product,
@@ -14,6 +15,7 @@ export function ProductDetailModal({
   onClose: () => void;
 }) {
   const { qtyOf, add, setQty } = useCart();
+  const { wholesalePrices, isWholesale, priceFor } = useAuth();
   const [imageOpen, setImageOpen] = useState(false);
 
   useEffect(() => {
@@ -39,6 +41,9 @@ export function ProductDetailModal({
   const hasPromo =
     product.precioPromocional !== null &&
     product.precioPromocional < product.precioPublico;
+  const publicPrice = hasPromo ? (product.precioPromocional as number) : product.precioPublico;
+  const displayedPrice = priceFor(product);
+  const hasWholesalePrice = isWholesale && wholesalePrices.has(product.sku);
   const marcoVisible = product.marco !== "N/A" && product.marco.trim() !== "";
 
   return (
@@ -101,11 +106,12 @@ export function ProductDetailModal({
 
           <div className="mt-5 flex items-end justify-between gap-3 border-t border-borde pt-4">
             <div>
-              {hasPromo && (
-                <div className="text-xs text-titanio line-through">{formatARS(product.precioPublico)}</div>
+              {hasWholesalePrice && <div className="text-[11px] font-bold uppercase tracking-wide text-green-700">Precio mayorista</div>}
+              {(hasWholesalePrice ? displayedPrice < publicPrice : hasPromo) && (
+                <div className="text-xs text-titanio line-through">{formatARS(hasWholesalePrice ? publicPrice : product.precioPublico)}</div>
               )}
-              <div className="text-xl font-extrabold text-texto">
-                {formatARS(hasPromo ? (product.precioPromocional as number) : product.precioPublico)}
+              <div className={`text-xl font-extrabold ${hasWholesalePrice ? "text-green-700" : "text-texto"}`}>
+                {formatARS(displayedPrice)}
               </div>
             </div>
 
