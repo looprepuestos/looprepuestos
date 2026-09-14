@@ -77,6 +77,14 @@ export function Header() {
         </button>
         </div>
       </div>
+      <div className="border-t border-borde px-4 py-2 md:hidden">
+        <Link
+          href="/terminos"
+          className="mx-auto flex max-w-7xl items-center justify-center text-xs font-bold text-texto-suave underline decoration-borde-fuerte underline-offset-4"
+        >
+          Términos y condiciones
+        </Link>
+      </div>
     </header>
   );
 }
