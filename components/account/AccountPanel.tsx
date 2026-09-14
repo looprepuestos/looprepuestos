@@ -12,7 +12,7 @@ interface InstallPromptEvent extends Event {
 }
 
 export function AccountPanel({ products }: { products: ReadonlyArray<PublicProduct> }) {
-  const { accountOpen, closeAccount, session, profile, request, pendingRequests, favorites, orderHistory, loading, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite } = useAuth();
+  const { accountOpen, closeAccount, session, profile, request, pendingRequests, favorites, orderHistory, wholesalePrices, isWholesale, priceFor, loading, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite } = useAuth();
   const [nombre, setNombre] = useState("");
   const [local, setLocal] = useState("");
   const [localidad, setLocalidad] = useState("");
@@ -116,7 +116,8 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
               ) : (
                 <div className="max-h-72 space-y-2 overflow-y-auto pr-1">
                   {favoriteProducts.map((product) => {
-                    const price = product.precioPromocional !== null && product.precioPromocional < product.precioPublico ? product.precioPromocional : product.precioPublico;
+                    const price = priceFor(product);
+                    const hasWholesalePrice = isWholesale && wholesalePrices.has(product.sku);
                     return (
                       <article key={product.sku} className="flex items-center gap-3 rounded-xl border border-borde p-2.5">
                         <button type="button" onClick={() => openFavorite(product)} className="flex min-w-0 flex-1 items-center gap-3 text-left">
@@ -125,7 +126,8 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
                           </div>
                           <div className="min-w-0 flex-1">
                             <p className="line-clamp-2 text-xs font-bold leading-snug text-texto">{product.nombre}</p>
-                            <p className="mt-1 text-sm font-black text-texto">{formatARS(price)}</p>
+                            {hasWholesalePrice && <p className="mt-1 text-[10px] font-bold uppercase text-green-700">Precio mayorista</p>}
+                            <p className={`text-sm font-black ${hasWholesalePrice ? "text-green-700" : "text-texto"}`}>{formatARS(price)}</p>
                           </div>
                         </button>
                         <button type="button" onClick={() => void toggleFavorite(product.sku)} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-red-200 bg-red-50 text-red-500" aria-label={`Quitar ${product.nombre} de favoritos`}>♥</button>
@@ -195,7 +197,7 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
             ) : isApproved ? (
               <div className="rounded-xl border border-green-200 bg-green-50 p-4">
                 <p className="font-bold text-green-800">Cuenta mayorista aprobada</p>
-                <p className="mt-1 text-xs leading-5 text-green-700">Los precios especiales se habilitarán cuando terminemos de definir los márgenes.</p>
+                <p className="mt-1 text-xs leading-5 text-green-700">Tus precios mayoristas ya están activos en el catálogo, favoritos y carrito.</p>
               </div>
             ) : request?.estado === "PENDIENTE" ? (
               <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
