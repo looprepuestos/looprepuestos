@@ -108,14 +108,13 @@ export function CommercialHighlights({
 
   return (
     <section aria-label="Novedades" className="space-y-3">
-      <div className="flex items-center justify-between gap-3 px-0.5">
-        <h2 className="text-lg font-black tracking-tight text-texto">Novedades</h2>
-        {total > 0 && (
+      {total > 0 && (
+        <div className="flex justify-end px-0.5">
           <button type="button" onClick={() => onShowAll("destacados")} className="text-xs font-bold text-titanio hover:text-acero-fuerte">
             Ver todo →
           </button>
-        )}
-      </div>
+        </div>
+      )}
       <div className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1">
         {highlights.length > 0 ? highlights.map((highlight) => (
           <CustomHighlightCard key={highlight.sheet_row} highlight={highlight} onOpenProduct={onOpenProduct} />
