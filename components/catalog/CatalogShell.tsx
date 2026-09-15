@@ -31,7 +31,6 @@ function normalizedQuery(query: string) {
   return q.replace(/\s+/g, " ").trim();
 }
 
-type CommercialMode = "destacados" | "novedades" | "nuevos" | "promos" | null;
 type ViewMode = "list" | "tiles";
 
 function ViewToggle({ mode, onChange }: { mode: ViewMode; onChange: (mode: ViewMode) => void }) {
@@ -130,7 +129,6 @@ export function CatalogShell({
   const [calidades, setCalidades] = useState<ReadonlySet<string>>(new Set());
   const [marcos, setMarcos] = useState<ReadonlySet<string>>(new Set());
   const [advancedOpen, setAdvancedOpen] = useState(false);
-  const [commercialMode, setCommercialMode] = useState<CommercialMode>(null);
   const [expandedCategories, setExpandedCategories] = useState<ReadonlySet<string>>(new Set());
   const [expandedSubcategories, setExpandedSubcategories] = useState<ReadonlySet<string>>(new Set());
   const [expandedVariants, setExpandedVariants] = useState<ReadonlySet<string>>(new Set());
@@ -163,7 +161,7 @@ export function CatalogShell({
   };
 
   const activeFilters = marcas.size + tipos.size + modelos.size + calidades.size + marcos.size;
-  const isSearching = query.trim().length > 0 || activeFilters > 0 || commercialMode !== null;
+  const isSearching = query.trim().length > 0 || activeFilters > 0;
 
   const clearAll = () => {
     setQuery("");
@@ -172,7 +170,6 @@ export function CatalogShell({
     setModelos(new Set());
     setCalidades(new Set());
     setMarcos(new Set());
-    setCommercialMode(null);
   };
 
   const openHighlightProduct = (sku: string | null) => {
@@ -187,7 +184,6 @@ export function CatalogShell({
     setModelos(new Set());
     setCalidades(new Set());
     setMarcos(new Set());
-    setCommercialMode(null);
   };
 
   const results = useMemo(() => {
@@ -199,12 +195,7 @@ export function CatalogShell({
       .filter((product) => {
         const haystack = normalize([product.nombre, product.marca, product.modelo, product.tipo, product.calidad, product.marco, product.compatibilidad].join(" "));
         const matchQuery = tokens.length === 0 || tokens.every((token) => haystack.includes(token));
-        const matchCommercial = commercialMode === null ||
-          (commercialMode === "destacados" && (product.esNovedad || product.esNuevoIngreso || product.esPromocion)) ||
-          (commercialMode === "novedades" && product.esNovedad) ||
-          (commercialMode === "nuevos" && product.esNuevoIngreso) ||
-          (commercialMode === "promos" && product.esPromocion);
-        return matchQuery && matchCommercial &&
+        return matchQuery &&
           (marcas.size === 0 || marcas.has(product.marca)) &&
           (tipos.size === 0 || tipos.has(product.tipo)) &&
           (modelos.size === 0 || modelos.has(product.modelo)) &&
@@ -220,7 +211,7 @@ export function CatalogShell({
         if (a.enStock !== b.enStock) return a.enStock ? -1 : 1;
         return a.nombre.localeCompare(b.nombre, "es", { numeric: true });
       });
-  }, [products, query, marcas, tipos, modelos, calidades, marcos, commercialMode]);
+  }, [products, query, marcas, tipos, modelos, calidades, marcos]);
 
   const visibleTipos = useMemo(() => {
     if (marcas.size === 0) return tipoOpts;
@@ -234,9 +225,6 @@ export function CatalogShell({
     ).map((p) => p.modelo));
     return modeloOpts.filter((option) => allowed.has(option.id));
   }, [products, marcas, tipos, modeloOpts]);
-  const novedades = products.filter((p) => p.esNovedad);
-  const nuevosIngresos = products.filter((p) => p.esNuevoIngreso);
-  const promociones = products.filter((p) => p.esPromocion);
   const categoryGroups = useMemo(() => CATALOG_CATEGORIES.map((category) => {
     const categoryProducts = products.filter((product) => catalogCategory(product) === category.id);
     const subcategoryMap = new Map<string, PublicProduct[]>();
@@ -293,16 +281,14 @@ export function CatalogShell({
     return next;
   });
   const advancedCount = modelos.size + calidades.size + marcos.size;
-  const commercialLabel = commercialMode === "destacados" || commercialMode === "novedades" ? "Novedades" : commercialMode === "nuevos" ? "Nuevos ingresos" : commercialMode === "promos" ? "Ofertas" : "";
-
   return (
     <div className="space-y-7">
-      <SearchBar value={query} onChange={(value) => { setQuery(value); setCommercialMode(null); }} />
+      <SearchBar value={query} onChange={setQuery} />
 
       {!isSearching && (
         <>
           <CatalogHero />
-          <CommercialHighlights highlights={highlights} novedades={novedades} nuevos={nuevosIngresos} promos={promociones} onShowAll={setCommercialMode} onOpenProduct={openHighlightProduct} />
+          <CommercialHighlights highlights={highlights} onOpenProduct={openHighlightProduct} />
           <InstagramBanner />
         </>
       )}
@@ -337,7 +323,6 @@ export function CatalogShell({
         <section aria-label="Resultados">
           <div className="mb-2.5 flex items-center justify-between gap-3 px-0.5">
             <div>
-              {commercialLabel && <p className="mb-0.5 text-[11px] font-bold uppercase tracking-wide text-acero-fuerte">{commercialLabel}</p>}
               <p className="text-xs font-medium text-texto-suave">{results.length} {results.length === 1 ? "resultado" : "resultados"}{activeFilters > 0 ? ` · ${activeFilters} filtros` : ""}</p>
             </div>
             <div className="flex items-center gap-2"><ViewToggle mode={viewMode} onChange={changeViewMode} /><button type="button" onClick={clearAll} className="text-xs font-semibold text-acero-fuerte">Limpiar</button></div>
