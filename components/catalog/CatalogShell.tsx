@@ -8,6 +8,7 @@ import { FilterChips } from "@/components/search/FilterChips";
 import { ProductCard } from "./ProductCard";
 import { EmptyState } from "./EmptyState";
 import { CommercialHighlights } from "./CommercialHighlights";
+import { CatalogHero, InstagramBanner } from "./CatalogHero";
 
 function normalize(input: string) {
   return input.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
@@ -299,7 +300,11 @@ export function CatalogShell({
       <SearchBar value={query} onChange={(value) => { setQuery(value); setCommercialMode(null); }} />
 
       {!isSearching && (
-        <CommercialHighlights highlights={highlights} novedades={novedades} nuevos={nuevosIngresos} promos={promociones} onShowAll={setCommercialMode} onOpenProduct={openHighlightProduct} />
+        <>
+          <CatalogHero />
+          <CommercialHighlights highlights={highlights} novedades={novedades} nuevos={nuevosIngresos} promos={promociones} onShowAll={setCommercialMode} onOpenProduct={openHighlightProduct} />
+          <InstagramBanner />
+        </>
       )}
 
       <div className="space-y-3 rounded-xl border border-borde bg-white p-3 shadow-sm sm:p-4">
@@ -340,7 +345,7 @@ export function CatalogShell({
           {results.length > 0 ? <div className={productGridClass}>{results.map((product) => <ProductCard key={product.sku} product={product} display={viewMode} />)}</div> : <EmptyState query={query} />}
         </section>
       ) : (
-        <section id="catalogo-loop" aria-label="Catálogo">
+        <section id="catalogo-loop" aria-label="Catálogo" className="scroll-mt-28">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-3 px-0.5">
             <span className="text-sm font-bold text-texto-suave">{products.length} productos</span>
             <div className="flex flex-wrap items-center justify-end gap-2 text-xs font-bold">

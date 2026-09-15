@@ -140,3 +140,64 @@ input[type="number"]::-webkit-inner-spin-button {
   color: var(--color-texto-suave);
 }
 .commercial-link:hover { border-color: var(--color-acero); color: var(--color-texto); }
+
+/* Hero de catálogo: liviano, sin imágenes ni dependencias externas. */
+.catalog-hero {
+  background:
+    radial-gradient(circle at 92% 12%, rgba(35, 129, 90, 0.10), transparent 30%),
+    linear-gradient(135deg, rgba(55, 107, 123, 0.08), transparent 52%),
+    var(--color-superficie);
+}
+
+.catalog-hero-orbit {
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid rgba(55, 107, 123, 0.15);
+  border-radius: 999px;
+}
+
+.catalog-hero-orbit-one {
+  width: 15rem;
+  height: 15rem;
+  right: -4rem;
+  top: -6.5rem;
+}
+
+.catalog-hero-orbit-two {
+  width: 9rem;
+  height: 9rem;
+  right: 4rem;
+  bottom: -6rem;
+}
+
+.catalog-hero-dot {
+  animation: catalog-hero-pulse 2s ease-in-out infinite;
+}
+
+.catalog-brand-ticker {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+
+.catalog-brand-track {
+  animation: catalog-brand-scroll 26s linear infinite;
+  will-change: transform;
+}
+
+@keyframes catalog-hero-pulse {
+  0%, 100% { opacity: 0.45; transform: scale(0.82); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes catalog-brand-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .catalog-hero-dot,
+  .catalog-brand-track {
+    animation: none;
+  }
+}
