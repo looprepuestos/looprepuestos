@@ -6,12 +6,13 @@ export const dynamic = "force-dynamic";
 
 type AccountAction = "revoke" | "delete";
 
-function adminClient() {
+function adminClient(token: string) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceKey) throw new Error("Falta configurar Supabase en el servidor.");
-  return createClient(url, serviceKey, {
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !anonKey) throw new Error("Falta configurar Supabase en el servidor.");
+  return createClient(url, anonKey, {
     auth: { persistSession: false, autoRefreshToken: false },
+    global: { headers: { Authorization: `Bearer ${token}` } },
   });
 }
 
@@ -19,7 +20,7 @@ async function requireAdmin(request: Request) {
   const token = request.headers.get("authorization")?.replace(/^Bearer\s+/i, "");
   if (!token) return null;
 
-  const supabase = adminClient();
+  const supabase = adminClient(token);
   const { data: authData, error: authError } = await supabase.auth.getUser(token);
   if (authError || !authData.user) return null;
 
@@ -34,17 +35,23 @@ async function requireAdmin(request: Request) {
 }
 
 export async function GET(request: Request) {
-  const admin = await requireAdmin(request);
-  if (!admin) return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+  try {
+    const admin = await requireAdmin(request);
+    if (!admin) return NextResponse.json({ error: "No autorizado." }, { status: 401 });
 
-  const { data, error } = await admin.supabase
-    .from("profiles")
-    .select("id,email,nombre,role,created_at,updated_at")
-    .eq("role", "MAYORISTA")
-    .order("updated_at", { ascending: false });
+    const { data, error } = await admin.supabase
+      .from("profiles")
+      .select("id,email,nombre,role,created_at,updated_at")
+      .eq("role", "MAYORISTA")
+      .order("updated_at", { ascending: false });
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json({ accounts: data ?? [] });
+    if (error) throw error;
+    console.log("[admin/wholesale-accounts] listado", { adminId: admin.adminId, count: data?.length ?? 0 });
+    return NextResponse.json({ accounts: data ?? [] });
+  } catch (error) {
+    console.error("[admin/wholesale-accounts] error al listar", error);
+    return NextResponse.json({ error: "No se pudieron cargar los mayoristas." }, { status: 500 });
+  }
 }
 
 export async function POST(request: Request) {
@@ -78,25 +85,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "No se puede modificar otra cuenta administradora." }, { status: 403 });
   }
 
-  // Siempre se revoca primero: aunque la eliminación falle por conservar un
-  // historial, el usuario deja de recibir precios mayoristas inmediatamente.
-  const { error: revokeError } = await admin.supabase
-    .from("profiles")
-    .update({ role: "PUBLICO" })
-    .eq("id", body.userId);
-
-  if (revokeError) return NextResponse.json({ error: revokeError.message }, { status: 500 });
-  if (body.action === "revoke") return NextResponse.json({ ok: true });
-
-  const { error: deleteError } = await admin.supabase.auth.admin.deleteUser(body.userId);
-  if (deleteError) {
-    return NextResponse.json(
-      {
-        error: "Se quitó el acceso mayorista, pero no se pudo eliminar la cuenta porque tiene información histórica asociada.",
-      },
-      { status: 409 },
-    );
+  if (body.action === "revoke") {
+    const { error } = await admin.supabase.from("profiles").update({ role: "PUBLICO" }).eq("id", body.userId);
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    console.log("[admin/wholesale-accounts] mayorista revocado", { adminId: admin.adminId, userId: body.userId });
+    return NextResponse.json({ ok: true });
   }
 
-  return NextResponse.json({ ok: true });
+  const { data: result, error: deleteError } = await admin.supabase.rpc("admin_delete_account", {
+    p_user_id: body.userId,
+  });
+  if (deleteError) return NextResponse.json({ error: deleteError.message }, { status: 500 });
+
+  console.log("[admin/wholesale-accounts] cuenta gestionada", { adminId: admin.adminId, userId: body.userId, result });
+  return NextResponse.json({ ok: true, result });
 }

@@ -75,7 +75,11 @@ export function WholesaleAccountAdmin({ session }: { session: Session }) {
       const payload = await response.json();
       if (!response.ok) throw new Error(payload.error || "No se pudo completar la acción.");
       setAccounts((current) => current.filter((item) => item.id !== account.id));
-      setMessage(action === "delete" ? "Cuenta eliminada." : "Acceso mayorista retirado.");
+      setMessage(action === "delete"
+        ? payload.result === "REVOKED_HISTORY"
+          ? "Se quitó el acceso mayorista. La cuenta se conservó porque tiene historial asociado."
+          : "Cuenta eliminada."
+        : "Acceso mayorista retirado.");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "No se pudo completar la acción.");
       await loadAccounts();

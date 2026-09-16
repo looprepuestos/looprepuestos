@@ -216,9 +216,14 @@ export function CatalogShell({
   }, [products, query, marcas, tipos, modelos, calidades, marcos]);
 
   const visibleTipos = useMemo(() => {
-    if (marcas.size === 0) return tipoOpts;
-    const allowed = new Set(products.filter((p) => marcas.has(p.marca)).map((p) => p.tipo));
-    return tipoOpts.filter((option) => allowed.has(option.id));
+    let available = tipoOpts;
+    if (marcas.size > 0) {
+      const allowed = new Set(products.filter((p) => marcas.has(p.marca)).map((p) => p.tipo));
+      available = tipoOpts.filter((option) => allowed.has(option.id));
+    }
+    return available.map((option) => normalize(option.label) === "herramienta insumos"
+      ? { ...option, label: "Herramientas / Insumos" }
+      : option);
   }, [products, marcas, tipoOpts]);
   const visibleModelos = useMemo(() => {
     const allowed = new Set(products.filter((p) =>
