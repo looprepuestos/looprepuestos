@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/auth/AuthContext";
 import type { PublicProduct } from "@/types/product";
 import { formatARS } from "@/lib/format";
 import { ProductDetailModal } from "@/components/catalog/ProductDetailModal";
+import { WholesaleAccountAdmin } from "@/components/account/WholesaleAccountAdmin";
 
 interface InstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -193,6 +194,12 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
                     ))}
                   </div>
                 )}
+                <WholesaleAccountAdmin session={session} />
+                <div className="mt-6 border-t border-borde pt-5">
+                  <h3 className="text-sm font-black text-texto">Visualizaciones de la web</h3>
+                  <p className="mt-1 text-xs leading-5 text-texto-suave">Consultá visitas y páginas vistas por día, páginas más recorridas, origen del tráfico y dispositivos.</p>
+                  <a href="https://vercel.com/looprepuestos/looprepuestos/analytics" target="_blank" rel="noreferrer" className="mt-3 flex w-full items-center justify-center rounded-xl border border-borde-fuerte bg-fondo-2 px-4 py-3 text-sm font-extrabold text-texto hover:bg-white">Ver estadísticas diarias</a>
+                </div>
               </div>
             ) : isApproved ? (
               <div className="rounded-xl border border-green-200 bg-green-50 p-4">
