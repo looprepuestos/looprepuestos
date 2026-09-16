@@ -61,7 +61,7 @@ const CATALOG_CATEGORIES = [
   { id: "placas-de-carga", label: "PLACAS DE CARGA" },
   { id: "tag-on-baterias", label: "TAG ON BATERÍAS" },
   { id: "baterias", label: "BATERÍAS" },
-  { id: "herramienta-insumos", label: "HERRAMIENTA / INSUMOS" },
+  { id: "herramienta-insumos", label: "HERRAMIENTAS / INSUMOS" },
 ] as const;
 
 function catalogCategory(product: PublicProduct) {
@@ -80,6 +80,8 @@ function catalogCategory(product: PublicProduct) {
 
 function iphoneBatteryBrand(product: PublicProduct) {
   const quality = normalize(product.calidad);
+  const description = normalize([product.nombre, product.sku, product.modelo, product.calidad].join(" "));
+  if (quality.includes("foxconn") && description.includes("diagnost")) return "FOXCONN DIAGNÓSTICO";
   if (quality.includes("foxconn")) return "FOXCONN";
   if (quality.includes("jcid")) return "JCID DIAGNÓSTICO";
   return "OTRAS CALIDADES";
