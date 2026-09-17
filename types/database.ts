@@ -138,11 +138,13 @@ export interface WhatsAppOrderRow {
   customer_name: string;
   locality: string;
   delivery: "Envío" | "Retiro";
+  payment_method: "Efectivo" | "Transferencia" | null;
   notes: string | null;
   items: WhatsAppOrderItem[];
   total_estimated: number;
-  estado: "ENVIADO" | "CONFIRMADO" | "CANCELADO";
+  estado: "NUEVO" | "CONFIRMADO" | "PREPARADO" | "ENTREGADO" | "CANCELADO";
   created_at: string;
+  updated_at: string;
 }
 
 export interface OrderRow {
