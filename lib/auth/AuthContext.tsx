@@ -24,7 +24,7 @@ interface AuthContextValue {
   submitWholesaleRequest: (input: { nombre: string; local: string; localidad: string; whatsapp: string }) => Promise<string | null>;
   resolveWholesaleRequest: (requestId: string, approve: boolean) => Promise<string | null>;
   toggleFavorite: (sku: string) => Promise<void>;
-  recordWhatsAppOrder: (input: { customerName: string; locality: string; delivery: "Envío" | "Retiro"; notes: string; items: WhatsAppOrderItem[]; total: number }) => Promise<string | null>;
+  recordWhatsAppOrder: (input: { customerName: string; locality: string; delivery: "Envío" | "Retiro"; payment: "Efectivo" | "Transferencia"; notes: string; items: WhatsAppOrderItem[]; total: number }) => Promise<string | null>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -168,13 +168,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return null;
   }, [client, session, profile?.role, loadPrivateData]);
 
-  const recordWhatsAppOrder = useCallback(async (input: { customerName: string; locality: string; delivery: "Envío" | "Retiro"; notes: string; items: WhatsAppOrderItem[]; total: number }) => {
+  const recordWhatsAppOrder = useCallback(async (input: { customerName: string; locality: string; delivery: "Envío" | "Retiro"; payment: "Efectivo" | "Transferencia"; notes: string; items: WhatsAppOrderItem[]; total: number }) => {
     if (!client || !session) return null;
     const { data, error } = await client.from("whatsapp_orders").insert({
       user_id: session.user.id,
       customer_name: input.customerName.trim(),
       locality: input.locality.trim(),
       delivery: input.delivery,
+      payment_method: input.payment,
       notes: input.notes.trim() || null,
       items: input.items,
       total_estimated: input.total,
