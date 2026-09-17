@@ -9,6 +9,7 @@ import { ProductCard } from "./ProductCard";
 import { EmptyState } from "./EmptyState";
 import { CommercialHighlights } from "./CommercialHighlights";
 import { CatalogHero, InstagramBanner } from "./CatalogHero";
+import { LoopStory } from "./LoopStory";
 
 function normalize(input: string) {
   return input.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
@@ -295,6 +296,7 @@ export function CatalogShell({
       {!isSearching && (
         <>
           <CatalogHero />
+          <LoopStory />
           <CommercialHighlights highlights={highlights} onOpenProduct={openHighlightProduct} />
           <InstagramBanner />
         </>

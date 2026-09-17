@@ -96,6 +96,19 @@ export interface PublicHighlight {
   orden: number;
 }
 
+export interface WebStoryRow {
+  id: number;
+  title: string;
+  video_url: string;
+  object_path: string;
+  button_text: string;
+  active: boolean;
+  starts_at: string;
+  expires_at: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface ProfileRow {
   id: string;
   email: string;

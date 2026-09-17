@@ -8,6 +8,7 @@ import { ProductDetailModal } from "@/components/catalog/ProductDetailModal";
 import { WholesaleAccountAdmin } from "@/components/account/WholesaleAccountAdmin";
 import { AdminOrderDashboard } from "@/components/account/AdminOrderDashboard";
 import { UserAvatar } from "@/components/account/UserAvatar";
+import { AdminStoryManager } from "@/components/account/AdminStoryManager";
 
 interface InstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -179,6 +180,7 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
                   <p className="font-bold text-texto">Panel administrador</p>
                   <p className="mt-1 text-xs leading-5 text-texto-suave">Controlá pedidos, clientes mayoristas y actividad de la web desde un solo lugar.</p>
                 </div>
+                <AdminStoryManager session={session} />
                 <AdminOrderDashboard session={session} />
                 <div className="mb-2 flex items-center justify-between gap-3">
                   <h3 className="text-sm font-black text-texto">Solicitudes pendientes</h3>
