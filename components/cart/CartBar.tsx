@@ -71,7 +71,8 @@ export function CartBar() {
         customerName: effectiveCustomerName,
         locality: effectiveLocality,
         delivery: delivery as "Envío" | "Retiro",
-        notes: [notes.trim(), `Forma de pago: ${payment}`].filter(Boolean).join(" · "),
+        payment: payment as "Efectivo" | "Transferencia",
+        notes,
         total: totalPrice,
         items: detailedLines.map((line) => ({
           sku: line.sku,
