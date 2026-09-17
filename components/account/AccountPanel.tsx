@@ -6,6 +6,7 @@ import type { PublicProduct } from "@/types/product";
 import { formatARS } from "@/lib/format";
 import { ProductDetailModal } from "@/components/catalog/ProductDetailModal";
 import { WholesaleAccountAdmin } from "@/components/account/WholesaleAccountAdmin";
+import { UserAvatar } from "@/components/account/UserAvatar";
 
 interface InstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -45,6 +46,8 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
 
   if (!accountOpen) return <ProductDetailModal product={selectedProduct} onClose={() => setSelectedProduct(null)} />;
   const isApproved = profile?.role === "MAYORISTA" || profile?.role === "ADMIN";
+  const accountName = profile?.nombre || session?.user.user_metadata.full_name || "Cliente LOOP";
+  const avatarUrl = session?.user.user_metadata.avatar_url ?? session?.user.user_metadata.picture;
 
   async function login() {
     setWorking(true); setError("");
@@ -103,9 +106,12 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
           </div>
         ) : (
           <div>
-            <div className="mb-5 rounded-xl border border-borde bg-fondo-2 p-3">
-              <p className="text-sm font-bold text-texto">{profile?.nombre || session.user.user_metadata.full_name || "Cliente LOOP"}</p>
-              <p className="mt-0.5 text-xs text-texto-suave">{session.user.email}</p>
+            <div className="mb-5 flex items-center gap-3 rounded-xl border border-borde bg-fondo-2 p-3">
+              <UserAvatar name={accountName} imageUrl={avatarUrl} size="large" />
+              <div className="min-w-0">
+                <p className="truncate text-sm font-bold text-texto">{accountName}</p>
+                <p className="mt-0.5 truncate text-xs text-texto-suave">{session.user.email}</p>
+              </div>
             </div>
             <div className="mb-5">
               <div className="mb-2 flex items-center justify-between gap-3">
