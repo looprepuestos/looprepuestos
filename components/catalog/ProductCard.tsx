@@ -13,13 +13,16 @@ export function ProductCard({ product, display = "tiles" }: { product: PublicPro
   const { qtyOf, add, setQty } = useCart();
   const [detailOpen, setDetailOpen] = useState(false);
   const { session, favorites, toggleFavorite, wholesalePrices, isWholesale, priceFor } = useAuth();
-  const qty = qtyOf(product.sku);
+  const hasVariants = product.variants.length > 0;
+  const qty = hasVariants
+    ? product.variants.reduce((total, variant) => total + qtyOf(variant.sku), 0)
+    : qtyOf(product.sku);
   const hasPromo =
     product.precioPromocional !== null &&
     product.precioPromocional < product.precioPublico;
   const publicPrice = hasPromo ? (product.precioPromocional as number) : product.precioPublico;
   const displayedPrice = priceFor(product);
-  const hasWholesalePrice = isWholesale && wholesalePrices.has(product.sku);
+  const hasWholesalePrice = isWholesale && wholesalePrices.has(product.parentSku ?? product.sku);
   const marcoVisible = product.marco !== "N/A" && product.marco.trim() !== "";
   const isList = display === "list";
 
@@ -84,7 +87,16 @@ export function ProductCard({ product, display = "tiles" }: { product: PublicPro
             )}
           </button>
 
-          {qty === 0 ? (
+          {hasVariants ? (
+            <button
+              type="button"
+              onClick={() => setDetailOpen(true)}
+              disabled={!product.enStock}
+              className="inline-flex h-9 items-center gap-1.5 rounded-md border border-acero/60 bg-acero-tenue px-3 text-sm font-semibold text-texto transition-colors hover:border-acero hover:bg-grafito disabled:cursor-not-allowed disabled:border-borde disabled:bg-transparent disabled:text-titanio"
+            >
+              {qty > 0 ? `${qty} en carrito` : "Elegir color"}
+            </button>
+          ) : qty === 0 ? (
             <button
               type="button"
               onClick={() => add(product.sku, 1)}
@@ -104,7 +116,9 @@ export function ProductCard({ product, display = "tiles" }: { product: PublicPro
         </div>
       </article>
 
-      <ProductDetailModal product={detailOpen ? product : null} onClose={() => setDetailOpen(false)} />
+      {detailOpen && (
+        <ProductDetailModal key={product.sku} product={product} onClose={() => setDetailOpen(false)} />
+      )}
     </>
   );
 }

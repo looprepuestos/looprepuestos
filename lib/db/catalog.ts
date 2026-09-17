@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import type { FacetOption, PublicProduct } from "@/types/product";
-import type { CatalogoPublicoRow, PublicHighlight } from "@/types/database";
+import type { CatalogoPublicoRow, CatalogoVariantePublicaRow, PublicHighlight } from "@/types/database";
 import { createPublicClient } from "./supabase";
 
 /** Oculta marcas internas de proveedor sin modificar la fuente operativa. */
@@ -36,7 +36,34 @@ function mapRow(r: CatalogoPublicoRow): PublicProduct {
     esDestacado: r.es_destacado,
     fechaIngreso: r.fecha_ingreso ?? "",
     ordenDestacado: r.orden_destacado,
+    variants: [],
   };
+}
+
+function attachVariants(
+  products: PublicProduct[],
+  rows: CatalogoVariantePublicaRow[],
+): PublicProduct[] {
+  const byParent = new Map<string, CatalogoVariantePublicaRow[]>();
+  for (const row of rows) {
+    const current = byParent.get(row.parent_sku) ?? [];
+    current.push(row);
+    byParent.set(row.parent_sku, current);
+  }
+  return products.map((product) => ({
+    ...product,
+    variants: (byParent.get(product.sku) ?? [])
+      .map((row) => ({
+        sku: row.sku,
+        parentSku: row.parent_sku,
+        nombre: publicText(row.nombre),
+        color: publicText(row.color),
+        presentacion: publicText(row.presentacion),
+        imagenUrl: row.imagen_url ?? null,
+        enStock: row.en_stock,
+      }))
+      .sort((a, b) => a.color.localeCompare(b.color, "es", { numeric: true })),
+  }));
 }
 
 /**
@@ -49,12 +76,24 @@ function mapRow(r: CatalogoPublicoRow): PublicProduct {
 export async function getPublicCatalog(): Promise<PublicProduct[]> {
   const client = createPublicClient();
   if (client) {
-    const { data, error } = await client
-      .from("catalogo_publico")
-      .select("*")
-      .order("orden_destacado", { ascending: true })
-      .order("nombre", { ascending: true });
-    if (!error && data) return (data as CatalogoPublicoRow[]).map(mapRow);
+    const [catalogResult, variantsResult] = await Promise.all([
+      client
+        .from("catalogo_publico")
+        .select("*")
+        .order("orden_destacado", { ascending: true })
+        .order("nombre", { ascending: true }),
+      client
+        .from("catalogo_variantes_publico")
+        .select("*")
+        .order("color", { ascending: true }),
+    ]);
+    if (!catalogResult.error && catalogResult.data) {
+      const products = (catalogResult.data as CatalogoPublicoRow[]).map(mapRow);
+      const variants = variantsResult.error
+        ? []
+        : ((variantsResult.data as CatalogoVariantePublicaRow[] | null) ?? []);
+      return attachVariants(products, variants);
+    }
   }
 
   try {

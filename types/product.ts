@@ -10,6 +10,16 @@
  * SÍ son públicos: alimentan las secciones de la Home. Se poblarán desde la
  * base (sincronizada con Google Sheets) en etapas posteriores.
  */
+export interface PublicProductVariant {
+  sku: string;
+  parentSku: string;
+  nombre: string;
+  color: string;
+  presentacion: string;
+  imagenUrl: string | null;
+  enStock: boolean;
+}
+
 export interface PublicProduct {
   sku: string;
   nombre: string;
@@ -39,6 +49,12 @@ export interface PublicProduct {
   fechaIngreso: string;
   /** Orden manual para destacados (menor = primero). */
   ordenDestacado: number;
+  /** Variantes de color disponibles. Sólo se usa en tapas traseras. */
+  variants: PublicProductVariant[];
+  /** Presente únicamente en la copia materializada que viaja al carrito. */
+  parentSku?: string;
+  /** Color elegido en una variante materializada del carrito. */
+  selectedColor?: string;
 }
 
 /** Faceta de filtro genérica usada por los chips de la UI. */

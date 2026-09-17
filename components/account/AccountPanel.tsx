@@ -44,7 +44,9 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
     };
   }, []);
 
-  if (!accountOpen) return <ProductDetailModal product={selectedProduct} onClose={() => setSelectedProduct(null)} />;
+  if (!accountOpen) return selectedProduct
+    ? <ProductDetailModal key={selectedProduct.sku} product={selectedProduct} onClose={() => setSelectedProduct(null)} />
+    : null;
   const isApproved = profile?.role === "MAYORISTA" || profile?.role === "ADMIN";
   const accountName = profile?.nombre || session?.user.user_metadata.full_name || "Cliente LOOP";
   const avatarUrl = session?.user.user_metadata.avatar_url ?? session?.user.user_metadata.picture;
@@ -232,7 +234,9 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
         )}
         {error && <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">{error}</p>}
       </section>
-      <ProductDetailModal product={selectedProduct} onClose={() => setSelectedProduct(null)} />
+      {selectedProduct && (
+        <ProductDetailModal key={selectedProduct.sku} product={selectedProduct} onClose={() => setSelectedProduct(null)} />
+      )}
     </div>
   );
 }

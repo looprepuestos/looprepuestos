@@ -53,7 +53,21 @@ export function CartProvider({
 
   const productIndex = useMemo(() => {
     const map = new Map<string, PublicProduct>();
-    for (const product of products) map.set(product.sku, product);
+    for (const product of products) {
+      map.set(product.sku, product);
+      for (const variant of product.variants) {
+        map.set(variant.sku, {
+          ...product,
+          sku: variant.sku,
+          nombre: variant.nombre,
+          imagenUrl: variant.imagenUrl ?? product.imagenUrl,
+          enStock: variant.enStock,
+          variants: [],
+          parentSku: product.sku,
+          selectedColor: variant.color,
+        });
+      }
+    }
     return map;
   }, [products]);
 

@@ -189,7 +189,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const publicPrice = product.precioPromocional !== null && product.precioPromocional < product.precioPublico
       ? product.precioPromocional
       : product.precioPublico;
-    return wholesalePrices.get(product.sku) ?? publicPrice;
+    return wholesalePrices.get(product.parentSku ?? product.sku) ?? publicPrice;
   }, [wholesalePrices]);
 
   const value = useMemo<AuthContextValue>(() => ({

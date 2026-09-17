@@ -71,6 +71,18 @@ export interface CatalogoPublicoRow {
   orden_destacado: number;
 }
 
+/** Fila pública de `catalogo_variantes_publico` (sin stock numérico ni precios). */
+export interface CatalogoVariantePublicaRow {
+  sku: string;
+  parent_sku: string;
+  nombre: string;
+  modelo: string;
+  color: string;
+  presentacion: string;
+  imagen_url: string | null;
+  en_stock: boolean;
+}
+
 export interface PublicHighlight {
   sheet_row: number;
   tipo: "Novedad" | "Nuevo ingreso" | "Oferta";
