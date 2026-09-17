@@ -8,7 +8,7 @@ import { useAuth } from "@/lib/auth/AuthContext";
 function whatsappMessage(
   lines: ReturnType<typeof useCart>["detailedLines"],
   total: number,
-  customer: { name: string; locality: string; delivery: string; notes: string },
+  customer: { name: string; locality: string; delivery: string; payment: string; notes: string },
 ) {
   const detail = lines
     .map((line) => `• ${line.qty}x ${line.product.nombre}\n  ${formatARS(line.unitPrice)} c/u · ${formatARS(line.lineTotal)}`)
@@ -20,13 +20,14 @@ function whatsappMessage(
     `Nombre completo o local: ${customer.name.trim()}`,
     `Localidad: ${customer.locality.trim()}`,
     `Entrega: ${customer.delivery}`,
+    `Forma de pago: ${customer.payment}`,
     ...(customer.notes.trim() ? [`Observaciones: ${customer.notes.trim()}`] : []),
     "",
     detail,
     "",
     `Total estimado: ${formatARS(total)}`,
     "",
-    "Consultar formas de pago y envío.",
+    "El pago se coordina después de confirmar el stock.",
     "Las cantidades disponibles se confirman por WhatsApp según stock.",
   ].join("\n");
 }
@@ -38,6 +39,7 @@ export function CartBar() {
   const [customerName, setCustomerName] = useState("");
   const [locality, setLocality] = useState("");
   const [delivery, setDelivery] = useState("");
+  const [payment, setPayment] = useState("");
   const [notes, setNotes] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
   const registeredCustomerName = useMemo(() => {
@@ -54,10 +56,10 @@ export function CartBar() {
   const useRegisteredCustomer = isWholesale && registeredCustomerName.length > 0 && registeredLocality.length > 0;
   const effectiveCustomerName = useRegisteredCustomer ? registeredCustomerName : customerName.trim();
   const effectiveLocality = useRegisteredCustomer ? registeredLocality : locality.trim();
-  const customerComplete = effectiveCustomerName.length > 0 && effectiveLocality.length > 0 && delivery.length > 0;
+  const customerComplete = effectiveCustomerName.length > 0 && effectiveLocality.length > 0 && delivery.length > 0 && payment.length > 0;
   const message = useMemo(
-    () => whatsappMessage(detailedLines, totalPrice, { name: effectiveCustomerName, locality: effectiveLocality, delivery, notes }),
-    [detailedLines, totalPrice, effectiveCustomerName, effectiveLocality, delivery, notes],
+    () => whatsappMessage(detailedLines, totalPrice, { name: effectiveCustomerName, locality: effectiveLocality, delivery, payment, notes }),
+    [detailedLines, totalPrice, effectiveCustomerName, effectiveLocality, delivery, payment, notes],
   );
 
   if (totalItems === 0) return null;
@@ -69,7 +71,7 @@ export function CartBar() {
         customerName: effectiveCustomerName,
         locality: effectiveLocality,
         delivery: delivery as "Envío" | "Retiro",
-        notes,
+        notes: [notes.trim(), `Forma de pago: ${payment}`].filter(Boolean).join(" · "),
         total: totalPrice,
         items: detailedLines.map((line) => ({
           sku: line.sku,
@@ -159,17 +161,61 @@ export function CartBar() {
                 <div className="grid grid-cols-2 gap-2">
                   {["Envío", "Retiro"].map((option) => (
                     <label key={option} className={`flex min-h-10 cursor-pointer items-center justify-center rounded-lg border px-3 text-sm font-semibold transition ${delivery === option ? "border-acero bg-acero-tenue text-texto" : "border-borde-fuerte bg-white text-texto-suave"}`}>
-                      <input type="radio" name="delivery" value={option} checked={delivery === option} onChange={(event) => setDelivery(event.target.value)} className="sr-only" />
+                      <input
+                        type="radio"
+                        name="delivery"
+                        value={option}
+                        checked={delivery === option}
+                        onChange={(event) => {
+                          const nextDelivery = event.target.value;
+                          setDelivery(nextDelivery);
+                          if (nextDelivery === "Envío") setPayment("Transferencia");
+                        }}
+                        className="sr-only"
+                      />
                       {option}
                     </label>
                   ))}
                 </div>
               </fieldset>
+              <fieldset>
+                <legend className="mb-1.5 text-xs font-bold text-texto">Forma de pago</legend>
+                <div className="grid grid-cols-2 gap-2">
+                  {["Efectivo", "Transferencia"].map((option) => {
+                    const disabled = delivery === "Envío" && option === "Efectivo";
+
+                    return (
+                      <label
+                        key={option}
+                        className={`flex min-h-10 items-center justify-center rounded-lg border px-3 text-sm font-semibold transition ${
+                          disabled
+                            ? "cursor-not-allowed border-borde bg-superficie text-titanio opacity-60"
+                            : payment === option
+                              ? "cursor-pointer border-acero bg-acero-tenue text-texto"
+                              : "cursor-pointer border-borde-fuerte bg-white text-texto-suave"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="payment"
+                          value={option}
+                          checked={payment === option}
+                          disabled={disabled}
+                          onChange={(event) => setPayment(event.target.value)}
+                          className="sr-only"
+                        />
+                        {option}
+                      </label>
+                    );
+                  })}
+                </div>
+                {delivery === "Envío" && <p className="mt-1.5 text-[11px] text-texto-suave">Los pedidos con envío se abonan por transferencia.</p>}
+              </fieldset>
               <div>
                 <label htmlFor="customer-notes" className="mb-1 block text-xs font-bold text-texto">Observaciones <span className="font-normal text-titanio">(opcional)</span></label>
                 <textarea id="customer-notes" value={notes} onChange={(event) => setNotes(event.target.value)} rows={2} className="w-full resize-none rounded-lg border border-borde-fuerte bg-white px-3 py-2 text-sm text-texto outline-none transition focus:border-acero" placeholder="Color, variante u otra aclaración" />
               </div>
-              <p className="text-xs leading-relaxed text-texto-suave">Consultar formas de pago y envío. Las cantidades disponibles se confirman por WhatsApp según stock.</p>
+              <p className="text-xs leading-relaxed text-texto-suave">El pago se coordina después de confirmar el stock. Las cantidades disponibles se confirman por WhatsApp.</p>
               <label className="flex cursor-pointer items-start gap-2 rounded-lg border border-borde-fuerte bg-white p-3 text-xs leading-relaxed text-texto-suave">
                 <input
                   type="checkbox"
@@ -194,7 +240,7 @@ export function CartBar() {
             <button type="button" onClick={() => void sendWhatsApp()} disabled={!number || !customerComplete || !termsAccepted} className="mt-3 w-full rounded-xl border border-acero bg-acero-tenue px-4 py-3 text-sm font-extrabold text-texto transition-colors hover:bg-grafito disabled:cursor-not-allowed disabled:border-borde disabled:bg-superficie disabled:text-titanio">
               Enviar consulta por WhatsApp
             </button>
-            <p className="mt-2 text-center text-[11px] text-titanio">{!customerComplete ? (useRegisteredCustomer ? "Elegí envío o retiro para continuar." : "Completá nombre o local, localidad y forma de entrega para continuar.") : !termsAccepted ? "Aceptá los términos y las condiciones de garantía para continuar." : "Tu pedido se enviará por WhatsApp para confirmar disponibilidad y coordinar entrega."}</p>
+            <p className="mt-2 text-center text-[11px] text-titanio">{!customerComplete ? (useRegisteredCustomer ? "Elegí la entrega y la forma de pago para continuar." : "Completá tus datos, la entrega y la forma de pago para continuar.") : !termsAccepted ? "Aceptá los términos y las condiciones de garantía para continuar." : "Tu pedido se enviará por WhatsApp para confirmar disponibilidad y coordinar entrega."}</p>
           </div>
         </div>
       )}
