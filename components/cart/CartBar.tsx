@@ -34,16 +34,30 @@ function whatsappMessage(
 export function CartBar() {
   const { detailedLines, totalItems, totalPrice, setQty, clear, cartOpen, openCart, closeCart } = useCart();
   const number = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "").replace(/\D/g, "");
-  const { session, isWholesale, recordWhatsAppOrder } = useAuth();
+  const { session, profile, request, isWholesale, recordWhatsAppOrder } = useAuth();
   const [customerName, setCustomerName] = useState("");
   const [locality, setLocality] = useState("");
   const [delivery, setDelivery] = useState("");
   const [notes, setNotes] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
-  const customerComplete = customerName.trim().length > 0 && locality.trim().length > 0 && delivery.length > 0;
+  const registeredCustomerName = useMemo(() => {
+    const fullName = request?.nombre.trim() || profile?.nombre?.trim() || "";
+    const serviceLocal = request?.service_local.trim() || "";
+
+    if (serviceLocal && fullName && serviceLocal.toLocaleLowerCase() !== fullName.toLocaleLowerCase()) {
+      return `${serviceLocal} (${fullName})`;
+    }
+
+    return serviceLocal || fullName;
+  }, [profile?.nombre, request?.nombre, request?.service_local]);
+  const registeredLocality = request?.localidad.trim() || "";
+  const useRegisteredCustomer = isWholesale && registeredCustomerName.length > 0 && registeredLocality.length > 0;
+  const effectiveCustomerName = useRegisteredCustomer ? registeredCustomerName : customerName.trim();
+  const effectiveLocality = useRegisteredCustomer ? registeredLocality : locality.trim();
+  const customerComplete = effectiveCustomerName.length > 0 && effectiveLocality.length > 0 && delivery.length > 0;
   const message = useMemo(
-    () => whatsappMessage(detailedLines, totalPrice, { name: customerName, locality, delivery, notes }),
-    [detailedLines, totalPrice, customerName, locality, delivery, notes],
+    () => whatsappMessage(detailedLines, totalPrice, { name: effectiveCustomerName, locality: effectiveLocality, delivery, notes }),
+    [detailedLines, totalPrice, effectiveCustomerName, effectiveLocality, delivery, notes],
   );
 
   if (totalItems === 0) return null;
@@ -52,8 +66,8 @@ export function CartBar() {
     if (!number) return;
     if (session) {
       await recordWhatsAppOrder({
-        customerName,
-        locality,
+        customerName: effectiveCustomerName,
+        locality: effectiveLocality,
         delivery: delivery as "Envío" | "Retiro",
         notes,
         total: totalPrice,
@@ -124,14 +138,22 @@ export function CartBar() {
             </div>
 
             <div className="mt-4 space-y-3 rounded-xl border border-borde bg-superficie p-3">
-              <div>
-                <label htmlFor="customer-name" className="mb-1 block text-xs font-bold text-texto">Nombre completo o local</label>
-                <input id="customer-name" value={customerName} onChange={(event) => setCustomerName(event.target.value)} autoComplete="name" className="h-10 w-full rounded-lg border border-borde-fuerte bg-white px-3 text-sm text-texto outline-none transition focus:border-acero" placeholder="Ej.: Juan Pérez / Servicio JP" />
-              </div>
-              <div>
-                <label htmlFor="customer-locality" className="mb-1 block text-xs font-bold text-texto">Localidad</label>
-                <input id="customer-locality" value={locality} onChange={(event) => setLocality(event.target.value)} autoComplete="address-level2" className="h-10 w-full rounded-lg border border-borde-fuerte bg-white px-3 text-sm text-texto outline-none transition focus:border-acero" placeholder="Ej.: Rosario" />
-              </div>
+              {useRegisteredCustomer ? (
+                <p className="rounded-lg border border-borde-fuerte bg-white px-3 py-2 text-xs text-texto-suave">
+                  Pedido de <span className="font-bold text-texto">{registeredCustomerName}</span> · {registeredLocality}
+                </p>
+              ) : (
+                <>
+                  <div>
+                    <label htmlFor="customer-name" className="mb-1 block text-xs font-bold text-texto">Nombre completo o local</label>
+                    <input id="customer-name" value={customerName} onChange={(event) => setCustomerName(event.target.value)} autoComplete="name" className="h-10 w-full rounded-lg border border-borde-fuerte bg-white px-3 text-sm text-texto outline-none transition focus:border-acero" placeholder="Ej.: Juan Pérez / Servicio JP" />
+                  </div>
+                  <div>
+                    <label htmlFor="customer-locality" className="mb-1 block text-xs font-bold text-texto">Localidad</label>
+                    <input id="customer-locality" value={locality} onChange={(event) => setLocality(event.target.value)} autoComplete="address-level2" className="h-10 w-full rounded-lg border border-borde-fuerte bg-white px-3 text-sm text-texto outline-none transition focus:border-acero" placeholder="Ej.: Rosario" />
+                  </div>
+                </>
+              )}
               <fieldset>
                 <legend className="mb-1.5 text-xs font-bold text-texto">Forma de entrega</legend>
                 <div className="grid grid-cols-2 gap-2">
@@ -172,7 +194,7 @@ export function CartBar() {
             <button type="button" onClick={() => void sendWhatsApp()} disabled={!number || !customerComplete || !termsAccepted} className="mt-3 w-full rounded-xl border border-acero bg-acero-tenue px-4 py-3 text-sm font-extrabold text-texto transition-colors hover:bg-grafito disabled:cursor-not-allowed disabled:border-borde disabled:bg-superficie disabled:text-titanio">
               Enviar consulta por WhatsApp
             </button>
-            <p className="mt-2 text-center text-[11px] text-titanio">{!customerComplete ? "Completá nombre o local, localidad y forma de entrega para continuar." : !termsAccepted ? "Aceptá los términos y las condiciones de garantía para continuar." : "Tu pedido se enviará por WhatsApp para confirmar disponibilidad y coordinar entrega."}</p>
+            <p className="mt-2 text-center text-[11px] text-titanio">{!customerComplete ? (useRegisteredCustomer ? "Elegí envío o retiro para continuar." : "Completá nombre o local, localidad y forma de entrega para continuar.") : !termsAccepted ? "Aceptá los términos y las condiciones de garantía para continuar." : "Tu pedido se enviará por WhatsApp para confirmar disponibilidad y coordinar entrega."}</p>
           </div>
         </div>
       )}
