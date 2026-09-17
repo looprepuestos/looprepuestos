@@ -6,6 +6,7 @@ import type { PublicProduct } from "@/types/product";
 import { formatARS } from "@/lib/format";
 import { ProductDetailModal } from "@/components/catalog/ProductDetailModal";
 import { WholesaleAccountAdmin } from "@/components/account/WholesaleAccountAdmin";
+import { AdminOrderDashboard } from "@/components/account/AdminOrderDashboard";
 import { UserAvatar } from "@/components/account/UserAvatar";
 
 interface InstallPromptEvent extends Event {
@@ -93,7 +94,7 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
 
   return (
     <div className="fixed inset-0 z-[70] flex items-end justify-center bg-black/60 p-0 sm:items-center sm:p-5" onMouseDown={closeAccount}>
-      <section role="dialog" aria-modal="true" aria-label="Mi cuenta" className="max-h-[92vh] w-full overflow-y-auto rounded-t-2xl border border-borde bg-white p-5 shadow-2xl sm:max-w-md sm:rounded-2xl" onMouseDown={(event) => event.stopPropagation()}>
+      <section role="dialog" aria-modal="true" aria-label="Mi cuenta" className={`max-h-[92vh] w-full overflow-y-auto rounded-t-2xl border border-borde bg-white p-5 shadow-2xl sm:rounded-2xl ${profile?.role === "ADMIN" ? "sm:max-w-2xl" : "sm:max-w-md"}`} onMouseDown={(event) => event.stopPropagation()}>
         <div className="mb-5 flex items-center justify-between gap-3">
           <div><p className="text-xs font-bold uppercase tracking-wide text-acero-fuerte">LOOP REPUESTOS</p><h2 className="text-xl font-black text-texto">Mi cuenta</h2></div>
           <button type="button" onClick={closeAccount} className="flex h-10 w-10 items-center justify-center rounded-lg border border-borde text-xl text-texto-suave" aria-label="Cerrar">×</button>
@@ -176,8 +177,9 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
               <div>
                 <div className="mb-3 rounded-xl border border-acero bg-acero-tenue p-4">
                   <p className="font-bold text-texto">Panel administrador</p>
-                  <p className="mt-1 text-xs leading-5 text-texto-suave">Las nuevas solicitudes mayoristas aparecen acá.</p>
+                  <p className="mt-1 text-xs leading-5 text-texto-suave">Controlá pedidos, clientes mayoristas y actividad de la web desde un solo lugar.</p>
                 </div>
+                <AdminOrderDashboard session={session} />
                 <div className="mb-2 flex items-center justify-between gap-3">
                   <h3 className="text-sm font-black text-texto">Solicitudes pendientes</h3>
                   <span className="rounded-full bg-fondo-2 px-2.5 py-1 text-xs font-bold text-texto-suave">{pendingRequests.length}</span>
