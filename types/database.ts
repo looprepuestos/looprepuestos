@@ -69,6 +69,7 @@ export interface CatalogoPublicoRow {
   es_destacado: boolean;
   fecha_ingreso: string | null;
   orden_destacado: number;
+  variantes: CatalogoVariantePublicaRow[] | null;
 }
 
 /** Fila pública de `catalogo_variantes_publico` (sin stock numérico ni precios). */
