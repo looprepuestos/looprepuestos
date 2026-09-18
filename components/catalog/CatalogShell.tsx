@@ -108,6 +108,7 @@ function rearCoverModelLabel(model: string) {
 }
 
 function rearCoverModelOrder(model: string) {
+  // Orden comercial de generaciones y versiones, independiente del alfabeto.
   const value = normalize(rearCoverModelLabel(model));
   const legacyOrder: Record<string, number> = {
     x: 0,
