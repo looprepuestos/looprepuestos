@@ -115,8 +115,27 @@ export function CartBar() {
               {detailedLines.map((line) => (
                 <div key={line.sku} className="rounded-xl border border-borde bg-superficie p-3">
                   <div className="flex gap-3">
+                    <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-borde bg-white">
+                      {line.product.imagenUrl ? (
+                        // Las variantes de tapas ya llegan materializadas con la foto del color elegido.
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={line.product.imagenUrl}
+                          alt={line.product.nombre}
+                          className="h-full w-full object-contain"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <svg aria-hidden className="h-7 w-7 text-titanio" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                          <rect x="3" y="4" width="18" height="16" rx="2" />
+                          <circle cx="8.5" cy="9" r="1.5" />
+                          <path d="m21 15-5-5L5 20" />
+                        </svg>
+                      )}
+                    </div>
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-semibold text-texto">{line.product.nombre}</p>
+                      {line.product.selectedColor && <p className="mt-0.5 text-xs font-semibold text-texto-suave">Color: {line.product.selectedColor}</p>}
                       <p className="mt-1 text-xs text-texto-suave">{formatARS(line.unitPrice)} c/u</p>
                     </div>
                     <div className="text-right">
