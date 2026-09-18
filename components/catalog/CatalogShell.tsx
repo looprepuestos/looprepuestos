@@ -72,7 +72,11 @@ function catalogCategory(product: PublicProduct) {
 
   if (quality.includes("tag on") || quality.includes("ampsentrix")) return "tag-on-baterias";
   if (type === "modulo" && ["samsung", "motorola", "iphone", "tcl", "tecno", "zte", "xiaomi"].includes(brand)) return brand;
-  if (type === "tapa") return "tapa-trasera";
+  // La planilla usa tanto "Tapa" como "Tapa trasera" (y las variantes
+  // por color usan "Tapa color"). Todas pertenecen a la misma categoría
+  // pública; si exigimos una coincidencia exacta, terminan cayendo en el
+  // grupo residual de Herramientas / Insumos.
+  if (type.startsWith("tapa")) return "tapa-trasera";
   if (type === "flex de carga") return "flex-de-carga";
   if (type === "placa de carga") return "placas-de-carga";
   if (type === "bateria") return "baterias";
