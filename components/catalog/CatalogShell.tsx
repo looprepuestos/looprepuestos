@@ -99,9 +99,45 @@ function samsungMotorolaBatteryTier(product: PublicProduct) {
     : "ALTERNATIVAS";
 }
 
+function rearCoverModelLabel(model: string) {
+  return model
+    .replace(/^iphone\s+/i, "")
+    .replace(/^tapa\s+/i, "")
+    .replace(/\s+completa$/i, "")
+    .trim() || "Otros modelos";
+}
+
+function rearCoverModelOrder(model: string) {
+  const value = normalize(rearCoverModelLabel(model));
+  const legacyOrder: Record<string, number> = {
+    x: 0,
+    xr: 1,
+    xs: 2,
+    "xs max": 3,
+  };
+  const legacyRank = legacyOrder[value];
+  if (legacyRank !== undefined) return legacyRank;
+
+  const match = value.match(/^(\d+)(?:\s+(pro max|mini|plus|pro|max))?$/);
+  if (!match) return Number.MAX_SAFE_INTEGER;
+
+  const generation = Number(match[1]);
+  const version = match[2] ?? "";
+  const versionOrder: Record<string, number> = {
+    "": 0,
+    mini: 1,
+    plus: 2,
+    pro: 3,
+    "pro max": 4,
+    max: 4,
+  };
+
+  return 100 + generation * 10 + (versionOrder[version] ?? 9);
+}
+
 function catalogSubcategory(product: PublicProduct, categoryId: string) {
   if (categoryId === "tapa-trasera") {
-    return product.modelo.replace(/\s+completa$/i, "").trim() || "Otros modelos";
+    return rearCoverModelLabel(product.modelo);
   }
   if (["flex-de-carga", "placas-de-carga", "tag-on-baterias", "baterias"].includes(categoryId)) {
     return product.marca || "General";
@@ -273,7 +309,9 @@ export function CatalogShell({
           .sort((a, b) => a.label.localeCompare(b.label, "es"));
         return { id: `${category.id}::${normalize(label)}`, label, products: subProducts, variants };
       })
-      .sort((a, b) => a.label.localeCompare(b.label, "es"));
+      .sort((a, b) => category.id === "tapa-trasera"
+        ? rearCoverModelOrder(a.label) - rearCoverModelOrder(b.label) || a.label.localeCompare(b.label, "es", { numeric: true })
+        : a.label.localeCompare(b.label, "es"));
     return { ...category, products: categoryProducts, subcategories };
   }), [products]);
 
