@@ -26,7 +26,7 @@ export async function GET(request: Request) {
   try {
     const admin = await requireAdmin(request);
     if (!admin) return NextResponse.json({ error: "No autorizado." }, { status: 401 });
-    const { data: orders, error: ordersError } = await admin.supabase.from("whatsapp_orders").select("*").order("created_at", { ascending: false }).limit(100);
+    const { data: orders, error: ordersError } = await admin.supabase.from("whatsapp_orders").select("*").eq("hidden_by_admin", false).order("created_at", { ascending: false }).limit(100);
     if (ordersError) throw ordersError;
     const userIds = [...new Set((orders ?? []).map((order) => order.user_id).filter((id): id is string => typeof id === "string" && id.length > 0))];
     let profiles = new Map<string, { email: string | null; role: string | null }>();
@@ -62,8 +62,24 @@ export async function POST(request: Request) {
   let body: { orderId?: string; estado?: WhatsAppOrderRow["estado"] };
   try { body = await request.json(); } catch { return NextResponse.json({ error: "Solicitud inválida." }, { status: 400 }); }
   if (!body.orderId || !body.estado || !validStatuses.has(body.estado)) return NextResponse.json({ error: "Estado o pedido inválido." }, { status: 400 });
-  const { data, error } = await admin.supabase.from("whatsapp_orders").update({ estado: body.estado }).eq("id", body.orderId).select("*").maybeSingle();
+  const { data, error } = await admin.supabase.from("whatsapp_orders").update({ estado: body.estado }).eq("id", body.orderId).eq("hidden_by_admin", false).select("*").maybeSingle();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   if (!data) return NextResponse.json({ error: "El pedido no existe." }, { status: 404 });
   return NextResponse.json({ order: data });
+}
+export async function DELETE(request: Request) {
+  try {
+    const admin = await requireAdmin(request);
+    if (!admin) return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+    let body: { orderId?: string };
+    try { body = await request.json(); } catch { return NextResponse.json({ error: "Solicitud inválida." }, { status: 400 }); }
+    if (!body.orderId || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(body.orderId)) return NextResponse.json({ error: "Pedido inválido." }, { status: 400 });
+    const { data, error } = await admin.supabase.from("whatsapp_orders").update({ hidden_by_admin: true }).eq("id", body.orderId).eq("hidden_by_admin", false).select("id").maybeSingle();
+    if (error) throw error;
+    if (!data) return NextResponse.json({ error: "El pedido no existe o ya fue ocultado." }, { status: 404 });
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    console.error("[admin/orders] error al ocultar duplicado", error);
+    return NextResponse.json({ error: "No se pudo quitar el pedido duplicado." }, { status: 500 });
+  }
 }
