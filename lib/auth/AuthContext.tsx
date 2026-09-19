@@ -180,9 +180,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       items: input.items,
       total_estimated: input.total,
     }).select("*").single();
-    if (error) return error.message;
+    if (error || !data) {
+      if (error) console.error("No se pudo registrar el pedido:", error.code);
+      return null;
+    }
     setOrderHistory((current) => [data as WhatsAppOrderRow, ...current].slice(0, 30));
-    return null;
+    return data.id;
   }, [client, session]);
 
   const isWholesale = profile?.role === "MAYORISTA" || profile?.role === "ADMIN";
