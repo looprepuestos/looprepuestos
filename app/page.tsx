@@ -6,8 +6,9 @@ import { getPublicCatalog, getPublicHighlights, deriveFacets } from "@/lib/db/ca
 import { AuthProvider } from "@/lib/auth/AuthContext";
 import { AccountPanel } from "@/components/account/AccountPanel";
 
-// Catálogo cacheado (ISR): se regenera periódicamente, no en cada request.
-export const revalidate = 300;
+// El stock cambia desde Sheets: no servir una versión ISR vieja del catálogo.
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function HomePage() {
   const [products, highlights] = await Promise.all([getPublicCatalog(), getPublicHighlights()]);
