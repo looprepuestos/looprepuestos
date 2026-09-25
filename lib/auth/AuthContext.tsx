@@ -12,6 +12,8 @@ interface AuthContextValue {
   pendingRequests: AccountRequestRow[];
   favorites: ReadonlySet<string>;
   orderHistory: WhatsAppOrderRow[];
+  refreshOrderHistory: () => Promise<string | null>;
+  changeOrder: (order: WhatsAppOrderRow, action: "cancel" | "remove_item", itemIndex?: number) => Promise<string | null>;
   wholesalePrices: ReadonlyMap<string, number>;
   isWholesale: boolean;
   priceFor: (product: PublicProduct) => number;
@@ -189,6 +191,35 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [client, session]);
 
   const isWholesale = profile?.role === "MAYORISTA" || profile?.role === "ADMIN";
+  const refreshOrderHistory = useCallback(async () => {
+    if (!client || !session) return "Primero iniciá sesión.";
+    try {
+      const { data, error } = await client.from("whatsapp_orders").select("*").eq("user_id", session.user.id).order("created_at", { ascending: false }).limit(30);
+      if (error) return "No se pudieron actualizar tus pedidos.";
+      setOrderHistory((data as WhatsAppOrderRow[] | null) ?? []);
+      return null;
+    } catch { return "No se pudieron actualizar tus pedidos. Revisá tu conexión."; }
+  }, [client, session]);
+
+  const changeOrder = useCallback(async (order: WhatsAppOrderRow, action: "cancel" | "remove_item", itemIndex?: number) => {
+    if (!session) return "Primero iniciá sesión.";
+    try {
+      const response = await fetch("/api/orders/customer", {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${session.access_token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId: order.id, action, itemIndex, expectedUpdatedAt: order.updated_at }),
+      });
+      const payload = await response.json() as { order?: WhatsAppOrderRow; error?: string };
+      if (!response.ok || !payload.order) {
+        if (response.status === 409) await refreshOrderHistory();
+        return payload.error || "No se pudo modificar el pedido.";
+      }
+      const updated = payload.order;
+      setOrderHistory((current) => current.map((item) => item.id === updated.id ? updated : item));
+      return null;
+    } catch { return "No se pudo confirmar el cambio. Actualizá el historial para comprobar el estado."; }
+  }, [session, refreshOrderHistory]);
+
   const priceFor = useCallback((product: PublicProduct) => {
     const publicPrice = product.precioPromocional !== null && product.precioPromocional < product.precioPublico
       ? product.precioPromocional
@@ -197,11 +228,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [wholesalePrices]);
 
   const value = useMemo<AuthContextValue>(() => ({
-    session, profile, request, pendingRequests, favorites, orderHistory, wholesalePrices, isWholesale, priceFor, loading, accountOpen,
+    session, profile, request, pendingRequests, favorites, orderHistory, refreshOrderHistory, changeOrder, wholesalePrices, isWholesale, priceFor, loading, accountOpen,
     openAccount: () => setAccountOpen(true),
     closeAccount: () => setAccountOpen(false),
     signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite, recordWhatsAppOrder,
-  }), [session, profile, request, pendingRequests, favorites, orderHistory, wholesalePrices, isWholesale, priceFor, loading, accountOpen, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite, recordWhatsAppOrder]);
+  }), [session, profile, request, pendingRequests, favorites, orderHistory, refreshOrderHistory, changeOrder, wholesalePrices, isWholesale, priceFor, loading, accountOpen, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite, recordWhatsAppOrder]);
 
   return <AuthContext value={value}>{children}</AuthContext>;
 }
