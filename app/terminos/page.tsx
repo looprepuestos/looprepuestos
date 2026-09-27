@@ -62,7 +62,14 @@ export default function TermsPage() {
             </p>
           </section>
 
-          <p className="mt-8 border-t border-borde pt-4 text-xs text-titanio">Versión vigente: 14 de septiembre de 2026.</p>
+          <section className="mt-7">
+            <h2 className="text-xl font-black text-texto">Actividad del catálogo</h2>
+            <p className="mt-3 text-sm leading-6 text-texto-suave">
+              Registramos las visitas al catálogo, las búsquedas y los productos consultados para conocer qué repuestos interesan y mejorar la oferta. Si iniciás sesión, esta actividad puede asociarse a tu cuenta. Sin sesión, se muestra como actividad de un visitante anónimo. Este historial solo está disponible en el panel administrador de LOOP. No guardamos direcciones IP en este registro.
+            </p>
+          </section>
+
+          <p className="mt-8 border-t border-borde pt-4 text-xs text-titanio">Versión vigente: 27 de septiembre de 2026.</p>
         </article>
       </main>
     </div>

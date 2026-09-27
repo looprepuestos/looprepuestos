@@ -10,6 +10,7 @@ import { CustomerOrderHistory } from "@/components/account/CustomerOrderHistory"
 import { AdminOrderDashboard } from "@/components/account/AdminOrderDashboard";
 import { UserAvatar } from "@/components/account/UserAvatar";
 import { AdminStoryManager } from "@/components/account/AdminStoryManager";
+import { AdminActivityDashboard } from "@/components/account/AdminActivityDashboard";
 
 interface InstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -157,6 +158,7 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
                   <p className="mt-1 text-xs leading-5 text-texto-suave">Controlá pedidos, clientes mayoristas y actividad de la web desde un solo lugar.</p>
                 </div>
                 <AdminStoryManager session={session} />
+                <AdminActivityDashboard session={session} />
                 <AdminOrderDashboard session={session} />
                 <div className="mb-2 flex items-center justify-between gap-3">
                   <h3 className="text-sm font-black text-texto">Solicitudes pendientes</h3>

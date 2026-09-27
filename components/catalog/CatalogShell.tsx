@@ -10,6 +10,8 @@ import { EmptyState } from "./EmptyState";
 import { CommercialHighlights } from "./CommercialHighlights";
 import { CatalogHero, InstagramBanner } from "./CatalogHero";
 import { LoopStory } from "./LoopStory";
+import { useAuth } from "@/lib/auth/AuthContext";
+import { recordActivity } from "@/lib/activity";
 
 function normalize(input: string) {
   return input.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
@@ -167,6 +169,8 @@ export function CatalogShell({
   marcos: FacetOption[];
 }) {
   const [query, setQuery] = useState("");
+  const [typedQuery, setTypedQuery] = useState("");
+  const { session, profile, loading: authLoading } = useAuth();
   const [marcas, setMarcas] = useState<ReadonlySet<string>>(new Set());
   const [tipos, setTipos] = useState<ReadonlySet<string>>(new Set());
   const [modelos, setModelos] = useState<ReadonlySet<string>>(new Set());
@@ -209,6 +213,7 @@ export function CatalogShell({
 
   const clearAll = () => {
     setQuery("");
+    setTypedQuery("");
     setMarcas(new Set());
     setTipos(new Set());
     setModelos(new Set());
@@ -223,6 +228,7 @@ export function CatalogShell({
       return;
     }
     setQuery(product.nombre);
+    setTypedQuery("");
     setMarcas(new Set());
     setTipos(new Set());
     setModelos(new Set());
@@ -256,6 +262,13 @@ export function CatalogShell({
         return a.nombre.localeCompare(b.nombre, "es", { numeric: true });
       });
   }, [products, query, marcas, tipos, modelos, calidades, marcos]);
+
+  useEffect(() => {
+    const term = typedQuery.trim();
+    if (authLoading || profile?.role === "ADMIN" || term.length < 2 || term !== query.trim()) return;
+    const timer = window.setTimeout(() => recordActivity(session, { type: "search", term, results: results.length }), 1000);
+    return () => window.clearTimeout(timer);
+  }, [typedQuery, query, results.length, session, profile?.role, authLoading]);
 
   const visibleTipos = useMemo(() => {
     let available = tipoOpts;
@@ -334,7 +347,7 @@ export function CatalogShell({
   const advancedCount = modelos.size + calidades.size + marcos.size;
   return (
     <div className="space-y-7">
-      <SearchBar value={query} onChange={setQuery} />
+      <SearchBar value={query} onChange={(value) => { setQuery(value); setTypedQuery(value); }} />
 
       {!isSearching && (
         <>

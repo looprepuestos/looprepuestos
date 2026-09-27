@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { PublicProduct } from "@/types/product";
 import { formatARS } from "@/lib/format";
 import { useCart } from "@/lib/cart/CartContext";
 import { StockBadge } from "./StockBadge";
 import { useAuth } from "@/lib/auth/AuthContext";
+import { recordActivity } from "@/lib/activity";
 
 const SWATCHES: Record<string, string> = {
   black: "#171717", white: "#f8fafc", silver: "#cbd5e1", gold: "#d4af37",
@@ -26,9 +27,17 @@ export function ProductDetailModal({
   onClose: () => void;
 }) {
   const { qtyOf, add, setQty } = useCart();
-  const { wholesalePrices, isWholesale, priceFor } = useAuth();
+  const { wholesalePrices, isWholesale, priceFor, session, profile, loading: authLoading } = useAuth();
   const [imageOpen, setImageOpen] = useState(false);
   const [selectedSku, setSelectedSku] = useState<string | null>(null);
+  const lastTrackedSku = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (product && !authLoading && profile?.role !== "ADMIN" && lastTrackedSku.current !== product.sku) {
+      lastTrackedSku.current = product.sku;
+      recordActivity(session, { type: "product_view", sku: product.sku, name: product.nombre });
+    }
+  }, [product, session, authLoading, profile?.role]);
 
   useEffect(() => {
     if (!product) return;
