@@ -1,5 +1,5 @@
 -- Historial privado de uso del catálogo. Los visitantes no pueden leer eventos.
-create table public.catalog_activity (
+create table if not exists public.catalog_activity (
   id bigint generated always as identity primary key,
   created_at timestamptz not null default now(),
   user_id uuid references auth.users(id) on delete set null,
@@ -16,9 +16,9 @@ create table public.catalog_activity (
   )
 );
 
-create index catalog_activity_created_idx on public.catalog_activity (created_at desc);
-create index catalog_activity_user_idx on public.catalog_activity (user_id, created_at desc) where user_id is not null;
-create index catalog_activity_session_idx on public.catalog_activity (session_id, created_at desc);
+create index if not exists catalog_activity_created_idx on public.catalog_activity (created_at desc);
+create index if not exists catalog_activity_user_idx on public.catalog_activity (user_id, created_at desc) where user_id is not null;
+create index if not exists catalog_activity_session_idx on public.catalog_activity (session_id, created_at desc);
 
 alter table public.catalog_activity enable row level security;
 revoke all on public.catalog_activity from anon, authenticated;
@@ -26,9 +26,12 @@ grant insert on public.catalog_activity to anon, authenticated;
 grant select on public.catalog_activity to authenticated;
 grant usage on sequence public.catalog_activity_id_seq to anon, authenticated;
 
+drop policy if exists catalog_activity_insert_guest on public.catalog_activity;
 create policy catalog_activity_insert_guest on public.catalog_activity
   for insert to anon with check (user_id is null);
+drop policy if exists catalog_activity_insert_user on public.catalog_activity;
 create policy catalog_activity_insert_user on public.catalog_activity
   for insert to authenticated with check (user_id = (select auth.uid()));
+drop policy if exists catalog_activity_admin_read on public.catalog_activity;
 create policy catalog_activity_admin_read on public.catalog_activity
   for select to authenticated using ((select public.is_admin()));
