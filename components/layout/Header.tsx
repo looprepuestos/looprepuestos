@@ -9,7 +9,7 @@ import { UserAvatar } from "@/components/account/UserAvatar";
 /** Header funcional del MVP: identidad LOOP + acceso directo al pedido. */
 export function Header() {
   const { totalItems, openCart } = useCart();
-  const { session, profile, openAccount } = useAuth();
+  const { session, profile, openAccount, unreadNotifications } = useAuth();
   const accountName = profile?.nombre || session?.user.user_metadata.full_name || "Cliente LOOP";
   const avatarUrl = session?.user.user_metadata.avatar_url ?? session?.user.user_metadata.picture;
 
@@ -45,6 +45,10 @@ export function Header() {
         >
           Términos y condiciones
         </Link>
+        {session && <button type="button" onClick={openAccount} aria-label={`Notificaciones, ${unreadNotifications} sin leer`} className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-borde bg-fondo-2 text-texto-suave">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"/><path d="M10 21h4"/></svg>
+          {unreadNotifications > 0 && <span className="absolute -right-1 -top-1 rounded-full bg-red-600 px-1.5 py-0.5 text-[10px] font-bold text-white">{unreadNotifications > 99 ? '99+' : unreadNotifications}</span>}
+        </button>}
         <button type="button" onClick={openAccount} className="flex h-10 shrink-0 items-center gap-2 rounded-lg border border-borde bg-fondo-2 px-3 text-xs font-bold text-texto-suave transition-colors hover:border-borde-fuerte hover:text-texto" aria-label="Abrir mi cuenta">
           {session ? (
             <UserAvatar name={accountName} imageUrl={avatarUrl} />

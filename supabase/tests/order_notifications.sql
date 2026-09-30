@@ -1,0 +1,52 @@
+begin;
+do $$
+declare v_admin uuid; v_owner uuid; v_other uuid; v_order uuid; v_notice uuid; v_count integer;
+begin
+ select id into v_admin from public.profiles where role='ADMIN' limit 1;
+ select id into v_owner from public.profiles where role<>'ADMIN' order by id limit 1;
+ select id into v_other from public.profiles where role<>'ADMIN' and id<>v_owner limit 1;
+ if v_admin is null or v_other is null then raise exception 'Missing fixtures'; end if;
+ insert into public.whatsapp_orders(user_id,customer_name,locality,delivery,items,total_estimated)
+ values(v_owner,'TEST ROLLBACK','Test','Retiro','[{"sku":"TEST","nombre":"Prueba","cantidad":1,"precio_unitario":1000,"subtotal":1000}]',1000) returning id into v_order;
+ perform set_config('request.jwt.claim.sub',v_admin::text,true);
+ execute 'set local role authenticated';
+ update public.whatsapp_orders set estado='PREPARADO' where id=v_order;
+ execute 'reset role';
+ select count(*) into v_count from public.order_notifications where order_id=v_order;
+ if v_count<>1 then raise exception 'Prepared notification missing'; end if;
+ select id into v_notice from public.order_notifications where order_id=v_order;
+ if not exists(select 1 from public.order_notifications where id=v_notice and message='Ya está listo para retirar.') then raise exception 'Wrong pickup message'; end if;
+ execute 'set local role authenticated';
+ update public.whatsapp_orders set estado='PREPARADO',notes='PRIVATE COST NOTE' where id=v_order;
+ execute 'reset role';
+ if (select count(*) from public.order_notifications where order_id=v_order)<>1 then raise exception 'No-op/internal update generated notice'; end if;
+ perform set_config('request.jwt.claim.sub',v_other::text,true);
+ execute 'set local role authenticated';
+ select count(*) into v_count from public.order_notifications where order_id=v_order;
+ if v_count<>0 then raise exception 'Other customer can read notice'; end if;
+ update public.order_notifications set read_at=now() where id=v_notice;
+ get diagnostics v_count=row_count;
+ if v_count<>0 then raise exception 'Other customer can mark notice'; end if;
+ perform set_config('request.jwt.claim.sub',v_owner::text,true);
+ select count(*) into v_count from public.order_notifications where order_id=v_order;
+ if v_count<>1 then raise exception 'Owner cannot read notice'; end if;
+ update public.order_notifications set read_at=now() where id=v_notice;
+ get diagnostics v_count=row_count;
+ if v_count<>1 then raise exception 'Owner cannot mark notice'; end if;
+ begin
+  update public.order_notifications set message='FORGED' where id=v_notice;
+  raise exception 'Owner can forge notice';
+ exception when insufficient_privilege then null; end;
+ execute 'reset role';
+ perform set_config('request.jwt.claim.sub',v_admin::text,true);
+ execute 'set local role authenticated';
+ update public.whatsapp_orders set customer_message='Pasá a retirar',total_estimated=2000,items='[{"sku":"TEST","nombre":"Prueba","cantidad":2,"precio_unitario":1000,"subtotal":2000}]' where id=v_order;
+ execute 'reset role';
+ if (select count(*) from public.order_notifications where order_id=v_order)<>2 then raise exception 'Modification should generate exactly one notice'; end if;
+ if not exists(select 1 from public.order_notifications where order_id=v_order and (changes->'total'->>'antes')::numeric=1000 and (changes->'total'->>'ahora')::numeric=2000 and message like '%Pasá a retirar%') then raise exception 'Change details missing'; end if;
+ if exists(select 1 from public.order_notifications where order_id=v_order and (message like '%PRIVATE COST NOTE%' or changes::text like '%PRIVATE COST NOTE%')) then raise exception 'Private note leaked'; end if;
+ if has_table_privilege('anon','public.order_notifications','select') or has_table_privilege('authenticated','public.order_notifications','insert') then raise exception 'Unexpected privileges'; end if;
+ if has_function_privilege('authenticated','private.notify_order_customer()','execute') then raise exception 'Internal trigger callable'; end if;
+end $$;
+rollback;
+select 'PASS: prepared, modifications, no duplicates, private read, mark read, protected content, no private notes; rolled back' as result;

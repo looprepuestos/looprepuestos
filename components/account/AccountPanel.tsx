@@ -6,6 +6,7 @@ import type { PublicProduct } from "@/types/product";
 import { formatARS } from "@/lib/format";
 import { ProductDetailModal } from "@/components/catalog/ProductDetailModal";
 import { WholesaleAccountAdmin } from "@/components/account/WholesaleAccountAdmin";
+import { CustomerNotifications } from "@/components/account/CustomerNotifications";
 import { CustomerOrderHistory } from "@/components/account/CustomerOrderHistory";
 import { AdminOrderDashboard } from "@/components/account/AdminOrderDashboard";
 import { UserAvatar } from "@/components/account/UserAvatar";
@@ -119,6 +120,7 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
                 <p className="mt-0.5 truncate text-xs text-texto-suave">{session.user.email}</p>
               </div>
             </div>
+            <CustomerNotifications />
             <div className="mb-5">
               <div className="mb-2 flex items-center justify-between gap-3">
                 <h3 className="text-sm font-black text-texto">Mis favoritos</h3>

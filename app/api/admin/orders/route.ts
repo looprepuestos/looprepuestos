@@ -30,7 +30,7 @@ export async function GET(request: Request) {
     if (ordersError) throw ordersError;
     const userIds = [...new Set((orders ?? []).map((order) => order.user_id).filter((id): id is string => typeof id === "string" && id.length > 0))];
     let profiles = new Map<string, { email: string | null; role: string | null }>();
-    let requests = new Map<string, { service_local: string | null; whatsapp: string | null }>();
+    const requests = new Map<string, { service_local: string | null; whatsapp: string | null }>();
     if (userIds.length > 0) {
       const [profilesResult, requestsResult] = await Promise.all([
         admin.supabase.from("profiles").select("id,email,nombre,role").in("id", userIds),
@@ -59,10 +59,14 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const admin = await requireAdmin(request);
   if (!admin) return NextResponse.json({ error: "No autorizado." }, { status: 401 });
-  let body: { orderId?: string; estado?: WhatsAppOrderRow["estado"] };
+  let body: { orderId?: string; estado?: WhatsAppOrderRow["estado"]; customerMessage?: string };
   try { body = await request.json(); } catch { return NextResponse.json({ error: "Solicitud inválida." }, { status: 400 }); }
-  if (!body.orderId || !body.estado || !validStatuses.has(body.estado)) return NextResponse.json({ error: "Estado o pedido inválido." }, { status: 400 });
-  const { data, error } = await admin.supabase.from("whatsapp_orders").update({ estado: body.estado }).eq("id", body.orderId).eq("hidden_by_admin", false).select("*").maybeSingle();
+  if (!body || typeof body !== 'object' || Array.isArray(body) || typeof body.orderId !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(body.orderId)
+    || (body.estado !== undefined && !validStatuses.has(body.estado))
+    || (body.customerMessage !== undefined && (typeof body.customerMessage !== 'string' || body.customerMessage.length > 500))
+    || (body.estado === undefined && body.customerMessage === undefined)) return NextResponse.json({ error: "Estado, mensaje o pedido inválido." }, { status: 400 });
+  const changes = { ...(body.estado !== undefined ? {estado: body.estado} : {}), ...(body.customerMessage !== undefined ? {customer_message: body.customerMessage.trim()} : {}) };
+  const { data, error } = await admin.supabase.from("whatsapp_orders").update(changes).eq("id", body.orderId).eq("hidden_by_admin", false).select("*").maybeSingle();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   if (!data) return NextResponse.json({ error: "El pedido no existe." }, { status: 404 });
   return NextResponse.json({ order: data });
