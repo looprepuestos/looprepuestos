@@ -146,6 +146,7 @@ export interface WhatsAppOrderItem {
 }
 
 export interface WhatsAppOrderRow {
+  customer_message?: string;
   id: string;
   user_id: string;
   customer_name: string;

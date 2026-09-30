@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { createClient, type Session, type SupabaseClient } from "@supabase/supabase-js";
 import type { AccountRequestRow, ProfileRow, WhatsAppOrderItem, WhatsAppOrderRow, WholesalePriceRow } from "@/types/database";
+import type { OrderNotification } from "@/lib/order-notifications";
 import type { PublicProduct } from "@/types/product";
 
 interface AuthContextValue {
@@ -11,6 +12,11 @@ interface AuthContextValue {
   request: AccountRequestRow | null;
   pendingRequests: AccountRequestRow[];
   favorites: ReadonlySet<string>;
+  notifications: OrderNotification[];
+  unreadNotifications: number;
+  notificationError: string;
+  refreshNotifications: () => Promise<void>;
+  markNotificationRead: (id: string) => Promise<string | null>;
   orderHistory: WhatsAppOrderRow[];
   refreshOrderHistory: () => Promise<string | null>;
   changeOrder: (order: WhatsAppOrderRow, action: "cancel" | "remove_item", itemIndex?: number) => Promise<string | null>;
@@ -47,8 +53,43 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [favorites, setFavorites] = useState<ReadonlySet<string>>(new Set());
   const [orderHistory, setOrderHistory] = useState<WhatsAppOrderRow[]>([]);
   const [wholesalePrices, setWholesalePrices] = useState<ReadonlyMap<string, number>>(new Map());
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => Boolean(client));
   const [accountOpen, setAccountOpen] = useState(false);
+  const [notificationState, setNotificationState] = useState<{ userId: string; items: OrderNotification[]; unread: number; error: string }>({ userId: '', items: [], unread: 0, error: '' });
+  const notifications = useMemo(() => notificationState.userId === session?.user.id ? notificationState.items : [], [notificationState,session?.user.id]);
+  const unreadNotifications = notificationState.userId === session?.user.id ? notificationState.unread : 0;
+  const notificationError = notificationState.userId === session?.user.id ? notificationState.error : '';
+  const refreshNotifications = useCallback(async () => {
+    if (!client || !session) return;
+    const userId = session.user.id;
+    try {
+      const [list, count] = await Promise.all([
+        client.from('order_notifications').select('id,order_id,title,message,changes,created_at,read_at').eq('user_id',userId).order('read_at',{ascending:true,nullsFirst:true}).order('created_at',{ascending:false}).limit(50),
+        client.from('order_notifications').select('id',{count:'exact',head:true}).eq('user_id',userId).is('read_at',null),
+      ]);
+      if (list.error || count.error) throw new Error('No se pudieron cargar los avisos. Tocá Actualizar para reintentar.');
+      setNotificationState({userId,items:(list.data ?? []) as OrderNotification[],unread:count.count ?? 0,error:''});
+    } catch {
+      setNotificationState(current => ({userId,items:current.userId===userId?current.items:[],unread:current.userId===userId?current.unread:0,error:'No se pudieron cargar los avisos. Tocá Actualizar para reintentar.'}));
+    }
+  }, [client,session]);
+  const markNotificationRead = useCallback(async (id: string) => {
+    if (!client || !session) return 'Primero iniciá sesión.';
+    try {
+      const { error } = await client.from('order_notifications').update({read_at:new Date().toISOString()}).eq('id',id).eq('user_id',session.user.id).is('read_at',null);
+      if (error) return 'No se pudo marcar el aviso como leído.';
+      await refreshNotifications(); return null;
+    } catch { return 'No se pudo marcar el aviso como leído.'; }
+  },[client,session,refreshNotifications]);
+  useEffect(() => {
+    if (!session) return;
+    const refreshVisible = () => { if (document.visibilityState === 'visible') void refreshNotifications(); };
+    refreshVisible();
+    const timer = window.setInterval(refreshVisible,30000);
+    window.addEventListener('focus',refreshVisible);
+    document.addEventListener('visibilitychange',refreshVisible);
+    return () => { window.clearInterval(timer); window.removeEventListener('focus',refreshVisible); document.removeEventListener('visibilitychange',refreshVisible); };
+  },[session,refreshNotifications]);
 
   const loadPrivateData = useCallback(async (activeSession: Session | null) => {
     if (!client || !activeSession) {
@@ -97,10 +138,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [client]);
 
   useEffect(() => {
-    if (!client) {
-      setLoading(false);
-      return;
-    }
+    if (!client) return;
     client.auth.getSession().then(({ data }) => {
       setSession(data.session);
       return loadPrivateData(data.session);
@@ -228,11 +266,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [wholesalePrices]);
 
   const value = useMemo<AuthContextValue>(() => ({
+    notifications, unreadNotifications, notificationError, refreshNotifications, markNotificationRead,
     session, profile, request, pendingRequests, favorites, orderHistory, refreshOrderHistory, changeOrder, wholesalePrices, isWholesale, priceFor, loading, accountOpen,
     openAccount: () => setAccountOpen(true),
     closeAccount: () => setAccountOpen(false),
     signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite, recordWhatsAppOrder,
-  }), [session, profile, request, pendingRequests, favorites, orderHistory, refreshOrderHistory, changeOrder, wholesalePrices, isWholesale, priceFor, loading, accountOpen, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite, recordWhatsAppOrder]);
+  }), [notifications, unreadNotifications, notificationError, refreshNotifications, markNotificationRead, session, profile, request, pendingRequests, favorites, orderHistory, refreshOrderHistory, changeOrder, wholesalePrices, isWholesale, priceFor, loading, accountOpen, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite, recordWhatsAppOrder]);
 
   return <AuthContext value={value}>{children}</AuthContext>;
 }

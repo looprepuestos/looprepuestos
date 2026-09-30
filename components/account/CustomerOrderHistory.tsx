@@ -45,7 +45,7 @@ export function CustomerOrderHistory() {
     {error && <p role="alert" className="mb-2 rounded-lg bg-red-50 p-3 text-sm text-red-700">{error}</p>}
     {message && <p role="status" className="mb-2 rounded-lg bg-green-50 p-3 text-sm text-green-800">{message}</p>}
     {orderHistory.length === 0 ? <p className="rounded-xl border border-borde bg-fondo-2 p-4 text-center text-sm text-texto-suave">Tus próximas consultas por WhatsApp aparecerán acá.</p> :
-      <div className="max-h-96 space-y-2 overflow-y-auto pr-1">{orderHistory.map((order) => <details key={order.id} className="rounded-xl border border-borde bg-white p-3">
+      <div className="max-h-96 space-y-2 overflow-y-auto pr-1">{orderHistory.map((order) => <details id={`pedido-${order.id}`} key={order.id} className="rounded-xl border border-borde bg-white p-3">
         <summary className="cursor-pointer list-none">
           <div className="flex items-center justify-between gap-3">
             <div><p className="text-xs font-black text-texto">{new Date(order.created_at).toLocaleString("es-AR", { dateStyle: "short", timeStyle: "short" })}</p><p className="mt-0.5 text-xs text-texto-suave">{order.items.length} {order.items.length === 1 ? "producto" : "productos"} · {order.delivery}</p></div>
@@ -57,6 +57,7 @@ export function CustomerOrderHistory() {
             <span className="min-w-0 text-texto-suave">{item.cantidad}× {item.nombre}</span>
             <div className="shrink-0 text-right"><p className="font-bold text-texto">{formatARS(item.subtotal)}</p>{order.estado === "NUEVO" && order.items.length > 1 && <button type="button" disabled={busy} onClick={() => void change(order, index)} aria-label={`Quitar ${item.nombre} del pedido`} className="mt-1 rounded-lg border border-red-200 px-3 py-2 text-xs font-bold text-red-700 disabled:opacity-50">Quitar</button>}</div>
           </div>)}
+          {order.customer_message && <p className="rounded-lg bg-acero-tenue p-3 text-xs"><strong>Mensaje de LOOP:</strong> {order.customer_message}</p>}
           {order.notes && <p className="whitespace-pre-line text-xs leading-5 text-texto-suave">{order.notes}</p>}
           {order.estado === "NUEVO" ? <>
             <p className="text-xs leading-5 text-texto-suave">Podés quitar productos o cancelar mientras el pedido sea nuevo. Los cambios se reflejan en el panel de LOOP; el mensaje de WhatsApp anterior conserva su contenido original.</p>
