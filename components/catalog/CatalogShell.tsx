@@ -59,6 +59,7 @@ const CATALOG_CATEGORIES = [
   { id: "tecno", label: "TECNO" },
   { id: "zte", label: "ZTE" },
   { id: "xiaomi", label: "XIAOMI" },
+  { id: "camaras-iphone", label: "CÁMARAS IPHONE" },
   { id: "tapa-trasera", label: "TAPA TRASERA" },
   { id: "flex-de-carga", label: "FLEX DE CARGA" },
   { id: "placas-de-carga", label: "PLACAS DE CARGA" },
@@ -72,6 +73,7 @@ function catalogCategory(product: PublicProduct) {
   const brand = normalize(product.marca);
   const quality = normalize(product.calidad);
 
+  if (type === "camara" || type === "camaras") return "camaras-iphone";
   if (quality.includes("tag on") || quality.includes("ampsentrix")) return "tag-on-baterias";
   if (type === "modulo" && ["samsung", "motorola", "iphone", "tcl", "tecno", "zte", "xiaomi"].includes(brand)) return brand;
   // La planilla usa tanto "Tapa" como "Tapa trasera" (y las variantes
@@ -139,6 +141,10 @@ function rearCoverModelOrder(model: string) {
 }
 
 function catalogSubcategory(product: PublicProduct, categoryId: string) {
+  if (categoryId === "camaras-iphone") {
+    const description = normalize([product.nombre, product.modelo].join(" "));
+    return /\b(delantera|frontal)\b/.test(description) ? "Frontales" : "Traseras";
+  }
   if (categoryId === "tapa-trasera") {
     return rearCoverModelLabel(product.modelo);
   }
