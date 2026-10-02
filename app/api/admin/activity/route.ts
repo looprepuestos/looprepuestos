@@ -24,12 +24,12 @@ export async function GET(request: Request) {
   if (error) return Response.json({ error: "No se pudo cargar la actividad." }, { status: 503 });
   const events = (data ?? []) as EventRow[];
   const { data: storyData, error: storyError } = await client.from("story_activity")
-    .select("created_at,user_id,visitor_id,story_id,story_title,event_type")
+    .select("created_at,user_id,visitor_id,story_id,story_key,story_title,event_type")
     .gte("created_at", since).order("created_at", { ascending: false }).limit(1000);
   const { data: published, error: publishedError } = await client.from("web_stories")
-    .select("id,title").gt("expires_at", since).order("starts_at", { ascending: false }).limit(100);
+    .select("id,title,object_path").gt("expires_at", since).order("starts_at", { ascending: false }).limit(100);
   if (storyError || publishedError) return Response.json({ error: "No se pudieron cargar las historias." }, { status: 503 });
-  type StoryEvent = { created_at: string; user_id: string | null; visitor_id: string; story_id: number; story_title: string; event_type: string };
+  type StoryEvent = { created_at: string; user_id: string | null; visitor_id: string; story_id: number; story_key: string; story_title: string; event_type: string };
   const storyEvents = (storyData ?? []) as StoryEvent[];
   const ids = [...new Set([...events, ...storyEvents].map((event) => event.user_id).filter((id): id is string => Boolean(id)))];
   const { data: profiles, error: namesError } = ids.length
@@ -64,16 +64,16 @@ export async function GET(request: Request) {
       products.set(event.product_sku, current);
     }
   }
-  const stories = new Map<number, { id: number; title: string; views: number; opens: number; clicks: number; visitors: Set<string>; recent: { at: string; name: string; type: string }[] }>();
-  for (const item of published ?? []) stories.set(item.id, { id: item.id, title: item.title, views: 0, opens: 0, clicks: 0, visitors: new Set(), recent: [] });
+  const stories = new Map<string, { id: string; title: string; views: number; opens: number; clicks: number; visitors: Set<string>; recent: { at: string; name: string; type: string }[] }>();
+  for (const item of published ?? []) stories.set(item.object_path, { id: item.object_path, title: item.title, views: 0, opens: 0, clicks: 0, visitors: new Set(), recent: [] });
   for (const event of storyEvents) {
-    const item = stories.get(event.story_id) ?? { id: event.story_id, title: event.story_title, views: 0, opens: 0, clicks: 0, visitors: new Set<string>(), recent: [] };
+    const item = stories.get(event.story_key) ?? { id: event.story_key, title: event.story_title, views: 0, opens: 0, clicks: 0, visitors: new Set<string>(), recent: [] };
     if (event.event_type === "story_view") item.views++;
     if (event.event_type === "story_open") item.opens++;
     if (event.event_type === "story_click") item.clicks++;
     item.visitors.add(event.user_id ? `user:${event.user_id}` : `guest:${event.visitor_id}`);
     if (item.recent.length < 50) item.recent.push({ at: event.created_at, name: event.user_id ? names.get(event.user_id) ?? "Cliente" : "Visitante anónimo", type: event.event_type });
-    stories.set(event.story_id, item);
+    stories.set(event.story_key, item);
   }
   return Response.json({ storyTruncated: storyEvents.length === 1000, stories: [...stories.values()].map(({ visitors, ...item }) => ({ ...item, unique: visitors.size })), days, visits, anonymous, truncated: events.length === 10000,
     visitors: counted([...visitorCounts.values()]), searches: counted([...searches.values()]),

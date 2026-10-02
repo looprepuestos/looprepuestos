@@ -21,7 +21,7 @@ export function LoopStory() {
   const [progress, setProgress] = useState(0);
   const { session, profile, loading } = useAuth();
   const storyRef = useRef<HTMLElement>(null);
-  const viewed = useRef(new Set<number>());
+  const viewed = useRef(new Set<string>());
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -68,10 +68,10 @@ export function LoopStory() {
     const stop = () => { if (timer) clearTimeout(timer); timer = undefined; };
     const update = () => {
       stop();
-      if (!visible || document.visibilityState !== "visible" || viewed.current.has(story.id)) return;
+      if (!visible || document.visibilityState !== "visible" || viewed.current.has(story.object_path)) return;
       timer = setTimeout(() => {
-        viewed.current.add(story.id);
-        recordActivity(session, { type: "story_view", storyId: story.id });
+        viewed.current.add(story.object_path);
+        recordActivity(session, { type: "story_view", storyId: story.id, storyKey: story.object_path });
       }, 2000);
     };
     const observer = new IntersectionObserver(([entry]) => { visible = Boolean(entry && entry.isIntersecting && entry.intersectionRatio >= 0.5); update(); }, { threshold: [0, 0.5] });
@@ -83,7 +83,7 @@ export function LoopStory() {
   if (!story) return null;
 
   function track(type: "story_open" | "story_click") {
-    if (!loading && profile?.role !== "ADMIN" && story) recordActivity(session, { type, storyId: story.id });
+    if (!loading && profile?.role !== "ADMIN" && story) recordActivity(session, { type, storyId: story.id, storyKey: story.object_path });
   }
 
   function goToCatalog() {

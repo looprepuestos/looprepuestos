@@ -16,7 +16,7 @@ function visitorId() {
   } catch { return sessionId(); }
 }
 
-export function recordActivity(session: Session | null, event: { type: "visit" } | { type: "search"; term: string; results: number } | { type: "product_view"; sku: string; name: string } | { type: "story_view" | "story_open" | "story_click"; storyId: number }) {
+export function recordActivity(session: Session | null, event: { type: "visit" } | { type: "search"; term: string; results: number } | { type: "product_view"; sku: string; name: string } | { type: "story_view" | "story_open" | "story_click"; storyId: number; storyKey: string }) {
   if (typeof window === "undefined") return;
   void fetch("/api/activity", {
     method: "POST", keepalive: true,

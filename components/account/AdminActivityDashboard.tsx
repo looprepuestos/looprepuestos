@@ -5,7 +5,7 @@ import type { Session } from "@supabase/supabase-js";
 
 type Summary = {
   storyTruncated: boolean;
-  stories: { id: number; title: string; views: number; opens: number; clicks: number; unique: number; recent: { at: string; name: string; type: string }[] }[];
+  stories: { id: string; title: string; views: number; opens: number; clicks: number; unique: number; recent: { at: string; name: string; type: string }[] }[];
   visits: number; anonymous: number; truncated: boolean;
   visitors: { key: string; name: string; count: number }[];
   searches: { key: string; count: number; noResults: number }[];
