@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 
 type Summary = {
+  storyTruncated: boolean;
+  stories: { id: number; title: string; views: number; opens: number; clicks: number; unique: number; recent: { at: string; name: string; type: string }[] }[];
   visits: number; anonymous: number; truncated: boolean;
   visitors: { key: string; name: string; count: number }[];
   searches: { key: string; count: number; noResults: number }[];
@@ -42,6 +44,20 @@ export function AdminActivityDashboard({ session }: { session: Session }) {
     {loading ? <p className="text-sm">Cargando actividad…</p> : summary && <>
       <div className="mb-4 grid grid-cols-2 gap-2"><div className="rounded-xl border border-borde bg-fondo-2 p-3"><p className="text-xs">Visitas</p><p className="text-2xl font-black">{summary.visits}</p></div><div className="rounded-xl border border-borde bg-fondo-2 p-3"><p className="text-xs">Sin sesión</p><p className="text-2xl font-black">{summary.anonymous}</p></div></div>
       {summary.truncated && <p className="mb-3 text-xs text-amber-800">Hay más de 10.000 eventos en el período; este resumen muestra los más recientes.</p>}
+      <div className="mb-5 space-y-3">
+        <h4 className="text-sm font-black">Estadísticas de historias</h4>
+        <p className="text-xs text-texto-suave">Una vista cuenta cuando la tarjeta está visible durante 2 segundos. Los visitantes únicos se estiman por cuenta o navegador; tus visitas como administrador no cuentan. El registro comienza desde su activación.</p>
+        {summary.storyTruncated && <p className="text-xs text-amber-800">Este resumen incluye los últimos 1.000 eventos de historias del período.</p>}
+        {summary.stories.length === 0 ? <p className="text-xs text-texto-suave">Todavía no hay historias en este período.</p> : summary.stories.map((story) => <article key={story.id} className="rounded-xl border border-borde p-3">
+          <h5 className="mb-3 text-sm font-bold">{story.title}</h5>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {[["Vistas", story.views], ["Aperturas", story.opens], ["Clics al catálogo", story.clicks], ["Visitantes únicos", story.unique]].map(([label, count]) => <div key={label} className="rounded-lg bg-fondo-2 p-2"><p className="text-[11px] text-texto-suave">{label}</p><p className="text-xl font-black">{count}</p></div>)}
+          </div>
+          <details className="mt-3"><summary className="cursor-pointer text-xs font-bold">Quiénes la vieron o hicieron clic</summary><div className="mt-2 max-h-64 space-y-2 overflow-y-auto">
+            {story.recent.length === 0 ? <p className="text-xs text-texto-suave">Todavía no hay actividad registrada.</p> : story.recent.map((event, index) => <div key={`${event.at}-${index}`} className="border-b border-borde pb-2 text-xs"><p className="font-bold">{event.name} · {event.type === "story_view" ? "Vio la tarjeta" : event.type === "story_open" ? "Abrió la historia" : "Tocó el botón del catálogo"}</p><p className="text-texto-suave">{new Date(event.at).toLocaleString("es-AR", { dateStyle: "short", timeStyle: "short" })}</p></div>)}
+          </div><p className="mt-2 text-[11px] text-texto-suave">Últimos 50 eventos. Sin sesión no se puede identificar el nombre de la persona.</p></details>
+        </article>)}
+      </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <Ranking title="Clientes que más entraron" rows={summary.visitors.map((item) => ({ name: item.name, value: item.count, unit: "visitas" }))} />
         <Ranking title="Búsquedas más frecuentes" rows={summary.searches.map((item) => ({ name: item.key, value: item.count, unit: "búsquedas" }))} />

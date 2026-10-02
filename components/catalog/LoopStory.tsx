@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { useAuth } from "@/lib/auth/AuthContext";
+import { recordActivity } from "@/lib/activity";
 import type { WebStoryRow } from "@/types/database";
 
 function publicClient() {
@@ -17,6 +19,9 @@ export function LoopStory() {
   const [story, setStory] = useState<WebStoryRow | null>(null);
   const [open, setOpen] = useState(false);
   const [progress, setProgress] = useState(0);
+  const { session, profile, loading } = useAuth();
+  const storyRef = useRef<HTMLElement>(null);
+  const viewed = useRef(new Set<number>());
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -55,17 +60,42 @@ export function LoopStory() {
     };
   }, [supabase]);
 
+  useEffect(() => {
+    const node = storyRef.current;
+    if (!node || !story || loading || profile?.role === "ADMIN") return;
+    let visible = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const stop = () => { if (timer) clearTimeout(timer); timer = undefined; };
+    const update = () => {
+      stop();
+      if (!visible || document.visibilityState !== "visible" || viewed.current.has(story.id)) return;
+      timer = setTimeout(() => {
+        viewed.current.add(story.id);
+        recordActivity(session, { type: "story_view", storyId: story.id });
+      }, 2000);
+    };
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting && entry.intersectionRatio >= 0.5; update(); }, { threshold: [0, 0.5] });
+    observer.observe(node);
+    document.addEventListener("visibilitychange", update);
+    return () => { stop(); observer.disconnect(); document.removeEventListener("visibilitychange", update); };
+  }, [story, loading, profile?.role, session]);
+
   if (!story) return null;
 
+  function track(type: "story_open" | "story_click") {
+    if (!loading && profile?.role !== "ADMIN" && story) recordActivity(session, { type, storyId: story.id });
+  }
+
   function goToCatalog() {
+    track("story_click");
     setOpen(false);
     window.setTimeout(() => document.getElementById("catalogo-loop")?.scrollIntoView({ behavior: "smooth" }), 50);
   }
 
   return (
     <>
-      <section aria-label="Historia LOOP" className="rounded-2xl border border-borde bg-white p-3 shadow-sm">
-        <button type="button" onClick={() => setOpen(true)} className="flex w-full items-center gap-3 text-left">
+      <section ref={storyRef} aria-label="Historia LOOP" className="rounded-2xl border border-borde bg-white p-3 shadow-sm">
+        <button type="button" onClick={() => { track("story_open"); setProgress(0); setOpen(true); }} className="flex w-full items-center gap-3 text-left">
           <span className="relative h-20 w-16 shrink-0 overflow-hidden rounded-xl bg-black ring-2 ring-green-500 ring-offset-2">
             <video src={story.video_url} muted autoPlay loop playsInline preload="metadata" className="h-full w-full object-cover" />
             <span className="absolute inset-0 flex items-center justify-center bg-black/15 text-2xl text-white" aria-hidden>▶</span>

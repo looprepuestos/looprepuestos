@@ -11,12 +11,12 @@ export async function POST(request: Request) {
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) return Response.json({ error: "Estadísticas no disponibles." }, { status: 503 });
 
-  let body: { sessionId?: unknown; type?: unknown; term?: unknown; results?: unknown; sku?: unknown; name?: unknown };
+  let body: { sessionId?: unknown; type?: unknown; term?: unknown; results?: unknown; sku?: unknown; name?: unknown; storyId?: unknown; visitorId?: unknown };
   try { body = await request.json(); } catch { return Response.json({ error: "Datos inválidos." }, { status: 400 }); }
-  if (typeof body.sessionId !== "string" || !uuid.test(body.sessionId) || !["visit", "search", "product_view"].includes(String(body.type))) {
+  if (typeof body.sessionId !== "string" || !uuid.test(body.sessionId) || !["visit", "search", "product_view", "story_view", "story_open", "story_click"].includes(String(body.type))) {
     return Response.json({ error: "Evento inválido." }, { status: 400 });
   }
-  const eventType = body.type as "visit" | "search" | "product_view";
+  const eventType = body.type as "visit" | "search" | "product_view" | "story_view" | "story_open" | "story_click";
   const term = typeof body.term === "string" ? body.term.trim().replace(/\s+/g, " ").slice(0, 80) : "";
   const sku = typeof body.sku === "string" ? body.sku.trim().slice(0, 100) : "";
   const name = typeof body.name === "string" ? body.name.trim().slice(0, 180) : "";
@@ -33,6 +33,24 @@ export async function POST(request: Request) {
     const { data, error } = await client.auth.getUser(token);
     if (error || !data.user) return Response.json({ error: "Sesión inválida." }, { status: 401 });
     userId = data.user.id;
+  }
+  if (eventType.startsWith("story_")) {
+    if (!Number.isSafeInteger(body.storyId) || (body.storyId as number) < 1 || typeof body.visitorId !== "string" || !uuid.test(body.visitorId)) return Response.json({ error: "Historia inválida." }, { status: 400 });
+    if (userId) {
+      const { data: profile, error: profileError } = await client.from("profiles").select("role").eq("id", userId).maybeSingle();
+      if (profileError) return Response.json({ error: "No se pudo verificar la sesión." }, { status: 503 });
+      if (profile?.role === "ADMIN") return Response.json({ ok: true });
+    }
+    const now = new Date().toISOString();
+    const { data: story, error: storyError } = await client.from("web_stories").select("id,title").eq("id", body.storyId).eq("active", true).lte("starts_at", now).gt("expires_at", now).maybeSingle();
+    if (storyError) return Response.json({ error: "No se pudo verificar la historia." }, { status: 503 });
+    if (!story) return Response.json({ error: "Historia no disponible." }, { status: 404 });
+    const { error } = await client.from("story_activity").insert({
+      user_id: userId, session_id: body.sessionId, visitor_id: body.visitorId,
+      story_id: story.id, story_title: story.title.slice(0, 180), event_type: eventType,
+    });
+    if (error) return Response.json({ error: "No se pudo registrar la historia." }, { status: 503 });
+    return Response.json({ ok: true }, { status: 201 });
   }
   const { error } = await client.from("catalog_activity").insert({
     user_id: userId, session_id: body.sessionId, event_type: eventType,
