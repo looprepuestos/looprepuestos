@@ -59,7 +59,7 @@ const CATALOG_CATEGORIES = [
   { id: "tecno", label: "TECNO" },
   { id: "zte", label: "ZTE" },
   { id: "xiaomi", label: "XIAOMI" },
-  { id: "camaras-iphone", label: "CÁMARAS IPHONE" },
+  { id: "camaras", label: "CÁMARAS" },
   { id: "tapa-trasera", label: "TAPA TRASERA" },
   { id: "flex-de-carga", label: "FLEX DE CARGA" },
   { id: "placas-de-carga", label: "PLACAS DE CARGA" },
@@ -73,7 +73,7 @@ function catalogCategory(product: PublicProduct) {
   const brand = normalize(product.marca);
   const quality = normalize(product.calidad);
 
-  if (type === "camara" || type === "camaras") return "camaras-iphone";
+  if (type === "camara" || type === "camaras") return "camaras";
   if (quality.includes("tag on") || quality.includes("ampsentrix")) return "tag-on-baterias";
   if (type === "modulo" && ["samsung", "motorola", "iphone", "tcl", "tecno", "zte", "xiaomi"].includes(brand)) return brand;
   // La planilla usa tanto "Tapa" como "Tapa trasera" (y las variantes
@@ -141,9 +141,12 @@ function rearCoverModelOrder(model: string) {
 }
 
 function catalogSubcategory(product: PublicProduct, categoryId: string) {
-  if (categoryId === "camaras-iphone") {
-    const description = normalize([product.nombre, product.modelo].join(" "));
-    return /\b(delantera|frontal)\b/.test(description) ? "Frontales" : "Traseras";
+  if (categoryId === "camaras") {
+    const description = normalize([product.marca, product.nombre, product.modelo, product.sku].join(" "));
+    if (/\b(iphone|iph|apple)\b/.test(description)) return "iPhone";
+    if (/\b(motorola|moto)\b/.test(description)) return "Motorola";
+    if (/\b(samsung|sam)\b/.test(description)) return "Samsung";
+    return product.marca && normalize(product.marca) !== "general" ? product.marca : "Otras marcas";
   }
   if (categoryId === "tapa-trasera") {
     return rearCoverModelLabel(product.modelo);
@@ -305,7 +308,15 @@ export function CatalogShell({
     const subcategories = [...subcategoryMap.entries()]
       .map(([label, subProducts]) => {
         const variantMap = new Map<string, PublicProduct[]>();
-        if (category.id === "baterias" && normalize(label) === "iphone") {
+        if (category.id === "camaras") {
+          for (const product of subProducts) {
+            const description = normalize([product.nombre, product.modelo].join(" "));
+            const variantLabel = /\b(delantera|frontal)\b/.test(description) ? "Frontales" : "Traseras";
+            const current = variantMap.get(variantLabel) ?? [];
+            current.push(product);
+            variantMap.set(variantLabel, current);
+          }
+        } else if (category.id === "baterias" && normalize(label) === "iphone") {
           for (const product of subProducts) {
             const variantLabel = iphoneBatteryBrand(product);
             const current = variantMap.get(variantLabel) ?? [];
