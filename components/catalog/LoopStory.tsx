@@ -74,7 +74,7 @@ export function LoopStory() {
         recordActivity(session, { type: "story_view", storyId: story.id });
       }, 2000);
     };
-    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting && entry.intersectionRatio >= 0.5; update(); }, { threshold: [0, 0.5] });
+    const observer = new IntersectionObserver(([entry]) => { visible = Boolean(entry && entry.isIntersecting && entry.intersectionRatio >= 0.5); update(); }, { threshold: [0, 0.5] });
     observer.observe(node);
     document.addEventListener("visibilitychange", update);
     return () => { stop(); observer.disconnect(); document.removeEventListener("visibilitychange", update); };
