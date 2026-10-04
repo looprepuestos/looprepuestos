@@ -11,7 +11,8 @@ import { CustomerOrderHistory } from "@/components/account/CustomerOrderHistory"
 import { AdminOrderDashboard } from "@/components/account/AdminOrderDashboard";
 import { UserAvatar } from "@/components/account/UserAvatar";
 import { AdminStoryManager } from "@/components/account/AdminStoryManager";
-import { AdminActivityDashboard } from "@/components/account/AdminActivityDashboard";\nimport { AdminInventoryManager } from "@/components/account/AdminInventoryManager";
+import { AdminActivityDashboard } from "@/components/account/AdminActivityDashboard";
+import { AdminInventoryManager } from "@/components/account/AdminInventoryManager";
 
 interface InstallPromptEvent extends Event {
   prompt: () => Promise<void>;
