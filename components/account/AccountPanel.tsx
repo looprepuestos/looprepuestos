@@ -30,7 +30,8 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
   const [resolvingId, setResolvingId] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<PublicProduct | null>(null);
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
-  const [installed, setInstalled] = useState(false);\n  const [adminSection, setAdminSection] = useState<"stock"|"pedidos"|"actividad"|"historias"|"clientes"|null>(null);
+  const [installed, setInstalled] = useState(false);
+  const [adminSection, setAdminSection] = useState<"stock"|"pedidos"|"actividad"|"historias"|"clientes"|null>(null);
 
   const favoriteProducts = useMemo(() => products.filter((product) => favorites.has(product.sku)), [products, favorites]);
 
