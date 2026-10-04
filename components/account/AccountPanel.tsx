@@ -11,7 +11,7 @@ import { CustomerOrderHistory } from "@/components/account/CustomerOrderHistory"
 import { AdminOrderDashboard } from "@/components/account/AdminOrderDashboard";
 import { UserAvatar } from "@/components/account/UserAvatar";
 import { AdminStoryManager } from "@/components/account/AdminStoryManager";
-import { AdminActivityDashboard } from "@/components/account/AdminActivityDashboard";
+import { AdminActivityDashboard } from "@/components/account/AdminActivityDashboard";\nimport { AdminInventoryManager } from "@/components/account/AdminInventoryManager";
 
 interface InstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -29,7 +29,7 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
   const [resolvingId, setResolvingId] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<PublicProduct | null>(null);
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
-  const [installed, setInstalled] = useState(false);
+  const [installed, setInstalled] = useState(false);\n  const [adminSection, setAdminSection] = useState<"stock"|"pedidos"|"actividad"|"historias"|"clientes"|null>(null);
 
   const favoriteProducts = useMemo(() => products.filter((product) => favorites.has(product.sku)), [products, favorites]);
 
@@ -159,9 +159,12 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
                   <p className="font-bold text-texto">Panel administrador</p>
                   <p className="mt-1 text-xs leading-5 text-texto-suave">Controlá pedidos, clientes mayoristas y actividad de la web desde un solo lugar.</p>
                 </div>
-                <AdminStoryManager session={session} />
-                <AdminActivityDashboard session={session} />
-                <AdminOrderDashboard session={session} />
+                <div className="mb-5 grid grid-cols-2 gap-2">{([["stock","Stock"],["pedidos","Pedidos"],["clientes","Clientes"],["actividad","Actividad"],["historias","Historias"]] as const).map(([key,label])=><button key={key} type="button" onClick={()=>setAdminSection(adminSection===key?null:key)} className={`rounded-xl border px-3 py-3 text-sm font-black ${adminSection===key?"border-acero bg-acero-tenue":"border-borde bg-white"}`}>{label}</button>)}</div>
+                {adminSection==="stock"&&<div className="mb-5 rounded-xl border border-borde p-4"><AdminInventoryManager session={session}/></div>}
+                {adminSection==="historias"&&<AdminStoryManager session={session}/>}
+                {adminSection==="actividad"&&<AdminActivityDashboard session={session}/>}
+                {adminSection==="pedidos"&&<AdminOrderDashboard session={session}/>}
+                {adminSection==="clientes"&&<div>
                 <div className="mb-2 flex items-center justify-between gap-3">
                   <h3 className="text-sm font-black text-texto">Solicitudes pendientes</h3>
                   <span className="rounded-full bg-fondo-2 px-2.5 py-1 text-xs font-bold text-texto-suave">{pendingRequests.length}</span>
@@ -186,12 +189,11 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
                     ))}
                   </div>
                 )}
-                <WholesaleAccountAdmin session={session} />
-                <div className="mt-6 border-t border-borde pt-5">
+                <WholesaleAccountAdmin session={session} /></div>}
+                {adminSection==="actividad"&&<div className="mt-6 border-t border-borde pt-5">
                   <h3 className="text-sm font-black text-texto">Visualizaciones de la web</h3>
                   <p className="mt-1 text-xs leading-5 text-texto-suave">Consultá visitas y páginas vistas por día, páginas más recorridas, origen del tráfico y dispositivos.</p>
-                  <a href="https://vercel.com/looprepuestos/looprepuestos/analytics" target="_blank" rel="noreferrer" className="mt-3 flex w-full items-center justify-center rounded-xl border border-borde-fuerte bg-fondo-2 px-4 py-3 text-sm font-extrabold text-texto hover:bg-white">Ver estadísticas diarias</a>
-                </div>
+                  <a href="https://vercel.com/looprepuestos/looprepuestos/analytics" target="_blank" rel="noreferrer" className="mt-3 flex w-full items-center justify-center rounded-xl border border-borde-fuerte bg-fondo-2 px-4 py-3 text-sm font-extrabold text-texto hover:bg-white">Ver estadísticas diarias</a></div>}
               </div>
             ) : isApproved ? (
               <div className="rounded-xl border border-green-200 bg-green-50 p-4">
