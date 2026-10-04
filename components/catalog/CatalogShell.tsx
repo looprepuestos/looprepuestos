@@ -140,6 +140,13 @@ function rearCoverModelOrder(model: string) {
   return 100 + generation * 10 + (versionOrder[version] ?? 9);
 }
 
+const MODEL_COLLATOR = new Intl.Collator("es", { numeric: true, sensitivity: "base" });
+
+function compareProductsByModel(a: PublicProduct, b: PublicProduct) {
+  return MODEL_COLLATOR.compare(normalize(a.modelo), normalize(b.modelo))
+    || MODEL_COLLATOR.compare(normalize(a.nombre), normalize(b.nombre));
+}
+
 function catalogSubcategory(product: PublicProduct, categoryId: string) {
   if (categoryId === "camaras") {
     const description = normalize([product.marca, product.nombre, product.modelo, product.sku].join(" "));
@@ -297,7 +304,9 @@ export function CatalogShell({
     return modeloOpts.filter((option) => allowed.has(option.id));
   }, [products, marcas, tipos, modeloOpts]);
   const categoryGroups = useMemo(() => CATALOG_CATEGORIES.map((category) => {
-    const categoryProducts = products.filter((product) => catalogCategory(product) === category.id);
+    const categoryProducts = products
+      .filter((product) => catalogCategory(product) === category.id)
+      .sort(compareProductsByModel);
     const subcategoryMap = new Map<string, PublicProduct[]>();
     for (const product of categoryProducts) {
       const label = catalogSubcategory(product, category.id);
