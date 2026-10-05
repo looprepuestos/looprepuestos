@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { FacetOption, PublicProduct } from "@/types/product";
 import type { PublicHighlight } from "@/types/database";
 import { SearchBar } from "@/components/search/SearchBar";
-import { FilterChips } from "@/components/search/FilterChips";
+import { FilterChips } from "@/components/search/FilterChips";\nimport { HomeAnnouncementTicker } from "./HomeAnnouncementTicker";
 import { ProductCard } from "./ProductCard";
 import { EmptyState } from "./EmptyState";
 import { CommercialHighlights } from "./CommercialHighlights";
@@ -384,31 +384,7 @@ export function CatalogShell({
         </>
       )}
 
-      <div className="space-y-3 rounded-xl border border-borde bg-white p-3 shadow-sm sm:p-4">
-        <FilterChips label="Marcas" options={marcaOpts} active={marcas} onToggle={toggleMarca} />
-        <FilterChips label={marcas.size > 0 ? "Categorías para esta marca" : "Categorías"} options={visibleTipos} active={tipos} onToggle={toggleTipo} />
-
-        {(modeloOpts.length > 1 || calidadOpts.length > 1 || marcoOpts.length > 1) && (
-          <div className="border-t border-borde/70 pt-2">
-            <button
-              type="button"
-              onClick={() => setAdvancedOpen((value) => !value)}
-              aria-expanded={advancedOpen}
-              className="flex w-full items-center justify-between rounded-lg px-1 py-1 text-xs font-semibold text-texto-suave transition-colors hover:text-texto"
-            >
-              <span>Más filtros{advancedCount > 0 ? ` · ${advancedCount} activos` : ""}</span>
-              <span aria-hidden>{advancedOpen ? "−" : "+"}</span>
-            </button>
-            {advancedOpen && (
-              <div className="mt-3 space-y-3">
-                {visibleModelos.length > 1 && <FilterChips label="Modelos" options={visibleModelos} active={modelos} onToggle={toggle(setModelos)} />}
-                {calidadOpts.length > 1 && <FilterChips label="Calidad" options={calidadOpts} active={calidades} onToggle={toggle(setCalidades)} />}
-                {marcoOpts.length > 1 && <FilterChips label="Marco" options={marcoOpts} active={marcos} onToggle={toggle(setMarcos)} />}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+      {!isSearching && <HomeAnnouncementTicker onOpenProduct={openHighlightProduct} />}
 
       {isSearching ? (
         <section aria-label="Resultados">
