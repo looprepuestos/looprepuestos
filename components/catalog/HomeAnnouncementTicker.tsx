@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useAuth } from "@/lib/auth/AuthContext";
+import { recordActivity } from "@/lib/activity";
 
 type Announcement = { id: string; kind: string; title: string; sku: string | null };
 
@@ -18,6 +20,7 @@ export function HomeAnnouncementTicker({ onOpenProduct }: { onOpenProduct: (sku:
   const [items, setItems] = useState<Announcement[]>([]);
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
+  const { session, profile } = useAuth();
 
   useEffect(() => {
     fetch("/api/announcements")
@@ -47,7 +50,7 @@ export function HomeAnnouncementTicker({ onOpenProduct }: { onOpenProduct: (sku:
     <section aria-label="Novedades de stock" className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#111820] shadow-[0_14px_34px_rgba(15,23,32,.22)]">
       <div aria-hidden className="absolute -right-12 -top-16 h-40 w-40 rounded-full bg-white/[.045]" />
       <div aria-hidden className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-      <button type="button" onClick={() => onOpenProduct(current.sku)} className="relative flex min-h-[116px] w-full items-center gap-4 px-5 py-5 text-left sm:px-6">
+      <button type="button" onClick={() => { if (current.sku && profile?.role !== "ADMIN") recordActivity(session, { type: "announcement_click", sku: current.sku, name: current.title }); onOpenProduct(current.sku); }} className="relative flex min-h-[116px] w-full items-center gap-4 px-5 py-5 text-left sm:px-6">
         <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[.07]">
           <span className="absolute h-3 w-3 animate-ping rounded-full bg-white/30" />
           <span className="relative h-2.5 w-2.5 rounded-full bg-white" />
