@@ -13,15 +13,15 @@ export async function POST(request: Request) {
 
   let body: { sessionId?: unknown; type?: unknown; term?: unknown; results?: unknown; sku?: unknown; name?: unknown; storyId?: unknown; storyKey?: unknown; visitorId?: unknown };
   try { body = await request.json(); } catch { return Response.json({ error: "Datos inválidos." }, { status: 400 }); }
-  if (typeof body.sessionId !== "string" || !uuid.test(body.sessionId) || !["visit", "search", "product_view", "story_view", "story_open", "story_click"].includes(String(body.type))) {
+  if (typeof body.sessionId !== "string" || !uuid.test(body.sessionId) || !["visit", "search", "product_view", "cart_add", "order_sent", "announcement_click", "story_view", "story_open", "story_click"].includes(String(body.type))) {
     return Response.json({ error: "Evento inválido." }, { status: 400 });
   }
-  const eventType = body.type as "visit" | "search" | "product_view" | "story_view" | "story_open" | "story_click";
+  const eventType = body.type as "visit" | "search" | "product_view" | "cart_add" | "order_sent" | "announcement_click" | "story_view" | "story_open" | "story_click";
   const term = typeof body.term === "string" ? body.term.trim().replace(/\s+/g, " ").slice(0, 80) : "";
   const sku = typeof body.sku === "string" ? body.sku.trim().slice(0, 100) : "";
   const name = typeof body.name === "string" ? body.name.trim().slice(0, 180) : "";
   if (eventType === "search" && (term.length < 2 || !Number.isInteger(body.results) || (body.results as number) < 0 || (body.results as number) > 10000)) return Response.json({ error: "Búsqueda inválida." }, { status: 400 });
-  if (eventType === "product_view" && (!sku || !name)) return Response.json({ error: "Producto inválido." }, { status: 400 });
+  if (["product_view", "cart_add", "announcement_click"].includes(eventType) && (!sku || !name)) return Response.json({ error: "Producto inválido." }, { status: 400 });
 
   const token = request.headers.get("authorization")?.match(/^Bearer (.+)$/i)?.[1];
   const client = createClient(url, key, {
@@ -56,8 +56,8 @@ export async function POST(request: Request) {
     user_id: userId, session_id: body.sessionId, event_type: eventType,
     search_term: eventType === "search" ? term : null,
     result_count: eventType === "search" ? body.results : null,
-    product_sku: eventType === "product_view" ? sku : null,
-    product_name: eventType === "product_view" ? name : null,
+    product_sku: ["product_view", "cart_add", "announcement_click"].includes(eventType) ? sku : null,
+    product_name: ["product_view", "cart_add", "announcement_click"].includes(eventType) ? name : null,
   });
   if (error) {
     console.error("[activity] no se pudo registrar", error.code);
