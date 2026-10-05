@@ -10,10 +10,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://looprepuestos.com.ar"),
   title: "LOOP REPUESTOS — Repuestos para celulares",
   description:
     "Catálogo y lista de precios de repuestos para celulares. Buscá por modelo o tipo.",
   applicationName: "LOOP REPUESTOS",
+  alternates: {
+    canonical: "/",
+  },
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
@@ -23,6 +27,15 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  openGraph: {
+    type: "website",
+    locale: "es_AR",
+    url: "/",
+    siteName: "LOOP REPUESTOS",
+    title: "LOOP REPUESTOS — Repuestos para celulares",
+    description:
+      "Catálogo y lista de precios de repuestos para celulares. Buscá por modelo o tipo.",
   },
 };
 
