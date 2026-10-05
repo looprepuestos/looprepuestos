@@ -10,6 +10,7 @@ import {
 } from "react";
 import type { PublicProduct } from "@/types/product";
 import { useAuth } from "@/lib/auth/AuthContext";
+import { recordActivity } from "@/lib/activity";
 
 interface CartLine {
   sku: string;
@@ -49,7 +50,7 @@ export function CartProvider({
   const [linesBySku, setLinesBySku] = useState<Record<string, number>>({});
   const [hydrated, setHydrated] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const { priceFor } = useAuth();
+  const { priceFor, session, profile } = useAuth();
 
   const productIndex = useMemo(() => {
     const map = new Map<string, PublicProduct>();
@@ -111,11 +112,13 @@ export function CartProvider({
   }, []);
 
   const add = useCallback((sku: string, qty = 1) => {
+    const product = productIndex.get(sku);
+    if (product && profile?.role !== "ADMIN") recordActivity(session, { type: "cart_add", sku, name: product.nombre });
     setLinesBySku((prev) => {
       const current = prev[sku] ?? 0;
       return { ...prev, [sku]: Math.min(current + qty, 99) };
     });
-  }, []);
+  }, [productIndex, profile?.role, session]);
 
   const clear = useCallback(() => setLinesBySku({}), []);
   const openCart = useCallback(() => setCartOpen(true), []);
