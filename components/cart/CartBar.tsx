@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { useCart } from "@/lib/cart/CartContext";
 import { formatARS } from "@/lib/format";
 import { useAuth } from "@/lib/auth/AuthContext";
+import { recordActivity } from "@/lib/activity";
 
 export function CartBar() {
   const { detailedLines, totalItems, totalPrice, setQty, clear, cartOpen, openCart, closeCart } = useCart();
@@ -43,6 +44,7 @@ export function CartBar() {
         const response = await fetch("/api/orders/guest", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ customerName: effectiveCustomerName, locality: effectiveLocality, phone: phone.trim(), delivery, payment, notes, total: totalPrice, items }) });
         if (!response.ok) throw new Error("No se pudo registrar el pedido. Revisá los datos e intentá nuevamente.");
       }
+      if (profile?.role !== "ADMIN") recordActivity(session, { type: "order_sent" });
       const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
       if (popup && !popup.closed) popup.location.href = url;
       else window.location.href = url;
