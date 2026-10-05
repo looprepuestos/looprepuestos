@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from "react";
 import type { FacetOption, PublicProduct } from "@/types/product";
 import type { PublicHighlight } from "@/types/database";
 import { SearchBar } from "@/components/search/SearchBar";
-import { FilterChips } from "@/components/search/FilterChips";
 import { HomeAnnouncementTicker } from "./HomeAnnouncementTicker";
 import { ProductCard } from "./ProductCard";
 import { EmptyState } from "./EmptyState";
@@ -171,11 +170,6 @@ function catalogSubcategory(product: PublicProduct, categoryId: string) {
 export function CatalogShell({
   products,
   highlights,
-  marcas: marcaOpts,
-  tipos: tipoOpts,
-  modelos: modeloOpts,
-  calidades: calidadOpts,
-  marcos: marcoOpts,
 }: {
   products: ReadonlyArray<PublicProduct>;
   highlights: ReadonlyArray<PublicHighlight>;
@@ -193,7 +187,6 @@ export function CatalogShell({
   const [modelos, setModelos] = useState<ReadonlySet<string>>(new Set());
   const [calidades, setCalidades] = useState<ReadonlySet<string>>(new Set());
   const [marcos, setMarcos] = useState<ReadonlySet<string>>(new Set());
-  const [advancedOpen, setAdvancedOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState<ReadonlySet<string>>(new Set());
   const [expandedSubcategories, setExpandedSubcategories] = useState<ReadonlySet<string>>(new Set());
   const [expandedVariants, setExpandedVariants] = useState<ReadonlySet<string>>(new Set());
@@ -209,21 +202,6 @@ export function CatalogShell({
     window.localStorage.setItem("loop-catalog-view", mode);
   };
   const productGridClass = viewMode === "list" ? "grid grid-cols-1 gap-2" : "grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3";
-
-  const toggle = (setter: React.Dispatch<React.SetStateAction<ReadonlySet<string>>>) => (id: string) => setter((prev) => {
-    const next = new Set(prev);
-    if (next.has(id)) next.delete(id); else next.add(id);
-    return next;
-  });
-  const toggleMarca = (id: string) => {
-    toggle(setMarcas)(id);
-    setTipos(new Set());
-    setModelos(new Set());
-  };
-  const toggleTipo = (id: string) => {
-    toggle(setTipos)(id);
-    setModelos(new Set());
-  };
 
   const activeFilters = marcas.size + tipos.size + modelos.size + calidades.size + marcos.size;
   const isSearching = query.trim().length > 0 || activeFilters > 0;
@@ -287,23 +265,6 @@ export function CatalogShell({
     return () => window.clearTimeout(timer);
   }, [typedQuery, query, results.length, session, profile?.role, authLoading]);
 
-  const visibleTipos = useMemo(() => {
-    let available = tipoOpts;
-    if (marcas.size > 0) {
-      const allowed = new Set(products.filter((p) => marcas.has(p.marca)).map((p) => p.tipo));
-      available = tipoOpts.filter((option) => allowed.has(option.id));
-    }
-    return available.map((option) => normalize(option.label) === "herramienta insumos"
-      ? { ...option, label: "Herramientas / Insumos" }
-      : option);
-  }, [products, marcas, tipoOpts]);
-  const visibleModelos = useMemo(() => {
-    const allowed = new Set(products.filter((p) =>
-      (marcas.size === 0 || marcas.has(p.marca)) &&
-      (tipos.size === 0 || tipos.has(p.tipo))
-    ).map((p) => p.modelo));
-    return modeloOpts.filter((option) => allowed.has(option.id));
-  }, [products, marcas, tipos, modeloOpts]);
   const categoryGroups = useMemo(() => CATALOG_CATEGORIES.map((category) => {
     const categoryProducts = products
       .filter((product) => catalogCategory(product) === category.id)
@@ -371,7 +332,6 @@ export function CatalogShell({
     if (next.has(id)) next.delete(id); else next.add(id);
     return next;
   });
-  const advancedCount = modelos.size + calidades.size + marcos.size;
   return (
     <div className="space-y-7">
       <SearchBar value={query} onChange={(value) => { setQuery(value); setTypedQuery(value); }} />
