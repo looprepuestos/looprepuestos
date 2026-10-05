@@ -5,6 +5,32 @@ import { useAuth } from "@/lib/auth/AuthContext";
 import { formatARS } from "@/lib/format";
 import type { WhatsAppOrderRow } from "@/types/database";
 
+const progressSteps = [
+  { value: "NUEVO", label: "Recibido" },
+  { value: "CONFIRMADO", label: "Confirmado" },
+  { value: "PREPARADO", label: "Preparado" },
+  { value: "ENTREGADO", label: "Entregado" },
+] as const;
+
+function OrderProgress({ estado }: { estado: WhatsAppOrderRow["estado"] }) {
+  if (estado === "CANCELADO") return <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-bold text-red-700">Pedido cancelado</div>;
+  const currentIndex = Math.max(0, progressSteps.findIndex((step) => step.value === estado));
+  return <div className="rounded-xl border border-borde bg-fondo-2 px-3 py-3" aria-label={`Estado del pedido: ${estado}`}>
+    <div className="grid grid-cols-4">
+      {progressSteps.map((step, index) => {
+        const complete = index <= currentIndex;
+        const current = index === currentIndex;
+        return <div key={step.value} className="relative flex flex-col items-center text-center">
+          {index > 0 && <span className={`absolute right-1/2 top-3 h-0.5 w-full ${index <= currentIndex ? "bg-acero" : "bg-borde-fuerte"}`} aria-hidden="true" />}
+          <span className={`relative z-10 flex h-6 w-6 items-center justify-center rounded-full border text-[10px] font-black ${complete ? "border-acero bg-acero text-white" : "border-borde-fuerte bg-white text-titanio"}`}>{complete && !current ? "✓" : index + 1}</span>
+          <span className={`mt-1.5 text-[9px] font-bold leading-tight sm:text-[10px] ${current ? "text-texto" : complete ? "text-acero-fuerte" : "text-titanio"}`}>{step.label}</span>
+        </div>;
+      })}
+    </div>
+    {estado === "PREPARADO" && <p className="mt-3 rounded-lg bg-white px-3 py-2 text-center text-xs font-black text-texto">Tu pedido ya está preparado.</p>}
+  </div>;
+}
+
 export function CustomerOrderHistory() {
   const { orderHistory, refreshOrderHistory, changeOrder } = useAuth();
   const [busy, setBusy] = useState(false);
@@ -53,6 +79,7 @@ export function CustomerOrderHistory() {
           </div>
         </summary>
         <div className="mt-3 space-y-3 border-t border-borde pt-3">
+          <OrderProgress estado={order.estado} />
           {order.items.map((item, index) => <div key={`${item.sku}-${index}`} className="flex items-start justify-between gap-3 text-sm">
             <span className="min-w-0 text-texto-suave">{item.cantidad}× {item.nombre}</span>
             <div className="shrink-0 text-right"><p className="font-bold text-texto">{formatARS(item.subtotal)}</p>{order.estado === "NUEVO" && order.items.length > 1 && <button type="button" disabled={busy} onClick={() => void change(order, index)} aria-label={`Quitar ${item.nombre} del pedido`} className="mt-1 rounded-lg border border-red-200 px-3 py-2 text-xs font-bold text-red-700 disabled:opacity-50">Quitar</button>}</div>
