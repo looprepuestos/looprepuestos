@@ -46,6 +46,10 @@ export function CartBar() {
       }
       if (profile?.role !== "ADMIN") recordActivity(session, { type: "order_sent" });
       const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+      clear();
+      closeCart();
+      setNotes("");
+      setTermsAccepted(false);
       if (popup && !popup.closed) popup.location.href = url;
       else window.location.href = url;
     } catch (error) {
