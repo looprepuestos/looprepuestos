@@ -9,6 +9,9 @@ const KIND_LABELS: Record<string, string> = {
   REINGRESO: "VOLVIÓ A STOCK",
   "EN STOCK": "DISPONIBLE",
   PROMOCION: "PROMOCIÓN",
+  INFORMACION: "INFORMACIÓN",
+  HORARIOS: "HORARIOS",
+  IMPORTANTE: "IMPORTANTE",
 };
 
 export function HomeAnnouncementTicker({ onOpenProduct }: { onOpenProduct: (sku: string | null) => void }) {
@@ -37,6 +40,7 @@ export function HomeAnnouncementTicker({ onOpenProduct }: { onOpenProduct: (sku:
 
   const current = items[index % items.length];
   const label = useMemo(() => current ? (KIND_LABELS[current.kind] || current.kind) : "", [current]);
+  const isStockNotice = current ? ["NUEVO INGRESO", "REINGRESO", "EN STOCK"].includes(current.kind) : false;
   if (!current) return null;
 
   return (
@@ -62,7 +66,7 @@ export function HomeAnnouncementTicker({ onOpenProduct }: { onOpenProduct: (sku:
           {items.slice(0, 5).map((item, itemIndex) => (
             <span key={item.id} className={`h-1 rounded-full transition-all duration-300 ${itemIndex === index % items.length ? "w-8 bg-white" : "w-2 bg-white/25"}`} />
           ))}
-          <span className="ml-auto text-[9px] font-bold uppercase tracking-[.16em] text-white/35">LOOP · STOCK</span>
+          <span className="ml-auto text-[9px] font-bold uppercase tracking-[.16em] text-white/35">LOOP · {isStockNotice ? "STOCK" : "AVISOS"}</span>
         </div>
       )}
     </section>
