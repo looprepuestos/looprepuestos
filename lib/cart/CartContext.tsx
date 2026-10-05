@@ -120,7 +120,15 @@ export function CartProvider({
     });
   }, [productIndex, profile?.role, session]);
 
-  const clear = useCallback(() => setLinesBySku({}), []);
+  const clear = useCallback(() => {
+    // Persistir antes de salir de la página hacia WhatsApp.
+    try {
+      window.localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // El carrito en memoria también se vacía si el navegador bloquea el almacenamiento.
+    }
+    setLinesBySku({});
+  }, []);
   const openCart = useCallback(() => setCartOpen(true), []);
   const closeCart = useCallback(() => setCartOpen(false), []);
 
