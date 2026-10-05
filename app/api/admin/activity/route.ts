@@ -3,7 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-type EventRow = { created_at: string; user_id: string | null; session_id: string; event_type: "visit" | "search" | "product_view"; search_term: string | null; result_count: number | null; product_sku: string | null; product_name: string | null };
+type EventRow = { created_at: string; user_id: string | null; session_id: string; event_type: "visit" | "search" | "product_view" | "cart_add" | "order_sent" | "announcement_click"; search_term: string | null; result_count: number | null; product_sku: string | null; product_name: string | null };
 
 export async function GET(request: Request) {
   const token = request.headers.get("authorization")?.match(/^Bearer (.+)$/i)?.[1];
@@ -43,6 +43,9 @@ export async function GET(request: Request) {
   const products = new Map<string, { key: string; name: string; count: number }>();
   let visits = 0;
   let anonymous = 0;
+  let cartAdds = 0;
+  let ordersSent = 0;
+  let announcementClicks = 0;
   for (const event of events) {
     if (event.event_type === "visit") {
       visits++;
@@ -58,7 +61,10 @@ export async function GET(request: Request) {
       current.count++;
       if (event.result_count === 0) current.noResults++;
       searches.set(key, current);
-    } else if (event.event_type === "product_view" && event.product_sku) {
+    } else if (event.event_type === "cart_add") cartAdds++;
+    else if (event.event_type === "order_sent") ordersSent++;
+    else if (event.event_type === "announcement_click") announcementClicks++;
+    else if (event.event_type === "product_view" && event.product_sku) {
       const current = products.get(event.product_sku) ?? { key: event.product_sku, name: event.product_name ?? event.product_sku, count: 0 };
       current.count++;
       products.set(event.product_sku, current);
@@ -75,10 +81,10 @@ export async function GET(request: Request) {
     if (item.recent.length < 50) item.recent.push({ at: event.created_at, name: event.user_id ? names.get(event.user_id) ?? "Cliente" : "Visitante anónimo", type: event.event_type });
     stories.set(event.story_key, item);
   }
-  return Response.json({ storyTruncated: storyEvents.length === 1000, stories: [...stories.values()].map(({ visitors, ...item }) => ({ ...item, unique: visitors.size })), days, visits, anonymous, truncated: events.length === 10000,
+  return Response.json({ storyTruncated: storyEvents.length === 1000, stories: [...stories.values()].map(({ visitors, ...item }) => ({ ...item, unique: visitors.size })), days, visits, anonymous, cartAdds, ordersSent, announcementClicks, truncated: events.length === 10000,
     visitors: counted([...visitorCounts.values()]), searches: counted([...searches.values()]),
     withoutResults: [...searches.values()].filter((item) => item.noResults > 0).sort((a, b) => b.noResults - a.noResults).slice(0, 10),
     products: counted([...products.values()]),
-    recent: events.slice(0, 30).map((item) => ({ at: item.created_at, type: item.event_type, name: item.user_id ? names.get(item.user_id) ?? "Cliente" : "Visitante anónimo", label: item.search_term ?? item.product_name ?? "Ingresó al catálogo", results: item.result_count })),
+    recent: events.slice(0, 30).map((item) => ({ at: item.created_at, type: item.event_type, name: item.user_id ? names.get(item.user_id) ?? "Cliente" : "Visitante anónimo", label: item.search_term ?? item.product_name ?? (item.event_type === "order_sent" ? "Pedido enviado" : "Ingresó al catálogo"), results: item.result_count })),
   }, { headers: { "Cache-Control": "no-store" } });
 }
