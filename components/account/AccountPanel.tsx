@@ -12,7 +12,7 @@ import { AdminOrderDashboard } from "@/components/account/AdminOrderDashboard";
 import { UserAvatar } from "@/components/account/UserAvatar";
 import { AdminStoryManager } from "@/components/account/AdminStoryManager";
 import { AdminActivityDashboard } from "@/components/account/AdminActivityDashboard";
-import { AdminInventoryManager } from "@/components/account/AdminInventoryManager";
+import { AdminInventoryManager } from "@/components/account/AdminInventoryManager";\nimport { AdminAnnouncements } from "@/components/account/AdminAnnouncements";
 
 interface InstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -31,7 +31,7 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
   const [selectedProduct, setSelectedProduct] = useState<PublicProduct | null>(null);
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
   const [installed, setInstalled] = useState(false);
-  const [adminSection, setAdminSection] = useState<"stock"|"pedidos"|"actividad"|"historias"|"clientes"|null>(null);
+  const [adminSection, setAdminSection] = useState<"stock"|"pedidos"|"actividad"|"historias"|"clientes"|"avisos"|null>(null);
 
   const favoriteProducts = useMemo(() => products.filter((product) => favorites.has(product.sku)), [products, favorites]);
 
@@ -161,8 +161,8 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
                   <p className="font-bold text-texto">Panel administrador</p>
                   <p className="mt-1 text-xs leading-5 text-texto-suave">Controlá pedidos, clientes mayoristas y actividad de la web desde un solo lugar.</p>
                 </div>
-                <div className="mb-5 grid grid-cols-2 gap-2">{([["stock","Stock"],["pedidos","Pedidos"],["clientes","Clientes"],["actividad","Actividad"],["historias","Historias"]] as const).map(([key,label])=><button key={key} type="button" onClick={()=>setAdminSection(adminSection===key?null:key)} className={`rounded-xl border px-3 py-3 text-sm font-black ${adminSection===key?"border-acero bg-acero-tenue":"border-borde bg-white"}`}>{label}</button>)}</div>
-                {adminSection==="stock"&&<div className="mb-5 rounded-xl border border-borde p-4"><AdminInventoryManager session={session}/></div>}
+                <div className="mb-5 grid grid-cols-2 gap-2">{([["stock","Stock"],["pedidos","Pedidos"],["clientes","Clientes"],["avisos","Avisos"],["actividad","Actividad"],["historias","Historias"]] as const).map(([key,label])=><button key={key} type="button" onClick={()=>setAdminSection(adminSection===key?null:key)} className={`rounded-xl border px-3 py-3 text-sm font-black ${adminSection===key?"border-acero bg-acero-tenue":"border-borde bg-white"}`}>{label}</button>)}</div>
+                {adminSection==="stock"&&<div className="mb-5 rounded-xl border border-borde p-4"><AdminInventoryManager session={session}/></div>}\n                {adminSection==="avisos"&&<div className="mb-5 rounded-xl border border-borde p-4"><AdminAnnouncements session={session}/></div>}
                 {adminSection==="historias"&&<AdminStoryManager session={session}/>}
                 {adminSection==="actividad"&&<AdminActivityDashboard session={session}/>}
                 {adminSection==="pedidos"&&<AdminOrderDashboard session={session}/>}
