@@ -6,7 +6,7 @@ import type { Session } from "@supabase/supabase-js";
 type Summary = {
   storyTruncated: boolean;
   stories: { id: string; title: string; views: number; opens: number; clicks: number; unique: number; recent: { at: string; name: string; type: string }[] }[];
-  visits: number; anonymous: number; truncated: boolean;
+  visits: number; anonymous: number; cartAdds: number; ordersSent: number; announcementClicks: number; truncated: boolean;
   visitors: { key: string; name: string; count: number }[];
   searches: { key: string; count: number; noResults: number }[];
   withoutResults: { key: string; count: number; noResults: number }[];
@@ -42,7 +42,17 @@ export function AdminActivityDashboard({ session }: { session: Session }) {
     <p className="mb-3 text-xs text-texto-suave">Las visitas de personas sin sesión se muestran juntas. Los datos empiezan desde la activación de este registro.</p>
     {error && <p role="alert" className="mb-3 text-sm text-red-700">{error}</p>}
     {loading ? <p className="text-sm">Cargando actividad…</p> : summary && <>
-      <div className="mb-4 grid grid-cols-2 gap-2"><div className="rounded-xl border border-borde bg-fondo-2 p-3"><p className="text-xs">Visitas</p><p className="text-2xl font-black">{summary.visits}</p></div><div className="rounded-xl border border-borde bg-fondo-2 p-3"><p className="text-xs">Sin sesión</p><p className="text-2xl font-black">{summary.anonymous}</p></div></div>
+      <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+        <Metric label="Visitas" value={summary.visits} />
+        <Metric label="Agregados al carrito" value={summary.cartAdds} />
+        <Metric label="Pedidos enviados" value={summary.ordersSent} />
+        <Metric label="Clics en avisos" value={summary.announcementClicks} />
+      </div>
+      <div className="mb-5 rounded-xl border border-borde bg-fondo-2 p-3">
+        <h4 className="text-sm font-black">Embudo comercial</h4>
+        <p className="mt-1 text-xs text-texto-suave">Visitas → carrito → pedido enviado por WhatsApp. Empieza a medir estas etapas desde esta actualización.</p>
+        <div className="mt-3 grid grid-cols-3 gap-2 text-center"><div><p className="text-lg font-black">{summary.visits}</p><p className="text-[10px] text-texto-suave">VISITAS</p></div><div><p className="text-lg font-black">{summary.cartAdds}</p><p className="text-[10px] text-texto-suave">CARRITO</p></div><div><p className="text-lg font-black">{summary.ordersSent}</p><p className="text-[10px] text-texto-suave">PEDIDOS</p></div></div>
+      </div>
       {summary.truncated && <p className="mb-3 text-xs text-amber-800">Hay más de 10.000 eventos en el período; este resumen muestra los más recientes.</p>}
       <div className="mb-5 space-y-3">
         <h4 className="text-sm font-black">Estadísticas de historias</h4>
@@ -61,10 +71,10 @@ export function AdminActivityDashboard({ session }: { session: Session }) {
       <div className="grid gap-4 sm:grid-cols-2">
         <Ranking title="Clientes que más entraron" rows={summary.visitors.map((item) => ({ name: item.name, value: item.count, unit: "visitas" }))} />
         <Ranking title="Búsquedas más frecuentes" rows={summary.searches.map((item) => ({ name: item.key, value: item.count, unit: "búsquedas" }))} />
-        <Ranking title="Búsquedas sin resultados" rows={summary.withoutResults.map((item) => ({ name: item.key, value: item.noResults, unit: "veces" }))} />
+        <Ranking title="Demanda no cubierta · búsquedas sin resultados" rows={summary.withoutResults.map((item) => ({ name: item.key, value: item.noResults, unit: "veces" }))} />
         <Ranking title="Productos más vistos" rows={summary.products.map((item) => ({ name: item.name, value: item.count, unit: "vistas" }))} />
       </div>
-      <details className="mt-4 rounded-xl border border-borde p-3"><summary className="cursor-pointer text-sm font-bold">Historial reciente</summary><div className="mt-3 max-h-80 space-y-2 overflow-y-auto">{summary.recent.length === 0 ? <p className="text-sm text-texto-suave">Todavía no hay actividad registrada.</p> : summary.recent.map((item, index) => <div key={`${item.at}-${index}`} className="border-b border-borde pb-2 text-xs"><p className="font-bold">{item.name} · {item.type === "search" ? "Buscó" : item.type === "product_view" ? "Vio" : "Visitó"} {item.label}</p><p className="text-texto-suave">{new Date(item.at).toLocaleString("es-AR", { dateStyle: "short", timeStyle: "short" })}{item.type === "search" ? ` · ${item.results} resultados` : ""}</p></div>)}</div></details>
+      <details className="mt-4 rounded-xl border border-borde p-3"><summary className="cursor-pointer text-sm font-bold">Historial reciente</summary><div className="mt-3 max-h-80 space-y-2 overflow-y-auto">{summary.recent.length === 0 ? <p className="text-sm text-texto-suave">Todavía no hay actividad registrada.</p> : summary.recent.map((item, index) => <div key={`${item.at}-${index}`} className="border-b border-borde pb-2 text-xs"><p className="font-bold">{item.name} · {item.type === "search" ? "Buscó" : item.type === "product_view" ? "Vio" : item.type === "cart_add" ? "Agregó al carrito" : item.type === "order_sent" ? "Envió" : item.type === "announcement_click" ? "Tocó aviso" : "Visitó"} {item.label}</p><p className="text-texto-suave">{new Date(item.at).toLocaleString("es-AR", { dateStyle: "short", timeStyle: "short" })}{item.type === "search" ? ` · ${item.results} resultados` : ""}</p></div>)}</div></details>
     </>}
   </section>;
 }
@@ -72,3 +82,5 @@ export function AdminActivityDashboard({ session }: { session: Session }) {
 function Ranking({ title, rows }: { title: string; rows: { name: string; value: number; unit: string }[] }) {
   return <div className="rounded-xl border border-borde p-3"><h4 className="mb-2 text-sm font-bold">{title}</h4>{rows.length === 0 ? <p className="text-xs text-texto-suave">Sin datos todavía.</p> : <ol className="space-y-2">{rows.map((item, index) => <li key={`${item.name}-${index}`} className="flex justify-between gap-3 text-xs"><span className="min-w-0 break-words">{index + 1}. {item.name}</span><span className="shrink-0 font-bold">{item.value} {item.unit}</span></li>)}</ol>}</div>;
 }
+
+function Metric({ label, value }: { label: string; value: number }) { return <div className="rounded-xl border border-borde bg-fondo-2 p-3"><p className="text-[11px] text-texto-suave">{label}</p><p className="text-2xl font-black">{value}</p></div>; }
