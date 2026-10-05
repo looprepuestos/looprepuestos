@@ -163,6 +163,8 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
                   <p className="mt-1 text-xs leading-5 text-texto-suave">Controlá pedidos, clientes mayoristas y actividad de la web desde un solo lugar.</p>
                 </div>
                 <div className="mb-5 grid grid-cols-2 gap-2">{([["stock","Stock"],["pedidos","Pedidos"],["clientes","Clientes"],["avisos","Avisos"],["actividad","Actividad"],["historias","Historias"]] as const).map(([key,label])=><button key={key} type="button" onClick={()=>setAdminSection(adminSection===key?null:key)} className={`rounded-xl border px-3 py-3 text-sm font-black ${adminSection===key?"border-acero bg-acero-tenue":"border-borde bg-white"}`}>{label}</button>)}</div>
+                {adminSection==="stock"&&<div className="mb-5 rounded-xl border border-borde p-4"><AdminInventoryManager session={session}/></div>}
+                {adminSection==="avisos"&&<div className="mb-5 rounded-xl border border-borde p-4"><AdminAnnouncements session={session}/></div>}
                 {adminSection==="historias"&&<AdminStoryManager session={session}/>}
                 {adminSection==="actividad"&&<AdminActivityDashboard session={session}/>}
                 {adminSection==="pedidos"&&<AdminOrderDashboard session={session}/>}
