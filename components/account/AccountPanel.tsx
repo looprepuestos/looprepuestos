@@ -22,7 +22,7 @@ interface InstallPromptEvent extends Event {
 }
 
 export function AccountPanel({ products }: { products: ReadonlyArray<PublicProduct> }) {
-  const { accountOpen, closeAccount, session, profile, request, pendingRequests, favorites, wholesalePrices, isWholesale, priceFor, loading, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite } = useAuth();
+  const { accountOpen, openAccount, closeAccount, session, profile, request, pendingRequests, favorites, wholesalePrices, isWholesale, priceFor, loading, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite } = useAuth();
   const [nombre, setNombre] = useState("");
   const [local, setLocal] = useState("");
   const [localidad, setLocalidad] = useState("");
@@ -34,6 +34,16 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
   const [installed, setInstalled] = useState(false);
   const [adminSection, setAdminSection] = useState<"ventas"|"stock"|"pedidos"|"actividad"|"historias"|"clientes"|"avisos"|null>(null);
+
+  useEffect(() => {
+    if (!session || profile?.role !== 'ADMIN' || sessionStorage.getItem('loop-return-to-sales') !== '1') return;
+    const frame = requestAnimationFrame(() => {
+      sessionStorage.removeItem('loop-return-to-sales');
+      setAdminSection('ventas');
+      openAccount();
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [session, profile?.role, openAccount]);
 
   const favoriteProducts = useMemo(() => products.filter((product) => favorites.has(product.sku)), [products, favorites]);
 

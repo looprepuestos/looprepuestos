@@ -28,6 +28,7 @@ interface AuthContextValue {
   openAccount: () => void;
   closeAccount: () => void;
   signInWithGoogle: () => Promise<string | null>;
+  connectSalesGoogle: () => Promise<string | null>;
   signOut: () => Promise<void>;
   submitWholesaleRequest: (input: { nombre: string; local: string; localidad: string; whatsapp: string }) => Promise<string | null>;
   resolveWholesaleRequest: (requestId: string, approve: boolean) => Promise<string | null>;
@@ -159,6 +160,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return error?.message ?? null;
   }, [client]);
 
+  const connectSalesGoogle = useCallback(async () => {
+    if (!client || !session || profile?.role !== "ADMIN") return "Solo el administrador puede conectar la planilla.";
+    sessionStorage.setItem('loop-return-to-sales', '1');
+    const { error } = await client.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin,
+        scopes: 'https://www.googleapis.com/auth/spreadsheets.readonly',
+        queryParams: {
+          prompt: 'consent',
+          ...(session.user.email ? { login_hint: session.user.email } : {}),
+        },
+      },
+    });
+    if (error) sessionStorage.removeItem('loop-return-to-sales');
+    return error?.message ?? null;
+  }, [client, session, profile?.role]);
+
   const signOut = useCallback(async () => {
     await client?.auth.signOut();
     setAccountOpen(false);
@@ -270,8 +289,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     session, profile, request, pendingRequests, favorites, orderHistory, refreshOrderHistory, changeOrder, wholesalePrices, isWholesale, priceFor, loading, accountOpen,
     openAccount: () => setAccountOpen(true),
     closeAccount: () => setAccountOpen(false),
-    signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite, recordWhatsAppOrder,
-  }), [notifications, unreadNotifications, notificationError, refreshNotifications, markNotificationRead, session, profile, request, pendingRequests, favorites, orderHistory, refreshOrderHistory, changeOrder, wholesalePrices, isWholesale, priceFor, loading, accountOpen, signInWithGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite, recordWhatsAppOrder]);
+    signInWithGoogle, connectSalesGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite, recordWhatsAppOrder,
+  }), [notifications, unreadNotifications, notificationError, refreshNotifications, markNotificationRead, session, profile, request, pendingRequests, favorites, orderHistory, refreshOrderHistory, changeOrder, wholesalePrices, isWholesale, priceFor, loading, accountOpen, signInWithGoogle, connectSalesGoogle, signOut, submitWholesaleRequest, resolveWholesaleRequest, toggleFavorite, recordWhatsAppOrder]);
 
   return <AuthContext value={value}>{children}</AuthContext>;
 }
