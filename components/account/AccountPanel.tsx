@@ -8,6 +8,7 @@ import { ProductDetailModal } from "@/components/catalog/ProductDetailModal";
 import { WholesaleAccountAdmin } from "@/components/account/WholesaleAccountAdmin";
 import { CustomerNotifications } from "@/components/account/CustomerNotifications";
 import { CustomerOrderHistory } from "@/components/account/CustomerOrderHistory";
+import { AdminSalesDashboard } from "@/components/account/AdminSalesDashboard";
 import { AdminOrderDashboard } from "@/components/account/AdminOrderDashboard";
 import { UserAvatar } from "@/components/account/UserAvatar";
 import { AdminStoryManager } from "@/components/account/AdminStoryManager";
@@ -32,7 +33,7 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
   const [selectedProduct, setSelectedProduct] = useState<PublicProduct | null>(null);
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
   const [installed, setInstalled] = useState(false);
-  const [adminSection, setAdminSection] = useState<"stock"|"pedidos"|"actividad"|"historias"|"clientes"|"avisos"|null>(null);
+  const [adminSection, setAdminSection] = useState<"ventas"|"stock"|"pedidos"|"actividad"|"historias"|"clientes"|"avisos"|null>(null);
 
   const favoriteProducts = useMemo(() => products.filter((product) => favorites.has(product.sku)), [products, favorites]);
 
@@ -162,7 +163,8 @@ export function AccountPanel({ products }: { products: ReadonlyArray<PublicProdu
                   <p className="font-bold text-texto">Panel administrador</p>
                   <p className="mt-1 text-xs leading-5 text-texto-suave">Controlá pedidos, clientes mayoristas y actividad de la web desde un solo lugar.</p>
                 </div>
-                <div className="mb-5 grid grid-cols-2 gap-2">{([["stock","Stock"],["pedidos","Pedidos"],["clientes","Clientes"],["avisos","Avisos"],["actividad","Actividad"],["historias","Historias"]] as const).map(([key,label])=><button key={key} type="button" onClick={()=>setAdminSection(adminSection===key?null:key)} className={`rounded-xl border px-3 py-3 text-sm font-black ${adminSection===key?"border-acero bg-acero-tenue":"border-borde bg-white"}`}>{label}</button>)}</div>
+                <div className="mb-5 grid grid-cols-2 gap-2">{([["ventas","Ventas"],["stock","Stock"],["pedidos","Pedidos"],["clientes","Clientes"],["avisos","Avisos"],["actividad","Actividad"],["historias","Historias"]] as const).map(([key,label])=><button key={key} type="button" onClick={()=>setAdminSection(adminSection===key?null:key)} className={`rounded-xl border px-3 py-3 text-sm font-black ${adminSection===key?"border-acero bg-acero-tenue":"border-borde bg-white"}`}>{label}</button>)}</div>
+                {adminSection==="ventas"&&<AdminSalesDashboard session={session}/>}
                 {adminSection==="stock"&&<div className="mb-5 rounded-xl border border-borde p-4"><AdminInventoryManager session={session}/></div>}
                 {adminSection==="avisos"&&<div className="mb-5 rounded-xl border border-borde p-4"><AdminAnnouncements session={session}/></div>}
                 {adminSection==="historias"&&<AdminStoryManager session={session}/>}
