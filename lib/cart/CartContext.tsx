@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import type { PublicProduct } from "@/types/product";
@@ -49,6 +50,7 @@ export function CartProvider({
 }) {
   const [linesBySku, setLinesBySku] = useState<Record<string, number>>({});
   const [hydrated, setHydrated] = useState(false);
+  const hydrationStarted = useRef(false);
   const [cartOpen, setCartOpen] = useState(false);
   const { priceFor, session, profile } = useAuth();
 
@@ -73,6 +75,10 @@ export function CartProvider({
   }, [products]);
 
   useEffect(() => {
+    // Recuperar el carrito una sola vez. Las actualizaciones del catálogo
+    // deben conservar las cantidades que el cliente ya está editando.
+    if (hydrationStarted.current) return;
+    hydrationStarted.current = true;
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (raw) {

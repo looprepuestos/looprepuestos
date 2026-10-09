@@ -6,6 +6,7 @@ import { getPublicCatalog, getPublicHighlights, deriveFacets } from "@/lib/db/ca
 import { AuthProvider } from "@/lib/auth/AuthContext";
 import { AccountPanel } from "@/components/account/AccountPanel";
 import { ActivityVisit } from "@/components/catalog/ActivityVisit";
+import { CatalogAutoRefresh } from "@/components/catalog/CatalogAutoRefresh";
 
 // El stock cambia desde Sheets: no servir una versión ISR vieja del catálogo.
 export const dynamic = "force-dynamic";
@@ -18,6 +19,7 @@ export default async function HomePage() {
   return (
     <AuthProvider>
       <CartProvider products={products}>
+        <CatalogAutoRefresh />
         <ActivityVisit />
         <div className="min-h-dvh">
         <Header />
