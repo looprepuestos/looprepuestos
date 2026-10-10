@@ -91,9 +91,13 @@ export async function getPublicHighlights(): Promise<PublicHighlight[]> {
   return data as PublicHighlight[];
 }
 
-const TIPO_ORDER = ["Módulo", "Batería", "Placa de carga", "Tapa", "Flex de carga", "Pegamento", "Insumo"];
+const TIPO_ORDER = ["Módulo", "Camaras", "Flex sensor / proximidad", "Flex power / volumen", "Altavoz / buzzer", "Batería", "Placa de carga", "Tapa", "Flex de carga", "Pegamento", "Insumo"];
 const TIPO_LABEL: Record<string, string> = {
   Módulo: "Módulos",
+  Camaras: "Cámaras",
+  "Flex sensor / proximidad": "Flex sensor / proximidad",
+  "Flex power / volumen": "Flex power / volumen",
+  "Altavoz / buzzer": "Altavoz / buzzer",
   Batería: "Baterías",
   "Placa de carga": "Placas de carga",
   Tapa: "Tapas",
