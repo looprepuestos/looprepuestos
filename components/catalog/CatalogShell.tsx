@@ -77,9 +77,9 @@ function catalogCategory(product: PublicProduct) {
   const quality = normalize(product.calidad);
 
   if (type === "camara" || type === "camaras") return "camaras";
-  if (type === "sensor proximidad" || type === "flex sensor / proximidad") return "flex-sensor-proximidad";
-  if (type === "flex power" || type === "flex power / volumen") return "flex-power-volumen";
-  if (type === "buzzer altavoz" || type === "altavoz / buzzer") return "altavoz-buzzer";
+  if (type === "sensor proximidad" || type === "flex sensor proximidad") return "flex-sensor-proximidad";
+  if (type === "flex power" || type === "flex power volumen") return "flex-power-volumen";
+  if (type === "buzzer altavoz" || type === "altavoz buzzer") return "altavoz-buzzer";
   if (quality.includes("tag on") || quality.includes("ampsentrix")) return "tag-on-baterias";
   if (type === "modulo" && ["samsung", "motorola", "iphone", "tcl", "tecno", "zte", "xiaomi"].includes(brand)) return brand;
   // La planilla usa tanto "Tapa" como "Tapa trasera" (y las variantes
