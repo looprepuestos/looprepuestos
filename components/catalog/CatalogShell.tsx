@@ -60,6 +60,9 @@ const CATALOG_CATEGORIES = [
   { id: "zte", label: "ZTE" },
   { id: "xiaomi", label: "XIAOMI" },
   { id: "camaras", label: "CÁMARAS" },
+  { id: "flex-sensor-proximidad", label: "FLEX SENSOR / PROXIMIDAD" },
+  { id: "flex-power-volumen", label: "FLEX POWER / VOLUMEN" },
+  { id: "altavoz-buzzer", label: "ALTAVOZ / BUZZER" },
   { id: "tapa-trasera", label: "TAPA TRASERA" },
   { id: "flex-de-carga", label: "FLEX DE CARGA" },
   { id: "placas-de-carga", label: "PLACAS DE CARGA" },
@@ -74,6 +77,9 @@ function catalogCategory(product: PublicProduct) {
   const quality = normalize(product.calidad);
 
   if (type === "camara" || type === "camaras") return "camaras";
+  if (type === "flex sensor / proximidad") return "flex-sensor-proximidad";
+  if (type === "flex power / volumen") return "flex-power-volumen";
+  if (type === "altavoz / buzzer") return "altavoz-buzzer";
   if (quality.includes("tag on") || quality.includes("ampsentrix")) return "tag-on-baterias";
   if (type === "modulo" && ["samsung", "motorola", "iphone", "tcl", "tecno", "zte", "xiaomi"].includes(brand)) return brand;
   // La planilla usa tanto "Tapa" como "Tapa trasera" (y las variantes
@@ -158,7 +164,7 @@ function catalogSubcategory(product: PublicProduct, categoryId: string) {
   if (categoryId === "tapa-trasera") {
     return rearCoverModelLabel(product.modelo);
   }
-  if (["flex-de-carga", "placas-de-carga", "tag-on-baterias", "baterias"].includes(categoryId)) {
+  if (["flex-sensor-proximidad", "flex-power-volumen", "altavoz-buzzer", "flex-de-carga", "placas-de-carga", "tag-on-baterias", "baterias"].includes(categoryId)) {
     return product.marca || "General";
   }
   if (categoryId === "herramienta-insumos") return product.tipo || "Otros";
