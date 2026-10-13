@@ -57,6 +57,7 @@ const CATALOG_CATEGORIES = [
   { id: "iphone", label: "IPHONE" },
   { id: "tcl", label: "TCL" },
   { id: "tecno", label: "TECNO" },
+  { id: "infinix", label: "INFINIX" },
   { id: "zte", label: "ZTE" },
   { id: "xiaomi", label: "XIAOMI" },
   { id: "camaras", label: "CÁMARAS" },
@@ -81,7 +82,7 @@ function catalogCategory(product: PublicProduct) {
   if (type === "flex power" || type === "flex power volumen") return "flex-power-volumen";
   if (type === "buzzer altavoz" || type === "altavoz buzzer") return "altavoz-buzzer";
   if (quality.includes("tag on") || quality.includes("ampsentrix")) return "tag-on-baterias";
-  if (type === "modulo" && ["samsung", "motorola", "iphone", "tcl", "tecno", "zte", "xiaomi"].includes(brand)) return brand;
+  if (type === "modulo" && ["samsung", "motorola", "iphone", "tcl", "tecno", "infinix", "zte", "xiaomi"].includes(brand)) return brand;
   // La planilla usa tanto "Tapa" como "Tapa trasera" (y las variantes
   // por color usan "Tapa color"). Todas pertenecen a la misma categoría
   // pública; si exigimos una coincidencia exacta, terminan cayendo en el
