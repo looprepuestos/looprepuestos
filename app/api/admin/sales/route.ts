@@ -21,17 +21,12 @@ export async function GET(request: Request) {
     if (!config && !googleToken) {
       return reply({ needsGoogleConnection: true, error: 'Conectá tu cuenta Google para leer las ventas de tu planilla privada.' }, 428);
     }
-
-    // Prefer the current admin Google session when available. This prevents a
-    // stale server service-account credential from blocking an otherwise valid
-    // Sheets connection. The service account remains the unattended fallback.
-    const [repuestos, insumos] = googleToken
-      ? await readSalesWithGoogleToken(spreadsheetId, googleToken)
-      : await Promise.all([
-          new GoogleSheetsReader({ ...config!, range: "'Ventas'!A3:L" }).read(),
-          new GoogleSheetsReader({ ...config!, range: "'VENTAS INSUMOS'!A1:I" }).read(),
-        ]);
-
+    const [repuestos, insumos] = config
+      ? await Promise.all([
+          new GoogleSheetsReader({ ...config, range: "'Ventas'!A3:L" }).read(),
+          new GoogleSheetsReader({ ...config, range: "'VENTAS INSUMOS'!A1:I" }).read(),
+        ])
+      : await readSalesWithGoogleToken(spreadsheetId, googleToken!);
     return reply(summarizeSales([...salesFromRows(repuestos), ...salesFromRows(insumos)]));
   } catch (error) {
     if (error instanceof SheetsAccessError) {
