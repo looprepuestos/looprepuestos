@@ -55,16 +55,16 @@ export function HomeAnnouncementTicker({ products, onOpenProduct }: { products: 
         <div aria-hidden className={`pointer-events-none absolute inset-0 transition-opacity duration-300 motion-reduce:transition-none ${visible ? "opacity-100" : "opacity-0"}`}>
           {/* The existing product photo is decorative; the title names the product. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img key={imageUrl} src={imageUrl} alt="" loading="lazy" decoding="async" className="absolute inset-y-0 right-0 h-full w-[65%] object-contain object-center mix-blend-multiply [mask-image:linear-gradient(90deg,transparent,black_22%,black_88%,transparent)] sm:w-[59%]" />
+          <img key={imageUrl} src={imageUrl} alt="" loading="lazy" decoding="async" className="absolute inset-y-0 right-0 h-full w-[65%] object-contain object-center mix-blend-multiply [mask-image:linear-gradient(90deg,transparent,black_22%,black_88%,transparent)] sm:w-[59%] lg:right-[6%] lg:w-[48%]" />
         </div>
       )}
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#e9f0ec_0%,rgba(233,240,236,.98)_25%,rgba(233,240,236,.82)_42%,rgba(233,240,236,.3)_58%,transparent_76%)]" />
-      <button type="button" onClick={() => { if (current.sku && profile?.role !== "ADMIN") recordActivity(session, { type: "announcement_click", sku: current.sku, name: current.title }); onOpenProduct(current.sku); }} className="group relative flex min-h-[210px] w-full items-center px-5 py-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-emerald-300 sm:min-h-[224px] sm:px-7" aria-label={current.sku ? `${label}: ${current.title}. Ver producto` : `${label}: ${current.title}`}>
-        <span className={`block min-w-0 ${imageUrl ? "w-[65%] sm:w-[61%]" : "w-full"} transition-all duration-300 ease-out motion-reduce:transition-none ${visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"}`}>
+      <button type="button" onClick={() => { if (current.sku && profile?.role !== "ADMIN") recordActivity(session, { type: "announcement_click", sku: current.sku, name: current.title }); onOpenProduct(current.sku); }} className="group relative flex min-h-[210px] w-full items-center px-5 py-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-emerald-300 sm:min-h-[224px] sm:px-7 lg:min-h-[176px] lg:px-8 lg:py-5" aria-label={current.sku ? `${label}: ${current.title}. Ver producto` : `${label}: ${current.title}`}>
+        <span className={`block min-w-0 ${imageUrl ? "w-[65%] sm:w-[61%] lg:w-[59%]" : "w-full"} transition-all duration-300 ease-out motion-reduce:transition-none ${visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"}`}>
           <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-800/15 bg-white/45 px-2.5 py-1 text-[9px] font-black uppercase tracking-[.14em] text-emerald-900 sm:text-[10px]">
             <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald-700" />{label}
           </span>
-          <span className="block text-xl font-black leading-[1.15] tracking-[-.025em] text-[#15392d] sm:text-2xl">{current.title}</span>
+          <span className="block text-xl font-black leading-[1.15] tracking-[-.025em] text-[#15392d] sm:text-2xl lg:max-w-[560px] lg:text-[28px]">{current.title}</span>
           {current.sku && <span className="mt-4 inline-flex items-center gap-2 text-xs font-extrabold text-[#205b45]">Ver producto<span aria-hidden className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-emerald-900/20 bg-white/40 transition-transform group-hover:translate-x-1">→</span></span>}
         </span>
       </button>
