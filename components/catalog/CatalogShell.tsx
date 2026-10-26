@@ -8,7 +8,7 @@ import { HomeAnnouncementTicker } from "./HomeAnnouncementTicker";
 import { ProductCard } from "./ProductCard";
 import { EmptyState } from "./EmptyState";
 import { CommercialHighlights } from "./CommercialHighlights";
-import { CatalogHero, InstagramBanner } from "./CatalogHero";
+import { CatalogHero } from "./CatalogHero";
 import { LoopStory } from "./LoopStory";
 import { useAuth } from "@/lib/auth/AuthContext";
 import { recordActivity } from "@/lib/activity";
@@ -346,13 +346,11 @@ export function CatalogShell({
       {!isSearching && (
         <>
           <CatalogHero />
+          <HomeAnnouncementTicker products={products} onOpenProduct={openHighlightProduct} />
           <LoopStory />
           <CommercialHighlights highlights={highlights} onOpenProduct={openHighlightProduct} />
-          <InstagramBanner />
         </>
       )}
-
-      {!isSearching && <HomeAnnouncementTicker products={products} onOpenProduct={openHighlightProduct} />}
 
       {isSearching ? (
         <section aria-label="Resultados">
@@ -442,6 +440,13 @@ export function CatalogShell({
             })}
           </div>
         </section>
+      )}
+      {!isSearching && (
+        <footer className="border-t border-borde pt-5 text-center">
+          <a href="https://www.instagram.com/looprepuestos/" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-xs font-bold text-texto-suave underline-offset-4 hover:text-acero-fuerte hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-acero">
+            Instagram · @looprepuestos <span aria-hidden>↗</span>
+          </a>
+        </footer>
       )}
     </div>
   );
