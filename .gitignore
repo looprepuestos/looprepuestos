@@ -28,3 +28,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Cloudflare: generated output and local credentials
+/.open-next/
+/.wrangler/
+.dev.vars
+.dev.vars.*
+cloudflare-env.d.ts
