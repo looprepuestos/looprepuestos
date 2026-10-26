@@ -150,6 +150,15 @@ function rearCoverModelOrder(model: string) {
 const MODEL_COLLATOR = new Intl.Collator("es", { numeric: true, sensitivity: "base" });
 
 function compareProductsByModel(a: PublicProduct, b: PublicProduct) {
+  // Los flex de iPhone siguen la generación: X/XR/XS antes de 11, 12, etc.
+  if (catalogCategory(a) === "flex-de-carga" && catalogCategory(b) === "flex-de-carga") {
+    const brandOrder = MODEL_COLLATOR.compare(a.marca, b.marca);
+    if (brandOrder) return brandOrder;
+    if (normalize(a.marca) === "iphone") {
+      const generationOrder = rearCoverModelOrder(a.modelo) - rearCoverModelOrder(b.modelo);
+      if (generationOrder) return generationOrder;
+    }
+  }
   return MODEL_COLLATOR.compare(normalize(a.modelo), normalize(b.modelo))
     || MODEL_COLLATOR.compare(normalize(a.nombre), normalize(b.nombre));
 }
