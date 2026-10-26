@@ -149,13 +149,23 @@ function rearCoverModelOrder(model: string) {
 
 const MODEL_COLLATOR = new Intl.Collator("es", { numeric: true, sensitivity: "base" });
 
+function chargingFlexModelOrder(model: string) {
+  const value = normalize(model).replace(/^flex (?:de )?carga /, "").replace(/^iphone /, "");
+  const legacy = value.match(/^(x|xr|xs)(?: (max))?\b/);
+  if (legacy) return 100 + ({ x: 0, xr: 1, xs: 2 }[legacy[1]] ?? 0) + (legacy[2] ? 1 : 0);
+  const match = value.match(/^(\d+)(?:g)?(?: (pro max|mini|plus|pro|max))?\b/);
+  if (!match) return Number.MAX_SAFE_INTEGER;
+  const versionOrder: Record<string, number> = { "": 0, mini: 1, plus: 2, pro: 3, "pro max": 4, max: 4 };
+  return Number(match[1]) * 10 + (versionOrder[match[2] ?? ""] ?? 0);
+}
+
 function compareProductsByModel(a: PublicProduct, b: PublicProduct) {
   // Los flex de iPhone siguen la generación: X/XR/XS antes de 11, 12, etc.
   if (catalogCategory(a) === "flex-de-carga" && catalogCategory(b) === "flex-de-carga") {
     const brandOrder = MODEL_COLLATOR.compare(a.marca, b.marca);
     if (brandOrder) return brandOrder;
     if (normalize(a.marca) === "iphone") {
-      const generationOrder = rearCoverModelOrder(a.modelo) - rearCoverModelOrder(b.modelo);
+      const generationOrder = chargingFlexModelOrder(a.modelo) - chargingFlexModelOrder(b.modelo);
       if (generationOrder) return generationOrder;
     }
   }
