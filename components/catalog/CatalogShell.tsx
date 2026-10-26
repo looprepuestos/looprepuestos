@@ -352,7 +352,7 @@ export function CatalogShell({
         </>
       )}
 
-      {!isSearching && <HomeAnnouncementTicker onOpenProduct={openHighlightProduct} />}
+      {!isSearching && <HomeAnnouncementTicker products={products} onOpenProduct={openHighlightProduct} />}
 
       {isSearching ? (
         <section aria-label="Resultados">
