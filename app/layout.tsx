@@ -53,7 +53,7 @@ export default function RootLayout({
     <html lang="es" className={inter.variable}>
       <body className="min-h-dvh antialiased">
         {children}
-        <Analytics />
+        {process.env.VERCEL === "1" && <Analytics />}
       </body>
     </html>
   );

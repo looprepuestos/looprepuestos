@@ -1,5 +1,4 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
+import catalogSnapshot from "@/data/catalog.snapshot.json";
 import type { FacetOption, PublicProduct } from "@/types/product";
 import type { CatalogoPublicoRow, PublicHighlight } from "@/types/database";
 import { createPublicClient } from "./supabase";
@@ -71,8 +70,8 @@ export async function getPublicCatalog(): Promise<PublicProduct[]> {
   }
 
   try {
-    const p = path.join(process.cwd(), "data", "catalog.snapshot.json");
-    const rows = JSON.parse(readFileSync(p, "utf8")) as CatalogoPublicoRow[];
+    // Bundle the fallback so it also works in Workers without a disk filesystem.
+    const rows = catalogSnapshot as unknown as CatalogoPublicoRow[];
     return rows.map(mapRow);
   } catch {
     return [];
