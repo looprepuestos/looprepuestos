@@ -8,6 +8,21 @@ No reduce todavía el abono de Supabase Pro ni reemplaza esos servicios por D1/R
 La configuración publica `looprepuestos-preview` en workers.dev; no contiene rutas
 del dominio de producción ni modifica DNS. Vercel permanece como origen actual.
 
+## Prueba acordada el 26/10/2026
+
+Durante el mes disponible se continúa usando la web actual. La copia de prueba es
+https://looprepuestos-preview.loop-repuestos.workers.dev y se publicó con Wrangler.
+Se verificó en navegador la carga de 538 productos actuales, búsqueda de A12
+(tres resultados), precios y agregado al carrito con total de $18.200.
+No se envió ningún pedido de prueba. El ingreso con Google, permisos mayoristas,
+historial, notificaciones y panel todavía requieren validación completa.
+
+La copia comparte Supabase con producción: no cargar pedidos ficticios ni cambiar
+stock desde ella. R2 todavía no está habilitado en la cuenta (API: 10042); se debe
+activar antes de probar la migración de imágenes. El dominio mantiene los DNS de
+Vercel. No se cambian DNS, no se cancela Supabase ni se hace el corte durante esta
+primera prueba. El corte final depende de verificar los flujos y el presupuesto.
+
 ## Preparación
 
 Usar Node 22 o posterior y `npm ci`.
