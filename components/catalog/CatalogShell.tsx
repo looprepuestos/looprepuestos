@@ -152,7 +152,7 @@ const MODEL_COLLATOR = new Intl.Collator("es", { numeric: true, sensitivity: "ba
 function chargingFlexModelOrder(model: string) {
   const value = normalize(model).replace(/^flex (?:de )?carga /, "").replace(/^iphone /, "");
   const legacy = value.match(/^(x|xr|xs)(?: (max))?\b/);
-  if (legacy) return 100 + ({ x: 0, xr: 1, xs: 2 }[legacy[1]] ?? 0) + (legacy[2] ? 1 : 0);
+  if (legacy) return 100 + (legacy[1] === "xr" ? 1 : legacy[1] === "xs" ? 2 : 0) + (legacy[2] ? 1 : 0);
   const match = value.match(/^(\d+)(?:g)?(?: (pro max|mini|plus|pro|max))?\b/);
   if (!match) return Number.MAX_SAFE_INTEGER;
   const versionOrder: Record<string, number> = { "": 0, mini: 1, plus: 2, pro: 3, "pro max": 4, max: 4 };
