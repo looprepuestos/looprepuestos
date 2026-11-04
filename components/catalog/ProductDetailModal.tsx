@@ -71,6 +71,12 @@ export function ProductDetailModal({
   const displayedPrice = priceFor(product);
   const hasWholesalePrice = isWholesale && wholesalePrices.has(product.parentSku ?? product.sku);
   const marcoVisible = product.marco !== "N/A" && product.marco.trim() !== "";
+  const shareProduct = () => {
+    const url = new URL("/", window.location.origin);
+    url.searchParams.set("buscar", activeName);
+    const message = activeName + "\nConsultá precio y disponibilidad en Loop Repuestos:\n" + url.toString();
+    window.open("https://wa.me/?text=" + encodeURIComponent(message), "_blank", "noopener,noreferrer");
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-0 sm:items-center sm:p-5" onMouseDown={onClose}>
@@ -120,7 +126,10 @@ export function ProductDetailModal({
             )}
           </div>
 
-          <h2 className="text-lg font-bold leading-snug text-texto">{product.nombre}</h2>
+          <div className="flex items-start justify-between gap-3">
+            <h2 className="text-lg font-bold leading-snug text-texto">{product.nombre}</h2>
+            <button type="button" onClick={shareProduct} className="shrink-0 rounded-lg border border-green-700/30 bg-green-50 px-3 py-2 text-xs font-bold text-green-800 hover:bg-green-100">Compartir WhatsApp</button>
+          </div>
           {hasVariants && (
             <fieldset className="mt-4">
               <legend className="mb-2 text-sm font-bold text-texto">
