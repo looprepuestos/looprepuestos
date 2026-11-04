@@ -21,6 +21,7 @@ export function HomeAnnouncementTicker({ products, onOpenProduct }: { products: 
   const [items, setItems] = useState<Announcement[]>([]);
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
+  const [paused, setPaused] = useState(false);
   const { session, profile } = useAuth();
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export function HomeAnnouncementTicker({ products, onOpenProduct }: { products: 
   }, []);
 
   useEffect(() => {
-    if (items.length < 2) return;
+    if (items.length < 2 || paused) return;
     const id = window.setInterval(() => {
       setVisible(false);
       window.setTimeout(() => {
@@ -40,7 +41,13 @@ export function HomeAnnouncementTicker({ products, onOpenProduct }: { products: 
       }, 320);
     }, 6500);
     return () => window.clearInterval(id);
-  }, [items.length]);
+  }, [items.length, paused]);
+
+  function navigate(direction: -1 | 1) {
+    setPaused(true);
+    setVisible(true);
+    setIndex((current) => (current + direction + items.length) % items.length);
+  }
 
   const current = items[index % items.length];
   const label = useMemo(() => current ? (KIND_LABELS[current.kind] || current.kind) : "", [current]);
@@ -74,6 +81,10 @@ export function HomeAnnouncementTicker({ products, onOpenProduct }: { products: 
             <span key={item.id} className={`h-1 rounded-full transition-all duration-300 ${itemIndex === index % items.length ? "w-8 bg-[#205b45]" : "w-2 bg-[#205b45]/20"}`} />
           ))}
           <span className="ml-auto text-[9px] font-bold uppercase tracking-[.16em] text-[#405b4f]/70">LOOP · {isStockNotice ? "STOCK" : "AVISOS"}</span>
+          <div className="flex shrink-0 gap-2">
+            <button type="button" onClick={() => navigate(-1)} aria-label="Anuncio anterior" className="flex h-9 w-9 items-center justify-center rounded-full border border-emerald-900/20 bg-white/70 text-lg font-bold text-[#205b45] hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600">‹</button>
+            <button type="button" onClick={() => navigate(1)} aria-label="Anuncio siguiente" className="flex h-9 w-9 items-center justify-center rounded-full border border-emerald-900/20 bg-white/70 text-lg font-bold text-[#205b45] hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600">›</button>
+          </div>
         </div>
       )}
     </section>
