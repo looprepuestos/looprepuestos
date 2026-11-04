@@ -298,15 +298,6 @@ export function CatalogShell({
     return () => window.clearTimeout(timer);
   }, [typedQuery, query, results.length, session, profile?.role, authLoading]);
 
-  const searchSuggestions = useMemo(() => {
-    if (query.trim().length < 2) return [];
-    return results.slice(0, 5).map((product) => ({
-      label: product.nombre,
-      detail: [product.calidad, product.marco !== "N/A" ? product.marco : ""].filter(Boolean).join(" · "),
-      available: product.enStock,
-    }));
-  }, [query, results]);
-
   const categoryGroups = useMemo(() => CATALOG_CATEGORIES.map((category) => {
     const categoryProducts = products
       .filter((product) => catalogCategory(product) === category.id)
@@ -376,7 +367,7 @@ export function CatalogShell({
   });
   return (
     <div className="space-y-7">
-      <SearchBar value={query} onChange={(value) => { setQuery(value); setTypedQuery(value); }} suggestions={searchSuggestions} onSelectSuggestion={(name) => { setQuery(name); setTypedQuery(""); }} />
+      <SearchBar value={query} onChange={(value) => { setQuery(value); setTypedQuery(value); }} />
 
       {!isSearching && (
         <>
