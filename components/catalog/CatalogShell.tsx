@@ -206,6 +206,13 @@ export function CatalogShell({
   marcos: FacetOption[];
 }) {
   const [query, setQuery] = useState("");
+  useEffect(() => {
+    const sharedQuery = new URLSearchParams(window.location.search).get("buscar");
+    if (sharedQuery) {
+      setQuery(sharedQuery);
+      window.history.replaceState(null, "", window.location.pathname + window.location.hash);
+    }
+  }, []);
   const [typedQuery, setTypedQuery] = useState("");
   const { session, profile, loading: authLoading } = useAuth();
   const [marcas, setMarcas] = useState<ReadonlySet<string>>(new Set());
@@ -291,6 +298,15 @@ export function CatalogShell({
     return () => window.clearTimeout(timer);
   }, [typedQuery, query, results.length, session, profile?.role, authLoading]);
 
+  const searchSuggestions = useMemo(() => {
+    if (query.trim().length < 2) return [];
+    return results.slice(0, 5).map((product) => ({
+      label: product.nombre,
+      detail: [product.calidad, product.marco !== "N/A" ? product.marco : ""].filter(Boolean).join(" · "),
+      available: product.enStock,
+    }));
+  }, [query, results]);
+
   const categoryGroups = useMemo(() => CATALOG_CATEGORIES.map((category) => {
     const categoryProducts = products
       .filter((product) => catalogCategory(product) === category.id)
@@ -360,7 +376,7 @@ export function CatalogShell({
   });
   return (
     <div className="space-y-7">
-      <SearchBar value={query} onChange={(value) => { setQuery(value); setTypedQuery(value); }} />
+      <SearchBar value={query} onChange={(value) => { setQuery(value); setTypedQuery(value); }} suggestions={searchSuggestions} onSelectSuggestion={(name) => { setQuery(name); setTypedQuery(""); }} />
 
       {!isSearching && (
         <>
