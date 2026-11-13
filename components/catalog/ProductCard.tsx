@@ -87,7 +87,11 @@ export function ProductCard({ product, display = "tiles" }: { product: PublicPro
             )}
           </button>
 
-          {hasVariants ? (
+          {!product.enStock ? (
+            <button type="button" onClick={() => setDetailOpen(true)} className="rounded-md border border-acero/60 bg-acero-tenue px-2.5 py-2 text-xs font-bold text-texto hover:border-acero">
+              Avisame cuando vuelva
+            </button>
+          ) : hasVariants ? (
             <button
               type="button"
               onClick={() => setDetailOpen(true)}
