@@ -1,5 +1,7 @@
 "use client";
 
+import { RestockRequest } from "./RestockRequest";
+
 import { useEffect, useRef, useState } from "react";
 import type { PublicProduct } from "@/types/product";
 import { formatARS } from "@/lib/format";
@@ -62,6 +64,8 @@ export function ProductDetailModal({
   const cartSku = selectedVariant?.sku ?? product.sku;
   const qty = qtyOf(cartSku);
   const hasVariants = product.variants.length > 0;
+  const available = selectedVariant?.enStock ?? product.enStock;
+  const canRequest = hasVariants ? !!selectedVariant && !available : !available;
   const activeImage = selectedVariant?.imagenUrl ?? product.imagenUrl;
   const activeName = selectedVariant?.nombre ?? product.nombre;
   const hasPromo =
@@ -88,7 +92,7 @@ export function ProductDetailModal({
         onMouseDown={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-borde bg-fondo-2/95 px-4 py-3 backdrop-blur">
-          <StockBadge enStock={product.enStock} />
+          <StockBadge enStock={available} />
           <button
             type="button"
             onClick={onClose}
@@ -148,12 +152,12 @@ export function ProductDetailModal({
                       className={`inline-flex min-h-10 items-center gap-2 rounded-full border px-3 py-2 text-xs font-bold transition ${selected ? "border-acero bg-acero-tenue text-texto ring-2 ring-acero/25" : "border-borde bg-superficie text-texto-suave hover:border-acero/70 hover:text-texto"}`}
                     >
                       <span className="h-4 w-4 shrink-0 rounded-full border border-black/20" style={{ backgroundColor: swatch }} aria-hidden />
-                      {variant.color}
+                      {variant.color}{!variant.enStock && " · Agotado"}
                     </button>
                   );
                 })}
               </div>
-              <p className="mt-2 text-xs text-titanio">Se muestran únicamente los colores disponibles.</p>
+              <p className="mt-2 text-xs text-titanio">Elegí un color para consultar su disponibilidad.</p>
             </fieldset>
           )}
           <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-sm">
@@ -176,11 +180,11 @@ export function ProductDetailModal({
               </div>
             </div>
 
-            {qty === 0 ? (
+            {canRequest ? null : qty === 0 ? (
               <button
                 type="button"
                 onClick={() => add(cartSku, 1)}
-                disabled={!product.enStock || (hasVariants && !selectedVariant)}
+                disabled={!available || (hasVariants && !selectedVariant)}
                 className="inline-flex h-11 items-center gap-2 rounded-md border border-acero/60 bg-acero-tenue px-4 text-sm font-bold text-texto hover:border-acero hover:bg-grafito disabled:cursor-not-allowed disabled:border-borde disabled:bg-transparent disabled:text-titanio"
               >
                 <span className="text-lg leading-none">+</span> {hasVariants && !selectedVariant ? "Elegí un color" : "Agregar"}
@@ -193,6 +197,7 @@ export function ProductDetailModal({
               </div>
             )}
           </div>
+          {canRequest && <div className="mt-3"><RestockRequest key={cartSku} sku={cartSku} /></div>}
         </div>
       </section>
 
