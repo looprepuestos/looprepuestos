@@ -47,7 +47,9 @@ export async function GET(request: Request) {
 
     if (error) throw error;
     console.log("[admin/wholesale-accounts] listado", { adminId: admin.adminId, count: data?.length ?? 0 });
-    return NextResponse.json({ accounts: data ?? [] });
+    const { data: exceptions, error: exceptionError } = await admin.supabase.from("wholesale_category_exceptions").select("user_id,category,blocked");
+    if (exceptionError) throw exceptionError;
+    return NextResponse.json({ accounts: (data ?? []).map(account => ({ ...account, restrictedCategories: (exceptions ?? []).filter(e => e.user_id === account.id && e.blocked).map(e => e.category) })) });
   } catch (error) {
     console.error("[admin/wholesale-accounts] error al listar", error);
     return NextResponse.json({ error: "No se pudieron cargar los mayoristas." }, { status: 500 });
@@ -99,4 +101,27 @@ export async function POST(request: Request) {
 
   console.log("[admin/wholesale-accounts] cuenta gestionada", { adminId: admin.adminId, userId: body.userId, result });
   return NextResponse.json({ ok: true, result });
+}
+
+const allowedCategories = new Set(["iphone","ampsentrix","samsung","motorola","xiaomi","otros","herramientas"]);
+
+export async function PATCH(request: Request) {
+  try {
+    const admin = await requireAdmin(request);
+    if (!admin) return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+    const body: { userId?: string; restrictedCategories?: string[] } = await request.json();
+    if (!body.userId || !Array.isArray(body.restrictedCategories) ||
+        body.restrictedCategories.some(c => typeof c !== "string" || !allowedCategories.has(c))) {
+      return NextResponse.json({ error: "Categorías inválidas." }, { status: 400 });
+    }
+    const { data: target, error: targetError } = await admin.supabase.from("profiles").select("id,role").eq("id",body.userId).maybeSingle();
+    if (targetError || target?.role !== "MAYORISTA") return NextResponse.json({ error: "El cliente no es mayorista." }, { status: 400 });
+    // Upsert all categories, including false, so saving is atomic in one request.
+    const rows = Array.from(allowedCategories).map(category => ({user_id:body.userId,category,blocked:body.restrictedCategories!.includes(category)}));
+    const { error } = await admin.supabase.from("wholesale_category_exceptions").upsert(rows,{onConflict:"user_id,category"});
+    if (error) throw error;
+    return NextResponse.json({ ok:true });
+  } catch (error) {
+    return NextResponse.json({ error:error instanceof Error ? error.message : "No se pudieron guardar los descuentos." }, {status:500});
+  }
 }
