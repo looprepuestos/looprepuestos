@@ -9,13 +9,23 @@ interface WholesaleAccount {
   nombre: string | null;
   created_at: string;
   updated_at: string;
+  restrictedCategories: string[];
 }
+
+const categoryOptions = [
+  { id:"iphone", label:"iPhone" }, { id:"ampsentrix",label:"Accesorios Ampsentrix" },
+  { id:"samsung",label:"Samsung" }, { id:"motorola",label:"Motorola" },
+  { id:"xiaomi",label:"Xiaomi" }, { id:"otros",label:"Otros repuestos" },
+  { id:"herramientas",label:"Herramientas" },
+];
 
 export function WholesaleAccountAdmin({ session }: { session: Session }) {
   const [accounts, setAccounts] = useState<WholesaleAccount[]>([]);
   const [loading, setLoading] = useState(true);
   const [workingId, setWorkingId] = useState("");
   const [message, setMessage] = useState("");
+  const [editingId, setEditingId] = useState("");
+  const [draft, setDraft] = useState<string[]>([]);
 
   const loadAccounts = useCallback(async () => {
     setLoading(true);
@@ -88,6 +98,25 @@ export function WholesaleAccountAdmin({ session }: { session: Session }) {
     }
   }
 
+  async function saveRestrictions(account: WholesaleAccount) {
+    setWorkingId(account.id);
+    setMessage("");
+    try {
+      const response = await fetch("/api/admin/wholesale-accounts",{
+        method:"PATCH",
+        headers:{Authorization:`Bearer ${session.access_token}`,"Content-Type":"application/json"},
+        body:JSON.stringify({userId:account.id,restrictedCategories:draft}),
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error || "No se pudo guardar.");
+      setAccounts(current => current.map(item => item.id === account.id ? {...item,restrictedCategories:[...draft]} : item));
+      setEditingId("");
+      setMessage("Descuentos actualizados. El cliente verá los cambios al actualizar su sesión.");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "No se pudo guardar.");
+    } finally { setWorkingId(""); }
+  }
+
   return (
     <div className="mt-6 border-t border-borde pt-5">
       <div className="mb-2 flex items-center justify-between gap-3">
@@ -105,6 +134,27 @@ export function WholesaleAccountAdmin({ session }: { session: Session }) {
               <p className="font-bold text-texto">{account.nombre || "Cliente sin nombre"}</p>
               <p className="mt-0.5 break-all text-xs text-texto-suave">{account.email}</p>
               <p className="mt-1 text-[11px] text-titanio">Mayorista desde {new Date(account.updated_at).toLocaleDateString("es-AR")}</p>
+              <button type="button" disabled={Boolean(workingId)} onClick={() => {
+                if (editingId === account.id) setEditingId("");
+                else { setEditingId(account.id); setDraft([...(account.restrictedCategories ?? [])]); }
+              }} className="mt-3 w-full rounded-lg border border-borde bg-fondo-2 px-3 py-2 text-xs font-extrabold text-texto">
+                {editingId === account.id ? "Cerrar descuentos" : "Configurar descuentos"}
+              </button>
+              {editingId === account.id && (
+                <div className="mt-3 space-y-2 rounded-lg border border-borde p-3">
+                  <p className="text-xs font-bold text-texto">Sin descuento mayorista en:</p>
+                  {categoryOptions.map(option => (
+                    <label key={option.id} className="flex items-center gap-2 text-xs text-texto">
+                      <input type="checkbox" checked={draft.includes(option.id)} onChange={event => setDraft(current => event.target.checked ? [...current,option.id] : current.filter(x => x !== option.id))}/>
+                      {option.label}
+                    </label>
+                  ))}
+                  <p className="text-[11px] text-texto-suave">Marcadas: precio técnico. Sin marcar: mayorista.</p>
+                  <button type="button" disabled={Boolean(workingId)} onClick={() => void saveRestrictions(account)} className="w-full rounded-lg bg-green-700 px-3 py-2 text-xs font-bold text-white disabled:opacity-50">
+                    {workingId === account.id ? "Guardando…" : "Guardar descuentos"}
+                  </button>
+                </div>
+              )}
               <div className="mt-3 grid grid-cols-2 gap-2">
                 <button type="button" disabled={Boolean(workingId)} onClick={() => void manage(account, "revoke")} className="rounded-lg border border-amber-200 bg-amber-50 px-2 py-2 text-xs font-extrabold text-amber-800 disabled:opacity-50">Quitar mayorista</button>
                 <button type="button" disabled={Boolean(workingId)} onClick={() => void manage(account, "delete")} className="rounded-lg border border-red-200 bg-red-50 px-2 py-2 text-xs font-extrabold text-red-700 disabled:opacity-50">{workingId === account.id ? "Procesando…" : "Eliminar cuenta"}</button>
