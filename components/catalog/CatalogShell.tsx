@@ -99,7 +99,12 @@ function iphoneBatteryBrand(product: PublicProduct) {
   const description = normalize([product.nombre, product.sku, product.modelo, product.calidad].join(" "));
   if (quality.includes("foxconn") && description.includes("diagnost")) return "FOXCONN DIAGNÓSTICO";
   if (quality.includes("foxconn")) return "FOXCONN";
-  if (quality.includes("jcid")) return "JCID DIAGNÓSTICO";
+  if (quality.includes("jcid")) {
+    if (/\b(core|sin flex|s\/flex)\b/.test(description)) return "JCID CORE SIN FLEX";
+    if (/\bcon flex\b/.test(description)) return "JCID CON FLEX";
+    if (/autoprogramable|diagnost/.test(description)) return "JCID DIAGNÓSTICO";
+    return "JCID OTRAS";
+  }
   return "OTRAS CALIDADES";
 }
 
