@@ -164,6 +164,19 @@ function chargingFlexModelOrder(model: string) {
   return Number(match[1]) * 10 + (versionOrder[match[2] ?? ""] ?? 0);
 }
 
+function iphoneBatteryModelRank(product: PublicProduct) {
+  const model = normalize(product.modelo);
+  const name = normalize(product.nombre);
+  const match = (model.match(/(?:iphone )?(\d{1,2})(?: (pro max|pro|plus|mini))?/) || name.match(/iphone (\d{1,2})(?: (pro max|pro|plus|mini))?/));
+  if (match) {
+    const versions: Record<string, number> = { "": 0, mini: 1, plus: 2, pro: 3, "pro max": 4 };
+    return Number(match[1]) * 10 + (versions[match[2] ?? ""] ?? 5);
+  }
+  const legacy = model.match(/\b(xr|xs max|xs|x|8 plus|8|7 plus|7)\b/) || name.match(/iphone (xr|xs max|xs|x|8 plus|8|7 plus|7)\b/);
+  const ranks: Record<string, number> = { "7": 70, "7 plus": 71, "8": 80, "8 plus": 81, x: 90, xr: 91, xs: 92, "xs max": 93 };
+  return legacy ? ranks[legacy[1]] : Number.MAX_SAFE_INTEGER;
+}
+
 function compareProductsByModel(a: PublicProduct, b: PublicProduct) {
   // Los flex de iPhone siguen la generación: X/XR/XS antes de 11, 12, etc.
   if (catalogCategory(a) === "flex-de-carga" && catalogCategory(b) === "flex-de-carga") {
@@ -344,7 +357,9 @@ export function CatalogShell({
           .map(([variantLabel, variantProducts]) => ({
             id: `${category.id}::${normalize(label)}::${normalize(variantLabel)}`,
             label: variantLabel,
-            products: variantProducts,
+            products: category.id === "baterias" && normalize(label) === "iphone"
+              ? [...variantProducts].sort((a, b) => iphoneBatteryModelRank(a) - iphoneBatteryModelRank(b) || MODEL_COLLATOR.compare(a.nombre, b.nombre))
+              : variantProducts,
           }))
           .sort((a, b) => a.label.localeCompare(b.label, "es"));
         return { id: `${category.id}::${normalize(label)}`, label, products: subProducts, variants };
