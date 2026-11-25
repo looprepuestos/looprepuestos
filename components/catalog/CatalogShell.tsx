@@ -209,6 +209,8 @@ function catalogSubcategory(product: PublicProduct, categoryId: string) {
   }
   if (categoryId === "herramienta-insumos") return product.tipo || "Otros";
 
+  if (categoryId === "iphone" && /\bdd\b/.test(normalize([product.calidad, product.nombre, product.sku].join(" ")))) return "DD";
+
   const details = [product.calidad, product.marco !== "N/A" ? product.marco : ""].filter(Boolean);
   return details.length > 0 ? details.join(" · ") : "Otros";
 }
