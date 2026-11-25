@@ -176,7 +176,7 @@ function iphoneBatteryModelRank(product: PublicProduct) {
   }
   const legacy = model.match(/\b(xr|xs max|xs|x|8 plus|8|7 plus|7)\b/) || name.match(/iphone (xr|xs max|xs|x|8 plus|8|7 plus|7)\b/);
   const ranks: Record<string, number> = { "7": 70, "7 plus": 71, "8": 80, "8 plus": 81, x: 90, xr: 91, xs: 92, "xs max": 93 };
-  return legacy ? ranks[legacy[1]] : Number.MAX_SAFE_INTEGER;
+  return legacy?.[1] ? (ranks[legacy[1]] ?? Number.MAX_SAFE_INTEGER) : Number.MAX_SAFE_INTEGER;
 }
 
 function compareProductsByModel(a: PublicProduct, b: PublicProduct) {
