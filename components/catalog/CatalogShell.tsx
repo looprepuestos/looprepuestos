@@ -61,6 +61,7 @@ const CATALOG_CATEGORIES = [
   { id: "zte", label: "ZTE" },
   { id: "xiaomi", label: "XIAOMI" },
   { id: "camaras", label: "CÁMARAS" },
+  { id: "lentes-de-camara", label: "LENTES DE CÁMARA" },
   { id: "flex-sensor-proximidad", label: "FLEX SENSOR / PROXIMIDAD" },
   { id: "flex-power-volumen", label: "FLEX POWER / VOLUMEN" },
   { id: "altavoz-buzzer", label: "ALTAVOZ / BUZZER" },
@@ -77,6 +78,7 @@ function catalogCategory(product: PublicProduct) {
   const brand = normalize(product.marca);
   const quality = normalize(product.calidad);
 
+  if (type === "lentes de camara" || type === "lentes de camaras") return "lentes-de-camara";
   if (type === "camara" || type === "camaras") return "camaras";
   if (type === "sensor proximidad" || type === "flex sensor proximidad") return "flex-sensor-proximidad";
   if (type === "flex power" || type === "flex power volumen") return "flex-power-volumen";
@@ -192,7 +194,7 @@ function compareProductsByModel(a: PublicProduct, b: PublicProduct) {
 }
 
 function catalogSubcategory(product: PublicProduct, categoryId: string) {
-  if (categoryId === "camaras") {
+  if (categoryId === "camaras" || categoryId === "lentes-de-camara") {
     const description = normalize([product.marca, product.nombre, product.modelo, product.sku].join(" "));
     if (/\b(iphone|iph|apple)\b/.test(description)) return "iPhone";
     if (/\b(motorola|moto)\b/.test(description)) return "Motorola";
